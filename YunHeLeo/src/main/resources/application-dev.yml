@@ -1,0 +1,62 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://123.56.118.219:3306/leo?characterEncoding=UTF8
+    username: root
+    password: 123456
+  rabbitmq:
+    port: 5672
+    host: 123.56.118.219
+    username: admin
+    password: admin
+    #    connection-timeout: 30000
+    virtualHost: /
+  redis:
+    host: 123.56.118.219
+    port: 6379
+  jackson:
+    serialization:
+      indent-output: true
+
+#开启控制台打印sql
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    lazy-loading-enabled: true
+    multiple-result-sets-enabled: true
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:cn/stylefeng/guns/**/mapping/*.xml
+  global-config:
+    banner: false
+    db-config:
+      table-underline: true
+
+aliyun:
+  sms:
+    accessKeyId: LTAI4FgFCe1fEaUBL7fNSJnj
+    accessKeySecret: IsvdGXmFh3Vwi3338b7mWchDqAt749
+    template_code: SMS_183745282
+    sign_name: 美术小课堂
+    forget_code: SMS_183745281
+
+ali:
+  pay:
+    #    alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo+MRS9sxvuhiKGRjw5ldbvjMoqjNXZrWR88WOKr9sCnM9/r22tcjEXA5OnnDQctpOXQNiY1VYZWRNv6ducM2+3F+ZkXUK5NYQQt1Jkhip8sDW5wM08E7gbAhI+AzRB2pS/CFRfioEcFYXTEI6UajJrxHNcej3w6coxks8hJxxIS0Erbfx/1O5gpYE0nenk66hMml/d4UTyg5G9erMfsJI/cMaNhT6r5UoV+enjdpMtJohHTr35INEBoP5qH7PssumNcr4iXvt/fj4+HGoA2XLH9WRqenyLHHdYvmEjqqWkko3h1wGhrSXIncWXcE5QNVJTVBm7Kz7nwb4uNJ0JirfwIDAQAB
+    #    app-id: 2016102300746410
+    #    charset: utf-8
+    #    gateway-url: https://openapi.alipaydev.com/gateway.do
+    #    merchant-private-key: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCImLMjG5pU/1z1fnQ3n5zFMnl8F3YRH8OtWpObZAPJfVKkzA8j63NyxL+jfTb2Zbmuliln8GZYE3Ma8OzcEkpr4IR8GBLfc2hSikf0L6mxBjHSxkWEGaIgKRALslhxUXK4nDwGLNqTCGbRuiUmLMwsxcEQD1jY9LA4KTgtQfuXd/xZP44J44uxZ1Y5Dt9Y8KqB2YZj8E9MdR1JZMRzUzutDUXP4NstxA5hYacoMHZ8zY6hamAS6BHRjxK8o39lMh12u4l0HmSJ5NlA5d0igfuo7X6UB42eeUM7MbZ8Of53G53BuzJkmWJFiroAvldcFtWen5Y361zGwSGRbOI2Y3JdAgMBAAECggEAPmJW9gLGQml6IBiHpVu9Moax2w2v+3QhXwvN/Br6a8xTsTYM+B+xU0ouJ9GpB3FAE087S+AMLc98M2KzGnM0D/6zIyWvgOPpUkEbSZd3DYVBvfyVhRZb6Ao47M6f++jx1wRrmXpkvOAKbWBxVPUCrrQGT3pi3nsp/Aw/PtQyvmMAIAPT2oJPU/SByfwxpajbw85AYHrEQi595HjlzIs/kgtRAFQWUIs3MDdVb+vboDBspFpa1012x6aB6sC6dGQ2bhQw3ONlIv29kkss57LtSNi2nfqh/eqoomTAExyegqX87XC7TaXBKTKI+ZFScN4DvpaAlmUzJGSnqSDNfnNo4QKBgQDDeOEr1wRn8pj8bkEK9r7vh6Mr70twuud16eOBrYeDxtcU9+CobJNjeSb6cGbapzgZbaUxDUfutT2jcpIrK6RFMNBncWLzSBokSaREntbNRO5YwhC4I1gTam4iQ/UbZ1jNT2+jIsuRmI1yL4zIAm7vaGCp4SckdwRx7N1v1r6/yQKBgQCy5Lsq71PAsNLEK5cInjcFZDN1+0Rga7VbMRbtc9/raVjqZUuwrNaFbsfWIR+y12wbAQ8743zl54JnhV5jyk7YS9lVpP0ynIpOd2HmFSXvID+S1LLy7s2wCHvH8xYhg2kUad1j+cDBn3PboRsmqOmkF441Q0JHMnqdGgyL16Av9QKBgGjtvpG1/lt+UrlOxgOIqL4T5Xd0IN8GtbEKOGIoMJKAbnyHA0Xl4siHBHFzXQMKuIaN4RsPsgllqQzQN76M0sWBip28tA08KyxHi7J6QXw3AGsM4cS21FS30R77s9teAsFTXu4Hg5dIeMVO2ReUltBVC26luklMykoNiGC8ufBhAoGAZJiU24brTN7iFmgArVryy7hV69FY2POYbuhC4VIYp7N8yYoerwHyO+RYwYOs5I+Y/fJxk5bP5CR0QyxPMMRR4/V7CFsX+n7mk0s0pQJda4Nx3Gp5GnzI82VB3eVHG59e1pjVYuPNzdORff6xWuL/R0Prtu3Udl7fbjp4taaSMIUCgYAfnBkkGH5rXyH/jibencoS4550+HXx6RthQYALG5ezS2M/yS3B6EWHCw8fhNolRkuR+yT6bKLPjEX8WgkDYPQnXDWJLGpZVfE60QNdg25bbGwDccwWb/1HEcfFjVnRscYly/qFfTAmaEmKKzAity3S9/jlZCPZKxpZTi/tU9b9zA==
+    #    notify-url: https://yunhebao.cn/alipay
+    #    return-url: http://www.crowd.com/pay/return
+    #    sign-type: RSA2
+    alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiAbgNbtjBxaxfUyA0itotYN0NNDrLV/U3gLiTNBsI/ZhE9qJOUFv6WzVg9+oODRp33W7m5+rLBR1TLqj+z3aNWNjeRuzg3v8Jccqk7cCS1pNUrRLr1v5bfAoJyhGShF4sGg3lOYA4eYM/KFpNfdsuXxBEbngiblxj86bf2IkDM6bOWU9BPJ4QFHxoMH7k1HI3uyBUy8itdgsX9GXAQqcU0/pEEXIt9k7bTI7f0foCrupgpiR/AGSPlXoudVN0K57DB9XfJltPf1qqpUIQeoLyg730tSYHBzNI5UgOWcmOkiHYONwDyyXsUe4Lh2WjyYZda+sg5uuIelMhpG5mzVgiwIDAQAB
+    app-id: 2021001144688338
+    charset: utf-8
+    gateway-url: https://openapi.alipay.com/gateway.do
+    merchant-private-key: MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDTYyDdd3riL4tAjvufN7H98DJ3YGMj0Met4lBoUNkKCUlu+NGNMoNqzu8inM4tU6GvSfCfqHmFiVn2uB5nk6aflOJFlhl9uC6rBmAbXegSFym3lCHx0ybERBuR1UZViHYoNFRuR+8wThGnT2HxtvnzOQeGiHy4wsah0NacEZmzf7PM/PRtJoyiNH9oVD0uoFHv8lh+gv9Hvc3W64YU+POPu7sIZsSFI2/nYLbngyqfId51jg0Sz0l4Hga55tpgc+JVRefIkggRLq3McDATqNEN8NvxuReW7Btcc9BKSefur2dJxHXZalx43TeXgIYCEJOsLoxfT3JJmLAulZs3Nd0FAgMBAAECggEAMlzFsb4LmuP061algFOGppeZjnN6a0gMqtLmkVPhwdBgnH3PfzJvuPzAYKC3RnlMZjTZjVBYU4Zb1robFFZLNm4EUsvmGtvM0pZcQ2jmJ5k5KTGzvKev7sbDQsVrUmmGrSF6lCOzSvDup8vz6+DKQDZwIo9WF7bgGCFnYBuZYPg3BLMXuGr3AuEUkhBlk3hdUiVAxJpk9b2rKtEUQmw45CDLFk9uwKrBT9Yk3TW8khcqHxnm+4syM1uUwgNBCy0fXphbvb8+GD6Y5R8CPMeNdxEQ+znHz/5mFQq6zLU/nAIubZ06tcy+lu4ejGn3usJqY/wqIf5PMXjBr8vq3DMKqQKBgQDr3jezKLSRR8DUM5ppY7atFbIClqYySvgGSY1hxjzFWNQz3j1gTQnkXRhWhQU2BlHKLuIh29TCGULpgjOb5g2rTkPZNQOhzanycKKPTl/uyBqfRm/Pb9xZBcBquA5ybE4pO3Hd89DPQj5Fxh7zBW+DQNkiIldZVcaEjsdjGr0oVwKBgQDlbf+EkAzdDpJeyLI5xmvYKYfe6ML38QXnas1JNKiEYjoCq62ODxYRz1mDxuNyjOGWDw63i4s9c0nQn8/Jq1IjSrF71aWePxz2UlQEMlnuZTWPVKPEqf4ujvT7RZDf5VBhcN2OgHLA3VoXhNaaayH61g89ecoSdqAcul9wrIY8AwKBgQDXzqNR9i14O5mPzoM6aDSNGyubOLFplLRoNEX6rsGNox/NMUsg4HvriM4q41yIOLH+9nSKnDOHQEu7kRidTJk3Is3rX5kqIx2aqDnkOsaFmGrbTjwhJO0MOrn6Ktt1D+lXyn79oAZui+KkPoi0vEVyZxQEKj2XjGathGGkKKPn0wKBgQDAuWIG7SqhFviFfnmYZsF414o3Cbedp22aM/E2KXHVot2wGJ610p5rX46GT7AILafh8cwfCq1wdUPwaA6YDb31v2zP5Ww2PjYKBKZm0BUTWRlgyWy4a0QFwDiySoGkUnDvKWwzpFrBADAJyaCsHopwtxgeQAwq7lMZTsWVVJd+GQKBgQDD9Y8AVxX/OtZ2S9T4GcdhP8oWxm/DJ1OOAe5I9kom/PHAQgMu769lu9U1uXXASTxWixVoIaA+CVIG0u2nrcmLgkSFVBZ4ebo7aQ0ZdqkxpGibEx1sOAnw2G8gOdGDU5Lwsbrbv25/nb/dmFv9M3wzHy+SbIGpURrp9J7rTcmSKg==
+    notify-url: https://yunhebao.cn/app/api/course/alipay
+    return-url: http://www.crowd.com/pay/return
+    sign-type: RSA2

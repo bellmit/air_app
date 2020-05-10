@@ -1,0 +1,7 @@
+server:
+  port: 8080
+
+#设置开发/生产模式
+spring:
+  profiles:
+    active: @spring.active@

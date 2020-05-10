@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.dao.AddressXzDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="selectListMap" type="cn.stylefeng.guns.pojo.AddressNode">
+        <id column="Xzqdm" property="CityNum" />
+        <result column="StateName" property="CityName" />
+        <collection property="children" ofType="cn.stylefeng.guns.pojo.AddressNode" >
+            <id column="CityCode" property="CityNum" />
+            <result column="CityName" property="CityName" />
+            <collection property="children" ofType="cn.stylefeng.guns.pojo.AddressNode" >
+                <id column="AreaCode" property="CityNum" />
+                <result column="AreaName" property="CityName" />
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="findAddress" resultMap="selectListMap" >
+        SELECT sd.Xzqdm,sd.StateName,cd.AdminAreaNum CityCode, cd.CityName CityName,
+        aad.AdminAreaNum AreaCode, aad.CityName AreaName
+        FROM tb_state_dic sd, tb_city_dic cd, tb_admin_area_dic aad
+        WHERE sd.Xzqdm=cd.Xzqdm AND cd.AdminAreaNum=aad.ParentNodeNum
+    </select>
+<!--    &#45;&#45;         SELECT sd.Xzqdm,sd.StateName,cd.AdminAreaNum, cd.CityName ,aad.AdminAreaNum, aad.CityName AreaName
+    &#45;&#45;         FROM tb_state_dic sd, tb_city_dic cd, tb_admin_area_dic aad
+    &#45;&#45;         WHERE sd.Xzqdm=cd.Xzqdm AND cd.AdminAreaNum=aad.ParentNodeNum-->
+
+</mapper>

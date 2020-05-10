@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.dao.UserDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="selectListMap" type="cn.stylefeng.guns.pojos.UserLogLevel">
+        <id column="id" property="id" />
+        <result column="row_guid" property="rowGuid" />
+        <result column="t_mobile" property="tMobile" />
+        <result column="t_username" property="tUsername" />
+        <result column="t_sex" property="tSex" />
+        <result column="t_register_date" property="tRegisterDate" />
+        <result column="t_register_ip" property="tRegisterIp" />
+        <result column="t_level_name" property="tLevelName" />
+        <result column="t_login_date" property="tLoginDate" />
+    </resultMap>
+
+    <select id="findAll" resultMap="selectListMap" parameterType="cn.stylefeng.guns.pojos.UserLogLevel">
+        SELECT u.row_guid,u.t_mobile,u.t_username,u.t_sex,u.t_register_date,
+        u.t_register_ip,l.t_level_name,ll.t_login_date
+        FROM tb_user u,tb_level l,tb_login_log ll
+        WHERE u.stage_id=l.id
+          AND ll.t_login_date=(SELECT l.t_login_date FROM tb_login_log l WHERE l.t_login_date &lt;= NOW() LIMIT 1)
+          <if test="tUsername!=null and tUsername!='' " > and ( u.t_username LIKE '%${tUsername}%' </if>
+          <if test="tMobile!=null and tMobile!='' " > or u.t_mobile=#{tMobile}) </if>
+    </select>
+
+</mapper>

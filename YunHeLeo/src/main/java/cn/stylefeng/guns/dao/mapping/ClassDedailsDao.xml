@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.dao.ClassDedailsDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="selectListMap" type="cn.stylefeng.guns.pojo.ClassDedailsNode">
+        <!--免费班-->
+        <collection property="children" ofType="cn.stylefeng.guns.pojo.ClassDedailsNode" >
+            <id column="ClassId" property="id" />
+            <result column="ClassRowGuid" property="rowGuid" />
+            <result column="ClassName" property="className" />
+            <result column="UserName" property="tUsername" />
+            <result column="CourseName" property="tCourseName" />
+            <result column="UpdateDate" property="tUpdateDate" />
+        </collection>
+    </resultMap>
+
+    <select id="findFreeClass999999" resultMap="selectListMap" >
+        SELECT cla.id ClassId,cla.row_guid ClassRowGuid,cla.t_name ClassName,cla.t_istest IsTest,
+         e.t_username UserName,co.t_course_name CourseName,cla.t_update_date UpdateDate
+         FROM tb_course co LEFT JOIN tb_class cla ON FIND_IN_SET(cla.row_guid,co.class_id),tb_employee e
+         WHERE co.row_guid=#{rowGuid} AND co.t_class_type_id=0 AND cla.t_update_man=e.id
+    </select>
+
+</mapper>

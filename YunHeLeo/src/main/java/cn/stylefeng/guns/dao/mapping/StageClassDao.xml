@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.dao.StageClassDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="selectListMap" type="cn.stylefeng.guns.pojos.StageClassNode">
+        <id column="stage_id" property="id" />
+        <result column="t_course_name" property="tCourseName" />
+        <result column="stage_rowguid" property="StageRowGuid" />
+        <result column="StageUpdateDate" property="StageUpdateDate" />
+        <result column="StageName" property="StageName" />
+        <result column="t_username" property="tUsername" />
+        <result column="t_realyname" property="tRealyname" />
+        <result column="status" property="tStatus" />
+        <collection property="children" ofType="cn.stylefeng.guns.pojos.StageClassNode" >
+            <id column="classId" property="id" />
+            <result column="t_istest" property="tIstest" />
+            <result column="classRowGuid" property="classRowGuid" />
+            <result column="ClassName" property="ClassName" />
+            <result column="ClassUpdateDate" property="ClassUpdateDate" />
+            <result column="t_username" property="tUsername" />
+            <result column="t_realyname" property="tRealyname" />
+            <result column="t_status" property="tStatus" />
+        </collection>
+    </resultMap>
+
+    <select id="findStage" resultMap="selectListMap" >
+        SELECT s.id stage_id,s.row_guid stage_rowguid,s.t_name StageName,s.t_status status,
+        c.id classId,c.row_guid classRowGuid,c.t_name ClassName,c.t_istest,c.t_status,
+        co.t_course_name,e.t_username,e.t_realyname,c.t_update_date ClassUpdateDate,
+        s.t_update_date StageUpdateDate
+         FROM tb_course co LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid,co.stage_id) LEFT JOIN
+         tb_class c ON FIND_IN_SET(c.id,s.t_class_id),tb_employee e WHERE co.row_guid=#{RowGuid}
+         AND s.t_update_man=e.id
+    </select>
+
+</mapper>

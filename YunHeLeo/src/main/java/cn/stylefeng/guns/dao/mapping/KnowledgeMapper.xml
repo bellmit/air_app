@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.dao.KnowledgeDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="selectListMap" type="cn.stylefeng.guns.pojo.KnowledgeNode">
+        <id column="one_id" property="id" />
+        <result column="one_name" property="tKnowledgeName" />
+        <result column="t_username" property="tUsername" />
+        <collection property="children" ofType="cn.stylefeng.guns.pojo.KnowledgeNode" >
+            <id column="two_id" property="id" />
+            <result column="two_name" property="tKnowledgeName" />
+            <collection property="children" ofType="cn.stylefeng.guns.pojo.KnowledgeNode">
+                <id column="three_id" property="id" />
+                <result column="three_name" property="tKnowledgeName" />
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="selectList" resultMap="selectListMap" >
+        SELECT
+            a.id one_id,
+            a.t_knowledge_name one_name,
+            b.id two_id,
+            b.t_knowledge_name two_name,
+            c.id three_id,
+            c.t_knowledge_name three_name,
+          e.t_username
+        FROM
+            tb_knowledge a
+        LEFT JOIN tb_knowledge b ON a.id = b.t_parent_id LEFT JOIN tb_knowledge c ON b.id = c.t_parent_id,
+         tb_employee e
+        WHERE
+            a.t_parent_id = 0 and e.id=a.t_knowledge_man
+        order by a.t_update_date
+    </select>
+
+    <!-- 根据id查询知识点 -->
+    <select id="deleteFindById" resultMap="selectListMap" >
+        SELECT
+            a.id one_id,
+            a.t_knowledge_name one_name,
+            b.id two_id,
+            b.t_knowledge_name two_name,
+            c.id three_id,
+            c.t_knowledge_name three_name
+        FROM tb_knowledge a LEFT JOIN tb_knowledge b ON a.id=b.t_parent_id
+              LEFT JOIN tb_knowledge c ON b.id=c.t_parent_id
+        WHERE a.t_parent_id=0 AND a.id=#{id}
+    </select>
+
+</mapper>
