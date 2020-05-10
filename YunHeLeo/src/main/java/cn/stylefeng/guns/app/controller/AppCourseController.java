@@ -41,6 +41,8 @@ import java.util.*;
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class AppCourseController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AppCourseController.class);
+
     @Autowired
     private AppCourseService appCourseService;
 
@@ -820,8 +822,6 @@ public class AppCourseController {
             return R.FAIL();
         }
     }
-
-    private static final Logger logger = LoggerFactory.getLogger(AppCourseController.class);
 
     @RequestMapping("/notify/url")
     @ResponseBody
