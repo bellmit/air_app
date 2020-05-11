@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.controller;
 
+import cn.stylefeng.guns.app.controller.AppCourseController;
 import cn.stylefeng.guns.config.AliyunConfig;
 import cn.stylefeng.guns.entity.Result;
 import cn.stylefeng.guns.entity.ResultStatusCode;
@@ -8,6 +9,8 @@ import cn.stylefeng.guns.pojos.*;
 import cn.stylefeng.guns.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -118,10 +121,15 @@ public class CourseController {
         }
     }
 
+    private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
+
     @PutMapping("/editCourseInfo")
     @ApiOperation("根据RowGuid查询班型后 编辑课程信息并保存")
     public Result editCourseInfo(String RowGuid, @RequestBody Course course) {
         try {
+            System.out.println("course:"+course);
+            logger.debug("课程RowGuid:"+RowGuid);
+            logger.debug("Course请求json:"+course);
             courseService.editCourseInfo(RowGuid,course);
             return new Result(true, ResultStatusCode.SUCCESS, "编辑课程信息保存成功!");
         } catch (Exception e) {

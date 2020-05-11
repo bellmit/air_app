@@ -795,6 +795,19 @@ public class AppCourseController {
         }
     }
 
+    @GetMapping("/getFreeCourse")
+    @ResponseBody
+    @ApiOperation("领取免费课")
+    public R getFreeCourse(String courseguid, HttpServletRequest request) {
+        try {
+            String courseid = appCourseService.getFreeCourse(courseguid, request);
+            return new R(true,0,"成功",courseid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.FAIL();
+        }
+    }
+
     @GetMapping("/queryPayStatus")
     @ResponseBody
     @ApiOperation("查询支付结果 微信")
@@ -809,6 +822,7 @@ public class AppCourseController {
 
             if (queryMap.get("trade_state").equals("SUCCESS")) {
                 Order order = appCourseService.findOrder(out_trade_no);
+                logger.debug("订单信息：", order);
                 CourseAll courseService = appCourseService.findCourseService(order.gettCourseGuid());
                 appCourseService.updateWxOrderStatus(out_trade_no, order, request);
                 result = new R(true, 0, "支付成功！", courseService);
@@ -863,9 +877,11 @@ public class AppCourseController {
                     // 微信支付交易流水号 transaction_id
                     // 订单号
                     Order order = appCourseService.findOrder(out_trade_no);
-                    CourseAll courseService = appCourseService.findCourseService(order.gettCourseGuid());
-                    appCourseService.updateWxOrderStatus(order.gettOrderNo(), order, request);
-                    return new R(true,0,"支付成功！", courseService);
+                    if (order.gettOrderStatus()!=2) { // 如果订单未完成支付  处理支付状态
+                        CourseAll courseService = appCourseService.findCourseService(order.gettCourseGuid());
+                        appCourseService.updateWxOrderStatus(order.gettOrderNo(), order, request);
+                        return new R(true,0,"支付成功！", courseService);
+                    }
                 } else {
                     // 支付失败，关闭支付，取消订单
                     Map map = appCourseService.cancelOrder(out_trade_no);
@@ -883,7 +899,7 @@ public class AppCourseController {
         }
     }
 
-    @GetMapping("/alipay")
+    @RequestMapping("/alipay")
     @ResponseBody
     @ApiOperation("查询支付结果通知回调 支付宝")
     public R getAliPayReturn(HttpServletResponse response,

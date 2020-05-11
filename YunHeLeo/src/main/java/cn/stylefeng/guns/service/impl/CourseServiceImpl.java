@@ -1,5 +1,6 @@
 package cn.stylefeng.guns.service.impl;
 
+import cn.stylefeng.guns.controller.CourseController;
 import cn.stylefeng.guns.dao.*;
 import cn.stylefeng.guns.pojo.*;
 import cn.stylefeng.guns.pojos.*;
@@ -9,6 +10,8 @@ import com.github.pagehelper.PageHelper;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 import org.apache.commons.beanutils.ConvertUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -700,12 +703,15 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private TClassResponseDao tClassResponseDao;
 
+    private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
+
     /**
      * 添加课节
      * @param tClass
      */
     @Override
     public String addClass(TClass tClass,String userId) {
+        logger.debug("新增课节："+tClass);
         // 日期格式化
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();

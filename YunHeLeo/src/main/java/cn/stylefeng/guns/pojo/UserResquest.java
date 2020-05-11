@@ -64,7 +64,7 @@ public class UserResquest implements Serializable {
      * 孩子生日
      */
     @TableField("t_children_date")
-    private Date tChildrenDate;
+    private String tChildrenDate;
 
     /**
      * 学号
@@ -192,11 +192,11 @@ public class UserResquest implements Serializable {
         this.tSex = tSex;
     }
 
-    public Date gettChildrenDate() {
+    public String gettChildrenDate() {
         return tChildrenDate;
     }
 
-    public void settChildrenDate(Date tChildrenDate) {
+    public void settChildrenDate(String tChildrenDate) {
         this.tChildrenDate = tChildrenDate;
     }
 

@@ -1,6 +1,5 @@
 package cn.stylefeng.guns.pojo;
 
-import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;

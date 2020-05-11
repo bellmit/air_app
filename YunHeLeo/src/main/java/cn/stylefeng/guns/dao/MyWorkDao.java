@@ -131,8 +131,8 @@ public interface MyWorkDao {
             @Result(column = "courseRowguid", property = "courseGuid"),
             @Result(column = "t_class_type_id", property = "classTypeId"),
             @Result(column = "t_price", property = "price"),
-            @Result(column = "t_activate_date", property = "t_activate_date"),
-            @Result(column = "t_study_date", property = "t_study_date"),
+            @Result(column = "t_activate_date", property = "activateDate"),
+            @Result(column = "t_study_date", property = "studyDate"),
             @Result(column = "packageName", property = "packageName")
     })
     List<CoursePackageResponse> findMyCoursePackageAll(@Param("courseGuid") String courseGuid);

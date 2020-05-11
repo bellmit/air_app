@@ -17,8 +17,8 @@ public class CoursePackageResponse {
     private Integer cpuStatus;
     private Double price;
     private String tDueTime;
-    private Integer t_activate_date;// 激活时长
-    private Integer t_study_date;// 可学习时长
+    private Integer activateDate;// 激活时长
+    private Integer studyDate;// 可学习时长
     private Integer classCount;
     private String stageRowguid;
     private Integer classTypeId;
@@ -96,20 +96,28 @@ public class CoursePackageResponse {
         this.tDueTime = tDueTime;
     }
 
-    public Integer getT_activate_date() {
-        return t_activate_date;
+    public Integer getActivateDate() {
+        return activateDate;
     }
 
-    public void setT_activate_date(Integer t_activate_date) {
-        this.t_activate_date = t_activate_date;
+    public void setActivateDate(Integer activateDate) {
+        this.activateDate = activateDate;
     }
 
-    public Integer getT_study_date() {
-        return t_study_date;
+    public Integer getStudyDate() {
+        return studyDate;
     }
 
-    public void setT_study_date(Integer t_study_date) {
-        this.t_study_date = t_study_date;
+    public void setStudyDate(Integer studyDate) {
+        this.studyDate = studyDate;
+    }
+
+    public Boolean getBuy() {
+        return isBuy;
+    }
+
+    public void setBuy(Boolean buy) {
+        isBuy = buy;
     }
 
     public Integer getClassCount() {

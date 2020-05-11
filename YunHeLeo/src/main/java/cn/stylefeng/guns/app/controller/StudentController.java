@@ -311,7 +311,7 @@ public class StudentController {
             User use = studentService.findByMobile(mobile);
             if ( use.gettStatus() != 0 ) { // 0 正常 可以登录 已完善信息 1 禁用 2 发送验证码未完善信息
                 studentService.register(user, mobile);
-                return new Result(true, 0, "完善用户注册信息成功!", studentService.findByMobile(mobile));
+                return new Result(true, 0, "完善用户注册信息成功!", use);
             } else {
                 studentService.updateUserInfo(user, mobile);
                 return new Result(false, ResultStatusCode.FAIL, "该用户手机号已存在!");

@@ -2,18 +2,29 @@ package cn.stylefeng.guns.dao;
 
 import cn.stylefeng.guns.pojo.Order;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface AppOrderDao extends BaseMapper<Order> {
 
-    @Select("SELECT o.row_guid,o.t_course_guid,o.t_order_no,o.t_accept_address,o.t_price," +
+    @Select("SELECT o.row_guid,o.t_user_guid,o.t_course_guid,o.t_order_no,o.t_accept_address,o.t_price," +
             "o.t_class_package_guid,o.t_pay_date,o.t_pay_way,o.t_order_status, o.t_shop_no " +
             ",o.t_accept_phone,o.t_class_package_guid\n" +
             "FROM tb_order o WHERE o.t_order_no=#{t_order_no}")
+    @Results({
+            @Result(column = "row_guid",property = "rowGuid"),
+            @Result(column = "t_user_guid",property = "tUserGuid"),
+            @Result(column = "t_course_guid",property = "tCourseGuid"),
+            @Result(column = "t_order_no",property = "tOrderNo"),
+            @Result(column = "t_accept_address",property = "tAcceptAddress"),
+            @Result(column = "t_price",property = "tPrice"),
+            @Result(column = "t_class_package_guid",property = "tClassPackageGuid"),
+            @Result(column = "t_pay_date",property = "tPayDate"),
+            @Result(column = "t_pay_way",property = "tPayWay"),
+            @Result(column = "t_order_status",property = "tOrderStatus"),
+            @Result(column = "t_shop_no",property = "tShopNo"),
+            @Result(column = "t_accept_phone",property = "tAcceptPhone")
+    })
     Order findOrder(@Param("t_order_no") String t_order_no);
 
     @Update("update tb_order set t_order_status=#{tOrderStatus},t_pay_way=#{tPayWay},t_pay_date=#{tPayDate} where row_guid=#{rowGuid}")

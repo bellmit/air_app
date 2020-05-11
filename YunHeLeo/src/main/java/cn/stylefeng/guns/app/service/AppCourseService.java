@@ -90,10 +90,10 @@ public class AppCourseService {
      */
     public List<Course> freeCourse() {
         List<Course> courses = courseDao.freeCourse();
-        for ( Course cours : courses ) {
+        for (Course cours : courses) {
             Integer classCount = classDedailsDao.findClassTotalCount(cours.getRowGuid());
             cours.setClassCount(classCount);
-            if ( cours.gettPrice() == null ) {
+            if (cours.gettPrice() == null) {
                 cours.settPrice(0.00);
             }
         }
@@ -107,10 +107,10 @@ public class AppCourseService {
      */
     public List<Course> freeShowStageCourse(Integer showStageId) {
         List<Course> courses = courseDao.freeShowStageCourse(showStageId);
-        for ( Course cours : courses ) {
+        for (Course cours : courses) {
             Integer classCount = classDedailsDao.findClassTotalCount(cours.getRowGuid());
             cours.setClassCount(classCount);
-            if ( cours.gettPrice() == null ) {
+            if (cours.gettPrice() == null) {
                 cours.settPrice(0.00);
             }
         }
@@ -124,9 +124,9 @@ public class AppCourseService {
      */
     public List<Course> chargeCourse() {
         List<Course> courses = courseDao.chargeCourse();
-        for ( Course cours : courses ) {
-            Integer classCount=0;
-            if (cours.gettClassTypeId()==1) {
+        for (Course cours : courses) {
+            Integer classCount = 0;
+            if (cours.gettClassTypeId() == 1) {
                 classCount = stageClassDao.findClassTotalCount(cours.getRowGuid());
                 cours.setClassCount(classCount);
                 //courseAllDao.findClassCount(courseAll.getRowGuid());
@@ -134,7 +134,7 @@ public class AppCourseService {
                 classCount = classDedailsDao.findClassTotalCount(cours.getRowGuid());
                 cours.setClassCount(classCount);
             }
-            if ( cours.gettPrice() == null ) {
+            if (cours.gettPrice() == null) {
                 cours.settPrice(0.00);
             }
         }
@@ -148,9 +148,9 @@ public class AppCourseService {
      */
     public List<Course> chargeShowStageCourse(Integer showStageId) {
         List<Course> courses = courseDao.chargeShowStageCourse(showStageId);
-        for ( Course cours : courses ) {
-            Integer classCount=0;
-            if (cours.gettClassTypeId()==1) {
+        for (Course cours : courses) {
+            Integer classCount = 0;
+            if (cours.gettClassTypeId() == 1) {
                 classCount = stageClassDao.findClassTotalCount(cours.getRowGuid());
                 cours.setClassCount(classCount);
                 //courseAllDao.findClassCount(courseAll.getRowGuid());
@@ -158,7 +158,7 @@ public class AppCourseService {
                 classCount = classDedailsDao.findClassTotalCount(cours.getRowGuid());
                 cours.setClassCount(classCount);
             }
-            if ( cours.gettPrice() == null ) {
+            if (cours.gettPrice() == null) {
                 cours.settPrice(0.00);
             }
         }
@@ -191,39 +191,39 @@ public class AppCourseService {
      */
     public List<CourseAll> courseNew(int page, int size, int type) {
         // 判断班型 0免费 1长期 2短期
-        if ( type == 0 || type == 1 || type == 2 ) {
+        if (type == 0 || type == 1 || type == 2) {
             PageHelper.startPage(page, size);
             List<CourseAll> courseAlls = courseAllDao.courseNew(type);
-            for ( CourseAll courseAll : courseAlls ) {
+            for (CourseAll courseAll : courseAlls) {
                 //Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
-                Integer classCount=0;
-                if (courseAll.gettClassTypeId()==1) {
+                Integer classCount = 0;
+                if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
-                            //courseAllDao.findClassCount(courseAll.getRowGuid());
+                    //courseAllDao.findClassCount(courseAll.getRowGuid());
                 } else {
                     classCount = classDedailsDao.findClassTotalCount(courseAll.getRowGuid());
                 }
                 Integer stageCount = courseAllDao.findStageCount(courseAll.getRowGuid());
-                if ( courseAll.gettPrice() == null ) {
+                if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
                 }
-                if ( courseAll.gettLearnCount() == null ) {
+                if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
                 }
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
-                if ( classCount == null ) {
+                if (classCount == null) {
                     courseAll.setClassCount(0);
                 } else {
                     courseAll.setClassCount(classCount);
                 }
-                if ( stageCount == null ) {
+                if (stageCount == null) {
                     courseAll.setStageCount(0);
                 } else {
                     courseAll.setStageCount(stageCount);
                 }
-                if ( courseAll.getCourseCount() == null ) {
+                if (courseAll.getCourseCount() == null) {
                     courseAll.setCourseCount(0);
                 }
             }
@@ -231,34 +231,34 @@ public class AppCourseService {
         } else { // 课程类别id查询
             PageHelper.startPage(page, size);
             List<CourseAll> courseAlls = courseAllDao.courseType(type);
-            for ( CourseAll courseAll : courseAlls ) {
+            for (CourseAll courseAll : courseAlls) {
                 Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
-                Integer classCount=0;
-                if (courseAll.gettClassTypeId()==1) {
+                Integer classCount = 0;
+                if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
-                        //courseAllDao.findClassCount(courseAll.getRowGuid());
+                    //courseAllDao.findClassCount(courseAll.getRowGuid());
                 } else {
                     classCount = classDedailsDao.findClassTotalCount(courseAll.getRowGuid());
                 }
                 Integer stageCount = courseAllDao.findStageCount(courseAll.getRowGuid());
-                if ( courseAll.gettPrice() == null ) {
+                if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
                 }
-                if ( courseAll.getCourseCount() == null ) {
+                if (courseAll.getCourseCount() == null) {
                     courseAll.setCourseCount(0);
                 }
-                if ( courseAll.gettLearnCount() == null ) {
+                if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
                 }
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
-                if ( classCount == null ) {
+                if (classCount == null) {
                     courseAll.setClassCount(0);
                 } else {
                     courseAll.setClassCount(classCount);
                 }
-                if ( stageCount == null ) {
+                if (stageCount == null) {
                     courseAll.setStageCount(0);
                 } else {
                     courseAll.setStageCount(stageCount);
@@ -278,39 +278,39 @@ public class AppCourseService {
      */
     public List<CourseAll> courseShowStageNew(int page, int size, int type, Integer showStageId) {
         // 判断班型 0免费 1长期 2短期
-        if ( type == 0 || type == 1 || type == 2 ) {
+        if (type == 0 || type == 1 || type == 2) {
             PageHelper.startPage(page, size);
             List<CourseAll> courseAlls = courseAllDao.courseShowStageNew(type, showStageId);
-            for ( CourseAll courseAll : courseAlls ) {
+            for (CourseAll courseAll : courseAlls) {
                 //Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
-                Integer classCount=0;
-                if (courseAll.gettClassTypeId()==1) {
+                Integer classCount = 0;
+                if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
                     //courseAllDao.findClassCount(courseAll.getRowGuid());
                 } else {
                     classCount = classDedailsDao.findClassTotalCount(courseAll.getRowGuid());
                 }
                 Integer stageCount = courseAllDao.findStageCount(courseAll.getRowGuid());
-                if ( courseAll.gettPrice() == null ) {
+                if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
                 }
-                if ( courseAll.gettLearnCount() == null ) {
+                if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
                 }
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
-                if ( classCount == null ) {
+                if (classCount == null) {
                     courseAll.setClassCount(0);
                 } else {
                     courseAll.setClassCount(classCount);
                 }
-                if ( stageCount == null ) {
+                if (stageCount == null) {
                     courseAll.setStageCount(0);
                 } else {
                     courseAll.setStageCount(stageCount);
                 }
-                if ( courseAll.getCourseCount() == null ) {
+                if (courseAll.getCourseCount() == null) {
                     courseAll.setCourseCount(0);
                 }
             }
@@ -318,10 +318,10 @@ public class AppCourseService {
         } else { // 课程类别id查询
             PageHelper.startPage(page, size);
             List<CourseAll> courseAlls = courseAllDao.courseShowStageType(type, showStageId);
-            for ( CourseAll courseAll : courseAlls ) {
+            for (CourseAll courseAll : courseAlls) {
                 Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
-                Integer classCount=0;
-                if (courseAll.gettClassTypeId()==1) {
+                Integer classCount = 0;
+                if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
                     //courseAllDao.findClassCount(courseAll.getRowGuid());
                 } else {
@@ -329,24 +329,24 @@ public class AppCourseService {
                 }
                 //Integer classCount = courseAllDao.findClassCount(courseAll.getRowGuid());
                 Integer stageCount = courseAllDao.findStageCount(courseAll.getRowGuid());
-                if ( courseAll.gettPrice() == null ) {
+                if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
                 }
-                if ( courseAll.getCourseCount() == null ) {
+                if (courseAll.getCourseCount() == null) {
                     courseAll.setCourseCount(0);
                 }
-                if ( courseAll.gettLearnCount() == null ) {
+                if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
                 }
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
-                if ( classCount == null ) {
+                if (classCount == null) {
                     courseAll.setClassCount(0);
                 } else {
                     courseAll.setClassCount(classCount);
                 }
-                if ( stageCount == null ) {
+                if (stageCount == null) {
                     courseAll.setStageCount(0);
                 } else {
                     courseAll.setStageCount(stageCount);
@@ -366,13 +366,13 @@ public class AppCourseService {
      */
     public List<CourseAll> courseHot(int page, int size, int type) {
         // 判断班型 0免费 1长期 2短期
-        if ( type == 0 || type == 1 || type == 2 ) {
+        if (type == 0 || type == 1 || type == 2) {
             PageHelper.startPage(page, size);
             List<CourseAll> courseAlls = courseAllDao.courseHot(type);
-            for ( CourseAll courseAll : courseAlls ) {
+            for (CourseAll courseAll : courseAlls) {
                 Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
-                Integer classCount=0;
-                if (courseAll.gettClassTypeId()==1) {
+                Integer classCount = 0;
+                if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
                     //courseAllDao.findClassCount(courseAll.getRowGuid());
                 } else {
@@ -380,26 +380,26 @@ public class AppCourseService {
                 }
                 //Integer classCount = courseAllDao.findClassCount(courseAll.getRowGuid());
                 Integer stageCount = courseAllDao.findStageCount(courseAll.getRowGuid());
-                if ( courseAll.gettPrice() == null ) {
+                if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
                 }
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
-                if ( courseAll.gettLearnCount() == null ) {
+                if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
                 }
-                if ( classCount == null ) {
+                if (classCount == null) {
                     courseAll.setClassCount(0);
                 } else {
                     courseAll.setClassCount(classCount);
                 }
-                if ( stageCount == null ) {
+                if (stageCount == null) {
                     courseAll.setStageCount(0);
                 } else {
                     courseAll.setStageCount(stageCount);
                 }
-                if ( courseAll.getCourseCount() == null ) {
+                if (courseAll.getCourseCount() == null) {
                     courseAll.setCourseCount(0);
                 }
             }
@@ -407,10 +407,10 @@ public class AppCourseService {
         } else {
             PageHelper.startPage(page, size);
             List<CourseAll> courseAlls = courseAllDao.courseTypeHot(type);
-            for ( CourseAll courseAll : courseAlls ) {
+            for (CourseAll courseAll : courseAlls) {
                 Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
-                Integer classCount=0;
-                if (courseAll.gettClassTypeId()==1) {
+                Integer classCount = 0;
+                if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
                     //courseAllDao.findClassCount(courseAll.getRowGuid());
                 } else {
@@ -418,26 +418,26 @@ public class AppCourseService {
                 }
                 //Integer classCount = courseAllDao.findClassCount(courseAll.getRowGuid());
                 Integer stageCount = courseAllDao.findStageCount(courseAll.getRowGuid());
-                if ( courseAll.gettPrice() == null ) {
+                if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
                 }
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
-                if ( courseAll.gettLearnCount() == null ) {
+                if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
                 }
-                if ( classCount == null ) {
+                if (classCount == null) {
                     courseAll.setClassCount(0);
                 } else {
                     courseAll.setClassCount(classCount);
                 }
-                if ( stageCount == null ) {
+                if (stageCount == null) {
                     courseAll.setStageCount(0);
                 } else {
                     courseAll.setStageCount(stageCount);
                 }
-                if ( courseAll.getCourseCount() == null ) {
+                if (courseAll.getCourseCount() == null) {
                     courseAll.setCourseCount(0);
                 }
             }
@@ -447,25 +447,25 @@ public class AppCourseService {
 
     public List<CourseAll> courseStageNew(int page, int size, int type, Integer stageId) {
         // 判断班型 0免费 1长期 2短期
-        if ( type == 0 || type == 1 || type == 2 ) {
+        if (type == 0 || type == 1 || type == 2) {
             PageHelper.startPage(page, size);
             List<CourseAll> courseAlls = courseAllDao.courseStageNew(type, stageId);
-            for ( CourseAll courseAll : courseAlls ) {
-                Integer classCount=0;
-                if (courseAll.gettClassTypeId()==1) {
+            for (CourseAll courseAll : courseAlls) {
+                Integer classCount = 0;
+                if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
                     //courseAllDao.findClassCount(courseAll.getRowGuid());
                 } else {
                     classCount = classDedailsDao.findClassTotalCount(courseAll.getRowGuid());
                 }
                 courseAll.setClassCount(classCount);
-                if ( courseAll.gettPrice() == null ) {
+                if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
                 }
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
-                if ( courseAll.gettLearnCount() == null ) {
+                if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
                 }
             }
@@ -473,25 +473,25 @@ public class AppCourseService {
         } else { // 课程类别id查询
             PageHelper.startPage(page, size);
             List<CourseAll> courseAlls = courseAllDao.courseStageType(type, stageId);
-            for ( CourseAll courseAll : courseAlls ) {
-                Integer classCount=0;
-                if (courseAll.gettClassTypeId()==1) {
+            for (CourseAll courseAll : courseAlls) {
+                Integer classCount = 0;
+                if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
                     //courseAllDao.findClassCount(courseAll.getRowGuid());
                 } else {
                     classCount = classDedailsDao.findClassTotalCount(courseAll.getRowGuid());
                 }
                 courseAll.setClassCount(classCount);
-                if ( courseAll.gettPrice() == null ) {
+                if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
                 }
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
-                if ( courseAll.gettLearnCount() == null ) {
+                if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
                 }
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
             }
@@ -501,25 +501,25 @@ public class AppCourseService {
 
     public List<CourseAll> courseStageHot(int page, int size, int type, Integer stageId) {
         // 判断班型 0免费 1长期 2短期
-        if ( type == 0 || type == 1 || type == 2 ) {
+        if (type == 0 || type == 1 || type == 2) {
             PageHelper.startPage(page, size);
             List<CourseAll> courseAlls = courseAllDao.courseStageHot(type, stageId);
-            for ( CourseAll courseAll : courseAlls ) {
-                Integer classCount=0;
-                if (courseAll.gettClassTypeId()==1) {
+            for (CourseAll courseAll : courseAlls) {
+                Integer classCount = 0;
+                if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
                     //courseAllDao.findClassCount(courseAll.getRowGuid());
                 } else {
                     classCount = classDedailsDao.findClassTotalCount(courseAll.getRowGuid());
                 }
                 courseAll.setClassCount(classCount);
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
-                if ( courseAll.gettPrice() == null ) {
+                if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
                 }
-                if ( courseAll.gettLearnCount() == null ) {
+                if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
                 }
             }
@@ -527,22 +527,22 @@ public class AppCourseService {
         } else {
             PageHelper.startPage(page, size);
             List<CourseAll> courseAlls = courseAllDao.courseStageTypeHot(type, stageId);
-            for ( CourseAll courseAll : courseAlls ) {
-                Integer classCount=0;
-                if (courseAll.gettClassTypeId()==1) {
+            for (CourseAll courseAll : courseAlls) {
+                Integer classCount = 0;
+                if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
                     //courseAllDao.findClassCount(courseAll.getRowGuid());
                 } else {
                     classCount = classDedailsDao.findClassTotalCount(courseAll.getRowGuid());
                 }
                 courseAll.setClassCount(classCount);
-                if ( courseAll.gettPrice() == null ) {
+                if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
                 }
-                if ( courseAll.gettScore() == null ) {
+                if (courseAll.gettScore() == null) {
                     courseAll.settScore(0);
                 }
-                if ( courseAll.gettLearnCount() == null ) {
+                if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
                 }
             }
@@ -592,31 +592,31 @@ public class AppCourseService {
         Integer buyCourseCount = courseAllDao.findBuyCourseCount(RowGuid);
         //Integer classCount = courseAllDao.findClassCount(RowGuid);
         Integer stageCount = courseAllDao.findStageCount(RowGuid);
-        if ( courseAll.getBuyCount() == null ) {
+        if (courseAll.getBuyCount() == null) {
             courseAll.setBuyCount(0);
         }
-        if ( courseAll.gettPrice() == null ) {
+        if (courseAll.gettPrice() == null) {
             courseAll.settPrice(0.00);
         }
-        if ( courseAll.getCourseCount() == null ) {
+        if (courseAll.getCourseCount() == null) {
             courseAll.setCourseCount(0);
         }
-        if ( courseAll.gettScore() == null ) {
+        if (courseAll.gettScore() == null) {
             courseAll.settScore(0);
         }
-        if ( buyCourseCount == null ) {
+        if (buyCourseCount == null) {
             buyCourseCount = 0;
             courseAll.setBuyCount(buyCourseCount);
         } else {
             courseAll.setBuyCount(buyCourseCount);
         }
-        if ( classTotalCount == null ) {
+        if (classTotalCount == null) {
             classTotalCount = 0;
             courseAll.setClassCount(classTotalCount);
         } else {
             courseAll.setClassCount(classTotalCount);
         }
-        if ( stageCount == null ) {
+        if (stageCount == null) {
             stageCount = 0;
             courseAll.setStageCount(stageCount);
         } else {
@@ -636,7 +636,7 @@ public class AppCourseService {
         List<StageClass> stage = stageClassDao.findStage(RowGuid);
         Integer classTotalCount = stageClassDao.findClassTotalCount(RowGuid);
         Integer classStudyCount = stageClassDao.findClassStudyCount(RowGuid);
-        for ( StageClass stageClass : stage ) {
+        for (StageClass stageClass : stage) {
             // 某阶段下课节数
             Integer stageClassCount = stageClassDao.findStageClassCount(stageClass.getStageRowGuid());
             stageClass.setClassCount(stageClassCount);
@@ -644,10 +644,10 @@ public class AppCourseService {
             Integer classCount = courseAllDao.findClassCount(RowGuid);
             stageClass.setStudyClassCount(classStudyCount);// 当前课程下已学习课节数量
 
-            if ( stageClass.gettIstest() == null ) {
+            if (stageClass.gettIstest() == null) {
                 stageClass.settIstest(0);
             }
-            if ( buyCourseCount == null ) {
+            if (buyCourseCount == null) {
                 stageClass.setBuyCount(0);
             } else {
                 stageClass.setBuyCount(buyCourseCount);
@@ -657,7 +657,7 @@ public class AppCourseService {
             } else {
                 stageClass.setClassCount(classTotalCount);
             }*/
-            if ( stageClass.getBuyCount() == null ) {
+            if (stageClass.getBuyCount() == null) {
                 stageClass.setBuyCount(0);
             }
         }
@@ -674,52 +674,52 @@ public class AppCourseService {
         List<StageClass1Node> stage = stageClasDao.findStage(RowGuid);
         Integer classTotalCount = stageClassDao.findClassTotalCount(RowGuid);
         Integer classStudyCount = stageClassDao.findClassStudyCount(RowGuid);
-        for ( StageClass1Node stageClass : stage ) {
+        for (StageClass1Node stageClass : stage) {
             // 某阶段下课节数
             Integer stageClassCount = stageClassDao.findStageClassCount(stageClass.getStageRowGuid());
             stageClass.setStageClassCount(stageClassCount);
             Integer buyCourseCount = courseAllDao.findBuyCourseCount(RowGuid);
             Integer classCount = courseAllDao.findClassCount(RowGuid);
             stageClass.setStudyClassCount(classStudyCount);// 当前课程下已学习课节数量
-            if ( stageClass.gettIstest() == null ) {
+            if (stageClass.gettIstest() == null) {
                 stageClass.settIstest(0);
             }
-            if ( buyCourseCount == null ) {
+            if (buyCourseCount == null) {
                 stageClass.setBuyCount(0);
             } else {
                 stageClass.setBuyCount(buyCourseCount);
             }
-            if ( classCount == null ) {
+            if (classCount == null) {
                 stageClass.setClassCount(0);
             } else {
                 stageClass.setClassCount(classTotalCount);
             }
-            if ( stageClass.getBuyCount() == null ) {
+            if (stageClass.getBuyCount() == null) {
                 stageClass.setBuyCount(0);
             }
             String userId = request.getHeader("token");
-            for ( int i = 0; i < stage.size(); i++ ) {
+            for (int i = 0; i < stage.size(); i++) {
                 String classRowGuid = stage.get(i).getClassRowGuid();
                 List<StageClass1Node> children = stageClass.getChildren();
                 List<ClassLinkVo> classLinkStatus = classLinkVoDao.findClassLinkStatus(classRowGuid);
-                for ( ClassLinkVo linkStatus : classLinkStatus ) {
+                for (ClassLinkVo linkStatus : classLinkStatus) {
                     UserLinkStatus linkStudyStatus = timetableDetailsDao.findLinkStudyStatus(userId, linkStatus.getLinkRowGuid());
-                    if ( linkStudyStatus == null ) {
+                    if (linkStudyStatus == null) {
                         linkStatus.setStudyStatus(0);// 未开始学习
                     } else {
                         linkStatus.setStudyStatus(1);// 已学习
                     }
                 }
-                for ( StageClass1Node child : children ) {
+                for (StageClass1Node child : children) {
                     System.out.println(child);
-                    if ( child.getClassRowGuid().equals(classRowGuid) )
+                    if (child.getClassRowGuid().equals(classRowGuid))
                         child.setList(classLinkStatus);
-                    for ( ClassLinkVo classLinkVo : classLinkStatus ) {
-                        if ( classLinkVo.gettLinkName().equals("作品") ) {
+                    for (ClassLinkVo classLinkVo : classLinkStatus) {
+                        if (classLinkVo.gettLinkName().equals("作品")) {
                             classLinkVo.setType(3);
-                        } else if ( classLinkVo.gettLinkName().equals("预习") ) {
+                        } else if (classLinkVo.gettLinkName().equals("预习")) {
                             classLinkVo.setType(1);
-                        } else if ( classLinkVo.gettLinkName().equals("上课") ) {
+                        } else if (classLinkVo.gettLinkName().equals("上课")) {
                             classLinkVo.setType(2);
                         }
                     }
@@ -736,26 +736,26 @@ public class AppCourseService {
         List<ClassDedails> freeClass = classDedailsDao.findFreeClass(RowGuid);
         Integer classTotalCount = classDedailsDao.findClassTotalCount(RowGuid);// 当前课程下课节总数
         Integer classStudyCount = classDedailsDao.findClassStudyCount(RowGuid);// 当前课程下已学习课节数量
-        for ( ClassDedails aClass : freeClass ) {
+        for (ClassDedails aClass : freeClass) {
             Integer buyCourseCount = courseAllDao.findBuyCourseCount(RowGuid);
             Integer classCount = courseAllDao.findClassCount(RowGuid);
             aClass.setStudyClassCount(classStudyCount);
 
-            if ( aClass.gettIstest() == null ) {
+            if (aClass.gettIstest() == null) {
                 aClass.settIstest(0);
             }
-            if ( buyCourseCount == null ) {
+            if (buyCourseCount == null) {
                 aClass.setBuyCount(0);
             } else {
                 aClass.setBuyCount(buyCourseCount);
 
             }
-            if ( classCount == null ) {
+            if (classCount == null) {
                 aClass.setClassCount(0);
             } else {
                 aClass.setClassCount(classTotalCount);
             }
-            if ( aClass.getBuyCount() == null ) {
+            if (aClass.getBuyCount() == null) {
                 aClass.setBuyCount(0);
             }
         }
@@ -772,44 +772,44 @@ public class AppCourseService {
         List<Class1Dedails> freeClass = class1DedailsDao.findFreeClass(RowGuid);
         Integer classTotalCount = classDedailsDao.findClassTotalCount(RowGuid);// 当前课程下课节总数
         Integer classStudyCount = classDedailsDao.findClassStudyCount(RowGuid);// 当前课程下已学习课节数量
-        for ( Class1Dedails aClass : freeClass ) {
+        for (Class1Dedails aClass : freeClass) {
             Integer buyCourseCount = courseAllDao.findBuyCourseCount(RowGuid);
             Integer classCount = courseAllDao.findClassCount(RowGuid);
             aClass.setStudyClassCount(classStudyCount);
 
-            if ( aClass.gettIstest() == null ) {
+            if (aClass.gettIstest() == null) {
                 aClass.settIstest(0);
             }
-            if ( buyCourseCount == null ) {
+            if (buyCourseCount == null) {
                 aClass.setBuyCount(0);
             } else {
                 aClass.setBuyCount(buyCourseCount);
             }
-            if ( classCount == null ) {
+            if (classCount == null) {
                 aClass.setClassCount(0);
             } else {
                 aClass.setClassCount(classTotalCount);
             }
-            if ( aClass.getBuyCount() == null ) {
+            if (aClass.getBuyCount() == null) {
                 aClass.setBuyCount(0);
             }
             String userId = request.getHeader("token");
             List<ClassLinkVo> classLinkStatus = classLinkVoDao.findClassLinkStatus(aClass.getClassRowGuid());
-            for ( ClassLinkVo linkStatus : classLinkStatus ) {
+            for (ClassLinkVo linkStatus : classLinkStatus) {
                 UserLinkStatus linkStudyStatus = timetableDetailsDao.findLinkStudyStatus(userId, linkStatus.getLinkRowGuid());
-                if ( linkStudyStatus == null ) {
+                if (linkStudyStatus == null) {
                     linkStatus.setStudyStatus(0);// 未开始学习
                 } else {
                     linkStatus.setStudyStatus(1);// 已学习
                 }
             }
             aClass.setList(classLinkStatus);
-            for ( ClassLinkVo classLinkVo : classLinkStatus ) {
-                if ( classLinkVo.gettLinkName().equals("作品") ) {
+            for (ClassLinkVo classLinkVo : classLinkStatus) {
+                if (classLinkVo.gettLinkName().equals("作品")) {
                     classLinkVo.setType(3);
-                } else if ( classLinkVo.gettLinkName().equals("预习") ) {
+                } else if (classLinkVo.gettLinkName().equals("预习")) {
                     classLinkVo.setType(1);
-                } else if ( classLinkVo.gettLinkName().equals("上课") ) {
+                } else if (classLinkVo.gettLinkName().equals("上课")) {
                     classLinkVo.setType(2);
                 }
             }
@@ -824,24 +824,24 @@ public class AppCourseService {
         List<ClassDedails> shortClass = classDedailsDao.findShortClass(RowGuid);
         Integer classTotalCount = classDedailsDao.findClassTotalCount(RowGuid);// 当前课程下课节总数
         Integer classStudyCount = classDedailsDao.findClassStudyCount(RowGuid);// 当前课程下已学习课节数量
-        for ( ClassDedails aClass : shortClass ) {
+        for (ClassDedails aClass : shortClass) {
             Integer buyCourseCount = courseAllDao.findBuyCourseCount(RowGuid);
             Integer classCount = courseAllDao.findClassCount(RowGuid);
             aClass.setStudyClassCount(classStudyCount);
-            if ( aClass.gettIstest() == null ) {
+            if (aClass.gettIstest() == null) {
                 aClass.settIstest(0);
             }
-            if ( buyCourseCount == null ) {
+            if (buyCourseCount == null) {
                 aClass.setBuyCount(0);
             } else {
                 aClass.setBuyCount(buyCourseCount);
             }
-            if ( classCount == null ) {
+            if (classCount == null) {
                 aClass.setClassCount(0);
             } else {
                 aClass.setClassCount(classTotalCount); // 当前课程下总课节数
             }
-            if ( aClass.getBuyCount() == null ) {
+            if (aClass.getBuyCount() == null) {
                 aClass.setBuyCount(0);
             }
         }
@@ -855,43 +855,43 @@ public class AppCourseService {
         List<Class1Dedails> shortClass = class1DedailsDao.findShortClass(RowGuid);
         Integer classTotalCount = classDedailsDao.findClassTotalCount(RowGuid);// 当前课程下课节总数
         Integer classStudyCount = classDedailsDao.findClassStudyCount(RowGuid);// 当前课程下已学习课节数量
-        for ( Class1Dedails aClass : shortClass ) {
+        for (Class1Dedails aClass : shortClass) {
             Integer buyCourseCount = courseAllDao.findBuyCourseCount(RowGuid);
             Integer classCount = courseAllDao.findClassCount(RowGuid);
             aClass.setStudyClassCount(classStudyCount);
-            if ( aClass.gettIstest() == null ) {
+            if (aClass.gettIstest() == null) {
                 aClass.settIstest(0);
             }
-            if ( buyCourseCount == null ) {
+            if (buyCourseCount == null) {
                 aClass.setBuyCount(0);
             } else {
                 aClass.setBuyCount(buyCourseCount);
             }
-            if ( classCount == null ) {
+            if (classCount == null) {
                 aClass.setClassCount(0);
             } else {
                 aClass.setClassCount(classTotalCount); // 当前课程下总课节数
             }
-            if ( aClass.getBuyCount() == null ) {
+            if (aClass.getBuyCount() == null) {
                 aClass.setBuyCount(0);
             }
             String userId = request.getHeader("token");
             List<ClassLinkVo> classLinkStatus = classLinkVoDao.findClassLinkStatus(aClass.getClassRowGuid());
-            for ( ClassLinkVo linkStatus : classLinkStatus ) {
+            for (ClassLinkVo linkStatus : classLinkStatus) {
                 UserLinkStatus linkStudyStatus = timetableDetailsDao.findLinkStudyStatus(userId, linkStatus.getLinkRowGuid());
-                if ( linkStudyStatus == null ) {
+                if (linkStudyStatus == null) {
                     linkStatus.setStudyStatus(0);// 未开始学习
                 } else {
                     linkStatus.setStudyStatus(1);// 已学习
                 }
             }
             aClass.setList(classLinkStatus);
-            for ( ClassLinkVo classLinkVo : classLinkStatus ) {
-                if ( classLinkVo.gettLinkName().equals("作品") ) {
+            for (ClassLinkVo classLinkVo : classLinkStatus) {
+                if (classLinkVo.gettLinkName().equals("作品")) {
                     classLinkVo.setType(3);
-                } else if ( classLinkVo.gettLinkName().equals("预习") ) {
+                } else if (classLinkVo.gettLinkName().equals("预习")) {
                     classLinkVo.setType(1);
-                } else if ( classLinkVo.gettLinkName().equals("上课") ) {
+                } else if (classLinkVo.gettLinkName().equals("上课")) {
                     classLinkVo.setType(2);
                 }
             }
@@ -904,9 +904,9 @@ public class AppCourseService {
      */
     public List<CourseAll> evaluation(String RowGuid) {
         List<CourseAll> evaluation = courseAllDao.evaluation(RowGuid);
-        for ( CourseAll courseAll : evaluation ) {
+        for (CourseAll courseAll : evaluation) {
             String imgUrl = courseAll.gettImgUrl();
-            if ( imgUrl != null )
+            if (imgUrl != null)
                 courseAll.settImgUrl("http://airffter.oss-cn-beijing.aliyuncs.com/" + imgUrl);
             else
                 courseAll.settImgUrl("");
@@ -921,14 +921,14 @@ public class AppCourseService {
     public boolean isBuyCourse(String userguid, String RowGuid) {
         Course courseById = courseDao.findById(RowGuid);
         Integer classTypeId = courseById.gettClassTypeId();
-        if (classTypeId!=1) { // 免费课和短期课
-            UOCCP course = orderDao.isBuyCourse(userguid, RowGuid);
+        if (classTypeId == 0) { // 免费课
+            String course = orderDao.isBuyFreeCourse(userguid, RowGuid);
             if (course == null) { // 当前用户没有购买该课程
                 return false;
             } else {
                 return true;
             }
-        } else { // 长期课
+        } else { // 长期课 短期课
             UOCCP course = orderDao.isBuyCourse(userguid, RowGuid);
             if (course == null) { // 当前用户没有购买该课程
                 return false;
@@ -940,13 +940,14 @@ public class AppCourseService {
 
     /**
      * 某用户 某课程是否加入课表
+     *
      * @param userguid
      * @param rowGuid
      * @return
      */
     public boolean isInClassTable(String userguid, String rowGuid) {
-        Timetable timetable = timetableDetailsDao.isInClassTable(userguid,rowGuid);
-        if (timetable==null)
+        Timetable timetable = timetableDetailsDao.isInClassTable(userguid, rowGuid);
+        if (timetable == null)
             return false;
         else
             return true;
@@ -968,16 +969,16 @@ public class AppCourseService {
     public Map countLabel(String rowguid) {
         Map<String, Integer> map = new HashMap();
         EvalCourse evalCourses = evalCourseDao.countLabel(rowguid);
-        if ( evalCourses != null ) {
+        if (evalCourses != null) {
             String labelId = evalCourses.gettLabelId();
             System.out.println(labelId);
             String[] split = labelId.split(",");
-            Integer[] splitLabelId = ( Integer[] ) ConvertUtils.convert(split, Integer.class);
+            Integer[] splitLabelId = (Integer[]) ConvertUtils.convert(split, Integer.class);
             labelId = labelId.replace(",", "");
-            for ( int i = 0; i < labelId.length(); i++ ) {
+            for (int i = 0; i < labelId.length(); i++) {
                 char ch = labelId.charAt(i);
                 String chstr = String.valueOf(ch);
-                if ( map.get(ch) != null ) {
+                if (map.get(ch) != null) {
                     map.put(chstr, map.get(ch) + 1);
                 } else {
                     map.put(chstr, 1);
@@ -992,7 +993,7 @@ public class AppCourseService {
      */
     public Double sumScore(String RowGuid) {
         Double score = courseAllDao.sumScore(RowGuid);
-        if ( score == null ) {
+        if (score == null) {
             score = 0.00;
         }
         return score;
@@ -1038,7 +1039,7 @@ public class AppCourseService {
             log.settOperatorMan(userId);
             log.settOperatorRecord("学生评价课程");
             logDao.insertLog(log);
-        } catch ( UnknownHostException e ) {
+        } catch (UnknownHostException e) {
             e.printStackTrace();
         }
     }
@@ -1050,21 +1051,21 @@ public class AppCourseService {
         List<PackageDetails> cpAll = packageDetailsDao.findAppCPAll(rowGuid);
         List<PackageDetails> userPackage = packageDetailsDao.findUserPackage(userGuid, rowGuid);
         Integer classCount = courseAllDao.findClassCount(rowGuid);
-        for ( PackageDetails packageDetails : cpAll ) {
+        for (PackageDetails packageDetails : cpAll) {
             packageDetails.setCanChoose(true);
-            if ( classCount == null ) {
+            if (classCount == null) {
                 classCount = 0;
                 packageDetails.setClassCount(classCount);
             } else {
                 packageDetails.setClassCount(classCount);
             }
-            for ( PackageDetails details : userPackage ) { // 课包
-                if ( packageDetails.getCprowGuid().equals(details.gettPackageGuid()) ) { // 课包rowguid
-                    if ( details.gettStatus() == 2 ) { // 已到期
+            for (PackageDetails details : userPackage) { // 课包
+                if (packageDetails.getCprowGuid().equals(details.gettPackageGuid())) { // 课包rowguid
+                    if (details.gettStatus() == 2) { // 已到期
                         packageDetails.setCanChoose(true);// 可选择
-                    } else if ( details.gettStatus() != 2 ) {
+                    } else if (details.gettStatus() != 2) {
                         packageDetails.setCanChoose(false);// 不可选择
-                    } else if ( packageDetails != details ) {
+                    } else if (packageDetails != details) {
                         packageDetails.setCanChoose(true);
                     }
                 }
@@ -1079,11 +1080,11 @@ public class AppCourseService {
      */
     public List<PackageDetails> findUserPackage(String userGuid, String rowGuid) {
         List<PackageDetails> userPackage = packageDetailsDao.findUserPackage(userGuid, rowGuid);
-        for ( PackageDetails packageDetails : userPackage ) {
-            if ( packageDetails.gettPrice() == null ) {
+        for (PackageDetails packageDetails : userPackage) {
+            if (packageDetails.gettPrice() == null) {
                 packageDetails.settPrice(0.00);
             }
-            if ( packageDetails.gettStatus() == 2 ) {// 已到期
+            if (packageDetails.gettStatus() == 2) {// 已到期
                 //packageDetails.setIsDue(true);// 已到期
                 packageDetails.setCanChoose(true);// 可选择
             } else {
@@ -1172,17 +1173,17 @@ public class AppCourseService {
         Course course = courseDao.findById(tCourseGuid);
         Double price = course.gettPrice();
         Integer gettClassTypeId = course.gettClassTypeId();// 班级类型
-        if ( StringUtils.isEmpty(tClassPackageGuid) && gettClassTypeId != 1 ) {// 没有课包 短期班&免费班 课程价格
+        if (StringUtils.isEmpty(tClassPackageGuid) && gettClassTypeId != 1) {// 没有课包 短期班&免费班 课程价格
             order.settPrice(price);
-        } else if ( gettClassTypeId == 1 && StringUtils.isEmpty(tClassPackageGuid) ) { // 长期班 没有选择课包 默认所有课包
+        } else if (gettClassTypeId == 1 && StringUtils.isEmpty(tClassPackageGuid)) { // 长期班 没有选择课包 默认所有课包
             String coursePackageId = course.getCoursePackageId();
             String[] classPackageId = coursePackageId.split(",");
             Double cp_price = 0.00;
             String coursePackageGuid = "";// 所有已发布课包
-            for ( String cpid : classPackageId ) {
+            for (String cpid : classPackageId) {
                 CoursePackage coursePackage = coursePackageDao.findById(cpid);
                 Integer gettStatus = coursePackage.gettStatus(); // 课包状态 0未发布 1已发布 2已下架 3删除
-                if ( gettStatus == 1 ) {
+                if (gettStatus == 1) {
                     coursePackageGuid = coursePackageGuid.concat(coursePackage.getRowGuid() + ",");
                 }
             }
@@ -1192,7 +1193,7 @@ public class AppCourseService {
             // 多个课包 "1,2,3"
             String[] classPackageId = tClassPackageGuid.split(",");
             Double cp_price = 0.00;
-            for ( String cpid : classPackageId ) {
+            for (String cpid : classPackageId) {
                 CoursePackage coursePackage = coursePackageDao.findById(cpid);
                 Double coursePackagePrice = coursePackage.gettPrice();
                 cp_price += coursePackagePrice;
@@ -1200,7 +1201,7 @@ public class AppCourseService {
             order.settPrice(cp_price);// 选择课包的价格之和
         }
 
-        if ( pay_type.equals("wx") ) {
+        if (pay_type.equals("wx")) {
 //            int total_price = order.gettPrice().multiply(new BigDecimal(100)).intValue();
             Double total_price = order.gettPrice() * 100;
             int totalPrice = total_price.intValue();
@@ -1264,7 +1265,7 @@ public class AppCourseService {
             order.settPayWay("微信");
             appOrderDao.insert(order);
             return paramMap;
-        } else if ( pay_type.equals("zfb") ) {
+        } else if (pay_type.equals("zfb")) {
             //订单名称，必填
             String subject = "课程付款";
             //商品描述，可空
@@ -1324,14 +1325,14 @@ public class AppCourseService {
         String orderPayWay = orderAllRowguid.gettPayWay();
 
         String pay_type = "";
-        if ( orderPayWay.equals("微信") ) {
+        if (orderPayWay.equals("微信")) {
             pay_type = "wx";
         }
-        if ( orderPayWay.equals("支付宝") ) {
+        if (orderPayWay.equals("支付宝")) {
             pay_type = "zfb";
         }
 
-        if ( pay_type.equals("wx") ) {
+        if (pay_type.equals("wx")) {
             Order order = appOrderDao.findOrder(out_order_no);
             Double total_price = order.gettPrice() * 100;// 转为分
             int totalPrice = total_price.intValue();
@@ -1343,7 +1344,7 @@ public class AppCourseService {
             param.put("out_trade_no", out_order_no);//商户订单号
             param.put("total_fee", Integer.valueOf(totalPrice).toString());//总金额（分）
             param.put("spbill_create_ip", "127.0.0.1");//IP
-            param.put("notify_url", "http://a31ef7db.ngrok.io/WeChatPay/WeChatPayNotify");//回调地址(随便写)
+            param.put("notify_url", notifyurl);//回调地址(随便写)
             param.put("trade_type", "APP");//交易类型
 
             //2.生成要发送的xml
@@ -1393,7 +1394,7 @@ public class AppCourseService {
             order.settOrderNo(out_order_no);// 订单号
             appOrderDao.updateByOutOrderNo(order);
             return paramMap;
-        } else if ( pay_type.equals("zfb") ) {
+        } else if (pay_type.equals("zfb")) {
             //订单名称，必填
             String subject = "课程付款";
             //商品描述，可空
@@ -1441,6 +1442,7 @@ public class AppCourseService {
 
     /**
      * 支付宝 支付成功后回调支付结果
+     *
      * @param request
      * @param response
      * @return
@@ -1465,9 +1467,9 @@ public class AppCourseService {
         String orderType = request.getParameter("body");                    // 订单内容
         String tradeStatus = request.getParameter("trade_status");            //交易状态
 
-        logger.debug("支付宝异步通知-商户订单号out_trade_no:"+out_trade_no);
-        logger.debug("支付宝异步通知-订单内容Body:"+orderType);
-        logger.debug("支付宝异步通知-交易状态tradeStatus:"+tradeStatus);
+        logger.debug("支付宝异步通知-商户订单号out_trade_no:" + out_trade_no);
+        logger.debug("支付宝异步通知-订单内容Body:" + orderType);
+        logger.debug("支付宝异步通知-交易状态tradeStatus:" + tradeStatus);
 
         //3.签名验证(对支付宝返回的数据验证，确定是支付宝返回的)
         boolean signVerified = false;
@@ -1482,7 +1484,9 @@ public class AppCourseService {
         if (signVerified) {    //验签通过
             if (tradeStatus.equals("TRADE_SUCCESS")) {    //只处理支付成功的订单: 修改交易表状态,支付成功
                 Order order = this.findOrder(out_trade_no);// 根据订单号号查询
-                this.updateWxOrderStatus(out_trade_no, order, request);// 修改订单状态
+                if (order.gettOrderStatus()!=2) {// 订单未支付状态
+                    this.updateWxOrderStatus(out_trade_no, order, request);// 修改订单状态
+                }
                 int s = this.payBack(out_trade_no);//根据订单编号去查询更改其数据订单格式
                 if (s > 0) {
                     return order.gettCourseGuid();
@@ -1534,7 +1538,7 @@ public class AppCourseService {
     public List<MyOrderResponse> findMyOrder(HttpServletRequest request) {
         String userguid = request.getHeader("token");
         List<MyOrderResponse> orderAll = myOrderResponseDao.findOrderAll(userguid);
-        for ( MyOrderResponse myOrderResponse : orderAll ) {
+        for (MyOrderResponse myOrderResponse : orderAll) {
             String orderRowguid = myOrderResponse.getOrderRowguid();
             MyOrderResponse orderCourseInfo = myOrderResponseDao.findOrderCourseInfo(orderRowguid);
             myOrderResponse.setOrderCourseName(orderCourseInfo.getOrderCourseName());
@@ -1546,11 +1550,11 @@ public class AppCourseService {
 
             Map<String, Object> map = new HashMap<>();
             List list = new ArrayList();
-            if ( orderCourseInfo.getOrderClassTypeId() == 1 ) {
+            if (orderCourseInfo.getOrderClassTypeId() == 1) {
                 List<MyOrderResponse> coursePackageInfo = myOrderResponseDao.findCoursePackageInfo(orderRowguid);
 
                 String order_package_rowguid = "";
-                for ( MyOrderResponse orderResponse : coursePackageInfo ) {
+                for (MyOrderResponse orderResponse : coursePackageInfo) {
                     MyOrderPackageList myOrderPackageList = new MyOrderPackageList();
                     String orderPackageRowguid = orderResponse.getOrderPackageRowguid();
                     order_package_rowguid += orderPackageRowguid + " ";
@@ -1593,24 +1597,24 @@ public class AppCourseService {
 
         MyOrderResponse courseTimeTable =
                 myOrderResponseDao.isCourseTimeTable(orderCourseInfo.getOrderCourseRowguid(), orderAllRowguid.getOrderUserGuid());
-        if ( courseTimeTable == null ) { // 未加入课表
+        if (courseTimeTable == null) { // 未加入课表
             orderAllRowguid.setIsTimeTable(false);
         } else {
             orderAllRowguid.setIsTimeTable(true);
         }
 
-        if ( orderAllRowguid.getOrderPayWay().equals("微信") ) {
+        if (orderAllRowguid.getOrderPayWay().equals("微信")) {
             orderAllRowguid.setOrderPayWay("wx");
-        } else if ( orderAllRowguid.getOrderPayWay().equals("支付宝") ) {
+        } else if (orderAllRowguid.getOrderPayWay().equals("支付宝")) {
             orderAllRowguid.setOrderPayWay("zfb");
         }
 
         Map<String, Object> map = new HashMap<>();
         List list = new ArrayList();
         String order_package_rowguid = "";
-        if ( orderCourseInfo.getOrderClassTypeId() == 1 ) { // 长期班
+        if (orderCourseInfo.getOrderClassTypeId() == 1) { // 长期班
             List<MyOrderResponse> coursePackageInfo = myOrderResponseDao.findOrderNoCoursePackageInfo(orderNoRowGuid);
-            for ( MyOrderResponse orderResponse : coursePackageInfo ) {
+            for (MyOrderResponse orderResponse : coursePackageInfo) {
                 MyOrderPackageList myOrderPackageList = new MyOrderPackageList();
                 String orderPackageRowguid = orderResponse.getOrderPackageRowguid();
                 order_package_rowguid += orderPackageRowguid + " ";
@@ -1677,6 +1681,7 @@ public class AppCourseService {
 
     public CourseAll findCourseService(String courseGuid) {
         CourseAll courseService = courseAllDao.findCourseService(courseGuid);
+        logger.debug("客服信息：", courseService);
         return courseService;
     }
 
@@ -1702,6 +1707,7 @@ public class AppCourseService {
         dateFormat.format(date);
 
         Order order1 = appOrderDao.findOrder(t_order_no);
+        logger.debug("订单信息service" + order1);
         order1.settOrderStatus(2);// 支付成功 修改订单状态为已支付
         order1.settPayDate(date);// 支付日期
 
@@ -1724,6 +1730,7 @@ public class AppCourseService {
         dateFormat.format(date);
 
         Order order1 = appOrderDao.findOrder(rowguid);
+        logger.debug("订单信息" + order1);
         order1.settOrderStatus(2);// 支付成功 修改订单状态为已支付
         order1.settPayWay("支付宝");
         order1.settPayDate(date);// 支付日期
@@ -1743,18 +1750,20 @@ public class AppCourseService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         dateFormat.format(date);
+        String id = idWorker.nextId() + "";
         // 获取当前登录用户id
-        String userId = request.getHeader("token");//(String) request.getSession().getAttribute("row_guid");
+        String userId = order1.gettUserGuid();//request.getHeader("token");//(String) request.getSession().getAttribute("row_guid");
+        logger.debug("当前登录用户userId" + userId);
         CoursePackageUser coursePackageUser = new CoursePackageUser();
 
         // 判断如果是长期班 计算激活日期 和 计算到期日期
         String courseGuid = order1.gettCourseGuid();
         Course course = courseDao.findById(courseGuid);
-        if ( course.tClassTypeId == 1 ) { // 长期班
+        if (course.tClassTypeId == 1) { // 长期班
             // 购买课程后 到激活日期 自动激活 激活日期-到期日期
             String packageGuid = order1.gettClassPackageGuid();
             String[] splitPackGuid = packageGuid.split(",");
-            for ( String packGuid : splitPackGuid ) {
+            for (String packGuid : splitPackGuid) {
                 CoursePackage coursePackage = coursePackageDao.findById(packGuid);
                 Integer activateDate = coursePackage.gettActivateDate();// 待激活时长
 
@@ -1773,14 +1782,22 @@ public class AppCourseService {
                 calStudyDate.add(Calendar.DATE, studyDate);
                 Date studyDateTime = calStudyDate.getTime();// 到期时间
                 System.out.println(studyDateTime);
+
                 coursePackageUser.settDueTime(studyDateTime);// 到期时间
                 coursePackageUser.setUserGuid(userId);// 用户rowguid
                 coursePackageUser.settStatus(3);// 未激活
                 coursePackageUser.settPackageGuid(packGuid);// 课包guid
                 coursePackageUser.settCourseGuid(order1.gettCourseGuid());// 课程guid
-                coursePackageUser.setRowGuid(idWorker.nextId() + "");// rowguid
+                coursePackageUser.setRowGuid(id);// rowguid
                 coursePackageUserDao.insert(coursePackageUser);
             }
+        } else {
+            // 短期班&免费班
+            coursePackageUser.setUserGuid(userId);// 用户rowguid
+            coursePackageUser.settStatus(3);// 未激活
+            coursePackageUser.settCourseGuid(order1.gettCourseGuid());// 课程guid
+            coursePackageUser.setRowGuid(id);// rowguid
+            coursePackageUserDao.insert(coursePackageUser);
         }
 
         // 某用户购买的哪个课程
@@ -1789,8 +1806,44 @@ public class AppCourseService {
         courseUser.settCreateTime(date);
         courseUser.settStatus(3);// 支付成功后为为激活状态 3未激活 2已到期 1正在学
         courseUser.settUserGuid(userId);
-        courseUser.settCoursePackageId(order1.gettClassPackageGuid());// 购买的哪个课包
+        //courseUser.settCoursePackageId(order1.gettClassPackageGuid());// 购买的哪个课包
         courseUserDao.insert(courseUser);
+    }
+
+    /**
+     * 领取免费课
+     *
+     * @param request
+     */
+    public String getFreeCourse(String courseguid, HttpServletRequest request) {
+        // 日期格式化
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        dateFormat.format(date);
+        String id = idWorker.nextId() + "";
+        // 获取当前登录用户id
+        String userId = request.getHeader("token");//(String) request.getSession().getAttribute("row_guid");
+        logger.debug("当前登录用户userId" + userId);
+        CoursePackageUser coursePackageUser = new CoursePackageUser();
+
+        Course course = courseDao.findById(courseguid);
+
+        // 用户领取了哪个免费课程
+        coursePackageUser.setUserGuid(userId);// 用户rowguid
+        coursePackageUser.settStatus(3);// 未激活
+        coursePackageUser.settCourseGuid(courseguid);// 课程guid
+        coursePackageUser.setRowGuid(id);// rowguid
+        coursePackageUserDao.insert(coursePackageUser);
+
+        // 某用户购买的哪个课程
+        CourseUser courseUser = new CourseUser();
+        courseUser.settCourseGuid(courseguid);// 用户购买的哪个课程
+        courseUser.settCreateTime(date);
+        courseUser.settStatus(3);// 支付成功后为为激活状态 3未激活 2已到期 1正在学
+        courseUser.settUserGuid(userId);
+        //courseUser.settCoursePackageId(order1.gettClassPackageGuid());// 购买的哪个课包
+        courseUserDao.insert(courseUser);
+        return course.getRowGuid();
     }
 
     @Autowired
@@ -1815,10 +1868,10 @@ public class AppCourseService {
         Integer gettClassTypeId = course.gettClassTypeId();
         String stageId = course.getStageId();
         String[] stage_id = stageId.split(",");
-        if ( gettClassTypeId == 1 ) { // 长期班
+        if (gettClassTypeId == 1) { // 长期班
             List<CoursePackageUser> userGuid = coursePackageUserDao.findByPackageUserGuid(rowguid, courseguid, packagguid);
-            for ( CoursePackageUser coursePackageUser : userGuid ) {
-                if ( coursePackageUser.gettStatus() != 0 ) { // 未激活
+            for (CoursePackageUser coursePackageUser : userGuid) {
+                if (coursePackageUser.gettStatus() != 0) { // 未激活
                     // 激活
                     coursePackageUser.settStatus(0);// 课包状态 0未开始 1正在学 2已到期 3未激活
                     coursePackageUser.settDueTime(date);// 激活日期
@@ -1843,12 +1896,12 @@ public class AppCourseService {
 //                    if (weekI<week) { // 选定星期在今天之后
 
                     List<Long> weekIndex = TimeUtils.getDateListByWeek(week, 1);
-                    for ( Long aLong : weekIndex ) {
-                        for ( String sid : stage_id ) {
+                    for (Long aLong : weekIndex) {
+                        for (String sid : stage_id) {
                             Stage stage = stageDao.findById(sid);
                             String classId = stage.gettClassId();
                             String[] cid = classId.split(",");
-                            for ( String s : cid ) {
+                            for (String s : cid) {
                                 // 保存课节id
                                 timetable.settClassId(s);
                                 System.out.println(new DateTime(aLong).toString("yyyy-MM-dd HH:mm:ss"));
@@ -1872,7 +1925,7 @@ public class AppCourseService {
 //                            stime = new Date(aLong);
 //                            dateFormat.format(stime);
                                 String format = Week.format(stime);
-                                switch ( format ) {
+                                switch (format) {
                                     case "星期一":
                                         week = 1;
                                         break;
@@ -1916,11 +1969,11 @@ public class AppCourseService {
             Date stime = null;
             // 选择星期
             List<Long> weekIndex = TimeUtils.getDateListByWeek(week, 1);
-            for ( Long aLong : weekIndex ) {
+            for (Long aLong : weekIndex) {
                 String classId = course.getClassId();
                 String[] cid = classId.split(",");
 
-                for ( String s : cid ) {
+                for (String s : cid) {
                     stime = new Date(aLong);
                     dateFormat.format(stime);
                     // 保存课节id
@@ -1939,7 +1992,7 @@ public class AppCourseService {
 //                            stime = new Date(aLong);
 //                            dateFormat.format(stime);
                     String format = Week.format(stime);
-                    switch ( format ) {
+                    switch (format) {
                         case "星期一":
                             week = 1;
                             break;
@@ -1969,7 +2022,7 @@ public class AppCourseService {
             }
         }
 
-        if ( gettClassTypeId == 0 ) {  // 免费班
+        /*if (gettClassTypeId == 0) {  // 免费班
             // 某用户购买的哪个课程
             CourseUser courseUser = new CourseUser();
             courseUser.settCourseGuid(courseguid);// 用户购买的哪个课程
@@ -1983,7 +2036,7 @@ public class AppCourseService {
             coursePackUser.settCourseGuid(courseguid);// 用户购买的哪个课程
             coursePackUser.setUserGuid(rowguid);
             coursePackageUserDao.insert(coursePackUser);
-        }
+        }*/
 
     }
 
@@ -2028,13 +2081,13 @@ public class AppCourseService {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @Value( "${appid}" )
+    @Value("${appid}")
     private String appid;
-    @Value( "${partner}" )
+    @Value("${partner}")
     private String partner;
-    @Value( "${partnerkey}" )
+    @Value("${partnerkey}")
     private String partnerkey;
-    @Value( "${notifyurl}" )
+    @Value("${notifyurl}")
     private String notifyurl;
 
     public Map queryPayStatus(String out_trade_no) {
@@ -2058,7 +2111,7 @@ public class AppCourseService {
             System.out.println("调动查询API返回结果：" + xmlResult);
 
             return map;
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -2082,17 +2135,17 @@ public class AppCourseService {
     public List<ClassLinkVo> findClassLink(String rowguid, HttpServletRequest request) {
         String userId = request.getHeader("token");
         List<ClassLinkVo> classLink = timetableDetailsDao.findClassLink(rowguid);
-        for ( ClassLinkVo classLinkVo : classLink ) {
-            if ( classLinkVo.gettLinkName().equals("作品") ) {
+        for (ClassLinkVo classLinkVo : classLink) {
+            if (classLinkVo.gettLinkName().equals("作品")) {
                 classLinkVo.setType(3);
-            } else if ( classLinkVo.gettLinkName().equals("预习") ) {
+            } else if (classLinkVo.gettLinkName().equals("预习")) {
                 classLinkVo.setType(1);
-            } else if ( classLinkVo.gettLinkName().equals("上课") ) {
+            } else if (classLinkVo.gettLinkName().equals("上课")) {
                 classLinkVo.setType(2);
             }
             // 环节学习状态
             UserLinkStatus linkStudyStatus = timetableDetailsDao.findLinkStudyStatus(userId, classLinkVo.getLinkRowGuid());
-            if ( linkStudyStatus == null ) {
+            if (linkStudyStatus == null) {
                 classLinkVo.setStudyStatus(0);// 未开始学习
             } else {
                 classLinkVo.setStudyStatus(1);// 已学习
@@ -2105,28 +2158,28 @@ public class AppCourseService {
     @Autowired
     private LinkDao linkDao;
 
-    @Value( "${ali.pay.gateway-url}" )
+    @Value("${ali.pay.gateway-url}")
     private String gatewayUrl;
 
-    @Value( "${ali.pay.app-id}" )
+    @Value("${ali.pay.app-id}")
     private String appId;
 
-    @Value( "${ali.pay.alipay-public-key}" )
+    @Value("${ali.pay.alipay-public-key}")
     private String alipayPublicKey;
 
-    @Value( "${ali.pay.merchant-private-key}" )
+    @Value("${ali.pay.merchant-private-key}")
     private String merchantPrivateKey;
 
-    @Value( "${ali.pay.charset}" )
+    @Value("${ali.pay.charset}")
     private String charset;
 
-    @Value( "${ali.pay.sign-type}" )
+    @Value("${ali.pay.sign-type}")
     private String signType;
 
-    @Value( "${ali.pay.return-url}" )
+    @Value("${ali.pay.return-url}")
     private String returnUrl;
 
-    @Value( "${ali.pay.notify-url}" )
+    @Value("${ali.pay.notify-url}")
     private String notifyUrl;
 
     @Autowired
@@ -2154,7 +2207,7 @@ public class AppCourseService {
         String format = df.format(d);
         // 可以上传多个作品 图片
         // 图片地址
-        String userId = ( String ) request.getSession().getAttribute("row_guid");
+        String userId = (String) request.getSession().getAttribute("row_guid");
         Works link = new Works();
         link.settImgUrl("http://airffter.oss-cn-beijing.aliyuncs.com/" + url);// 图片地址
         link.setRowGuid(idWorker.nextId() + "");
@@ -2187,49 +2240,49 @@ public class AppCourseService {
      */
     public List<CourseAll> myCourse(String rowguid, Integer type) {
         List<CourseAll> myCourse = courseAllDao.findMyCourse(rowguid, type);
-        for ( CourseAll courseAll : myCourse ) {
+        for (CourseAll courseAll : myCourse) {
             Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
             Integer classCount = courseAllDao.findClassCount(courseAll.getRowGuid());
             Integer stageCount = courseAllDao.findStageCount(courseAll.getRowGuid());
-            if ( courseAll.getCourseCount() == null ) {
+            if (courseAll.getCourseCount() == null) {
                 courseAll.setCourseCount(0);
             }
-            if ( courseAll.gettPrice() == null ) {
+            if (courseAll.gettPrice() == null) {
                 courseAll.settPrice(0.00);
             }
-            if ( courseAll.gettScore() == null ) {
+            if (courseAll.gettScore() == null) {
                 courseAll.settScore(0);
             }
-            if ( buyCourseCount == null ) {
+            if (buyCourseCount == null) {
                 buyCourseCount = 0;
                 courseAll.setBuyCount(buyCourseCount);
             } else {
                 courseAll.setBuyCount(buyCourseCount);
             }
-            if ( courseAll.gettLearnCount() == null ) {
+            if (courseAll.gettLearnCount() == null) {
                 courseAll.settLearnCount(0);
             }
-            if ( courseAll.getBuyCount() == null ) {
+            if (courseAll.getBuyCount() == null) {
                 courseAll.setBuyCount(0);
             }
-            if ( courseAll.getClassCount() == null ) {
+            if (courseAll.getClassCount() == null) {
                 courseAll.setClassCount(0);
             }
-            if ( classCount == null ) {
+            if (classCount == null) {
                 classCount = 0;
                 courseAll.setClassCount(classCount);
             } else {
                 courseAll.setClassCount(classCount);
             }
-            if ( stageCount == null ) {
+            if (stageCount == null) {
                 stageCount = 0;
                 courseAll.setStageCount(stageCount);
             } else {
                 courseAll.setStageCount(stageCount);
             }
             CourseAll activate = courseAllDao.isActivate(courseAll.getPackageGuid(), courseAll.gettUserGuid());
-            if (activate!=null) { // 是长期班有课包
-                if ( activate.gettStatus() == 3 ) { // 课包状态 0未开始 1正在学 2已到期 3未激活
+            if (activate != null) { // 是长期班有课包
+                if (activate.gettStatus() == 3) { // 课包状态 0未开始 1正在学 2已到期 3未激活
                     courseAll.setIsActivate(false);
                 } else {
                     courseAll.setIsActivate(true);
@@ -2241,17 +2294,17 @@ public class AppCourseService {
 
     public List<CourseAll> search(String courseName) {
         List<CourseAll> search = courseAllDao.search(courseName);
-        for ( CourseAll courseAll : search ) {
-            if ( courseAll.gettPrice() == null ) {
+        for (CourseAll courseAll : search) {
+            if (courseAll.gettPrice() == null) {
                 courseAll.settPrice(0.00);
             }
-            if ( courseAll.gettLearnCount() == null ) {
+            if (courseAll.gettLearnCount() == null) {
                 courseAll.settLearnCount(0);
             }
-            if ( courseAll.getBuyCount() == null ) {
+            if (courseAll.getBuyCount() == null) {
                 courseAll.setBuyCount(0);
             }
-            if ( courseAll.gettScore() == null ) {
+            if (courseAll.gettScore() == null) {
                 courseAll.settScore(0);
             }
         }
@@ -2265,7 +2318,7 @@ public class AppCourseService {
 
     public Integer findBuyCourseCount(String rowGuid) {
         Integer buyCourseCount = courseAllDao.findBuyCourseCount(rowGuid);
-        if ( buyCourseCount == null ) {
+        if (buyCourseCount == null) {
             buyCourseCount = 0;
         }
         return buyCourseCount;
@@ -2273,7 +2326,7 @@ public class AppCourseService {
 
     public Integer findClassCount(String rowGuid) {
         Integer classCount = courseAllDao.findClassCount(rowGuid);
-        if ( classCount == null ) {
+        if (classCount == null) {
             classCount = 0;
         }
         return classCount;
@@ -2281,7 +2334,7 @@ public class AppCourseService {
 
     public int findStageCount(String rowGuid) {
         Integer stageCount = courseAllDao.findStageCount(rowGuid);
-        if ( stageCount == null ) {
+        if (stageCount == null) {
             stageCount = 0;
         }
         return stageCount;
@@ -2289,12 +2342,12 @@ public class AppCourseService {
 
     public List<TimetableDetailsResponse> findTimetableBAUser(String rowguid, int page, int size, int condition, HttpServletRequest request) {
         String userId = request.getHeader("token");
-        if ( condition == 1 ) { // 当前时间之前
+        if (condition == 1) { // 当前时间之前
             PageHelper.startPage(page, size);
             List<TimetableDetailsResponse> timetableUser = timetableDetailsDao.findTimetableBeforeUser(rowguid);
-            for ( TimetableDetailsResponse timetableDetailsResponse : timetableUser ) {
+            for (TimetableDetailsResponse timetableDetailsResponse : timetableUser) {
                 UserLinkStatus userLinkStatus = timetableDetailsDao.findUserLinkStatus(userId, timetableDetailsResponse.getClassRowGuid());
-                if ( userLinkStatus == null ) { // 未开始学习
+                if (userLinkStatus == null) { // 未开始学习
                     timetableDetailsResponse.setStudyStatus(0);
                 } else {
                     timetableDetailsResponse.setStudyStatus(1);
@@ -2304,9 +2357,9 @@ public class AppCourseService {
         } else { // 当前时间之后
             PageHelper.startPage(page, size);
             List<TimetableDetailsResponse> timetableUser = timetableDetailsDao.findTimetableAfterUser(rowguid);
-            for ( TimetableDetailsResponse timetableDetailsResponse : timetableUser ) {
+            for (TimetableDetailsResponse timetableDetailsResponse : timetableUser) {
                 UserLinkStatus userLinkStatus = timetableDetailsDao.findUserLinkStatus(userId, timetableDetailsResponse.getClassRowGuid());
-                if ( userLinkStatus == null ) { // 未开始学习
+                if (userLinkStatus == null) { // 未开始学习
                     timetableDetailsResponse.setStudyStatus(0);
                 } else {
                     timetableDetailsResponse.setStudyStatus(1);
@@ -2322,8 +2375,8 @@ public class AppCourseService {
     public List<WorkResponse> findMyWork(String courseguid, HttpServletRequest request) {
         String rowguid = request.getHeader("token");
         List<WorkResponse> myWork = myWorkDao.findMyWork(rowguid, courseguid);
-        for ( WorkResponse workResponse : myWork ) {
-            if ( workResponse.gettContent() == null ) {
+        for (WorkResponse workResponse : myWork) {
+            if (workResponse.gettContent() == null) {
                 workResponse.setIsEvaluation(false);
             } else {
                 workResponse.setIsEvaluation(true);
@@ -2335,8 +2388,8 @@ public class AppCourseService {
     public List<WorkResponse> findMyClassWork(String classguid, HttpServletRequest request) {
         String rowguid = request.getHeader("token");
         List<WorkResponse> myClassWork = myWorkDao.findMyClassWork(rowguid, classguid);
-        for ( WorkResponse workResponse : myClassWork ) {
-            if ( workResponse.gettContent() == null ) {
+        for (WorkResponse workResponse : myClassWork) {
+            if (workResponse.gettContent() == null) {
                 workResponse.setIsEvaluation(false);
             } else {
                 workResponse.setIsEvaluation(true);
@@ -2347,10 +2400,10 @@ public class AppCourseService {
 
     public WorkResponse findWorkDetail(String rowguid) {
         WorkResponse workDetail = myWorkDao.findWorkDetail(rowguid);
-        if ( workDetail == null ) {
+        if (workDetail == null) {
             workDetail = myWorkDao.findWorkNoHaveContentDetail(rowguid);
             workDetail.setIsEvaluation(false);
-        } else if ( workDetail.gettContent() == null ) {
+        } else if (workDetail.gettContent() == null) {
             workDetail.setIsEvaluation(false);
         } else {
             workDetail.setIsEvaluation(true);
@@ -2362,8 +2415,8 @@ public class AppCourseService {
     public List<MyWorkResponse> findMyWorkAll(HttpServletRequest request) {
         String useguid = request.getHeader("token");
         List<MyWorkResponse> workResponse = myWorkDao.findMyWorkAll(useguid);
-        for ( MyWorkResponse response : workResponse ) {
-            if ( response.gettContent() != null ) { // 有评价
+        for (MyWorkResponse response : workResponse) {
+            if (response.gettContent() != null) { // 有评价
                 response.setIsEvaluation(true);
             } else {
                 response.setIsEvaluation(false);
@@ -2377,11 +2430,11 @@ public class AppCourseService {
         String userguid = request.getHeader("token");
         // 查询某课程下所有课包
         List<CoursePackageResponse> myCoursePackage = myWorkDao.findMyCoursePackageAll(courseguid);
-        for ( CoursePackageResponse coursePackageResponse : myCoursePackage ) {
+        for (CoursePackageResponse coursePackageResponse : myCoursePackage) {
             // 得到课包rowguid 查询 课包状态、到期时间信息 - 查询课包所包含的阶段
             String packageRowguid = coursePackageResponse.getPackageRowguid();
             CoursePackageResponse coursePackage = myWorkDao.findMyCoursePackage(userguid, packageRowguid);
-            if ( coursePackage == null ) { // 说明课包未购买
+            if (coursePackage == null) { // 说明课包未购买
                 coursePackageResponse.setIsBuy(false);
                 coursePackageResponse.setCpuStatus(4);
             } else {
@@ -2396,7 +2449,7 @@ public class AppCourseService {
             coursePackageResponse.setStageName(packageStage.getStageName());
             int count = 0;
             List<CoursePackageResponse> stageRowguid = myWorkDao.findStageRowguid(packageRowguid);
-            for ( CoursePackageResponse packageResponse : stageRowguid ) {
+            for (CoursePackageResponse packageResponse : stageRowguid) {
                 // 阶段的课节数
                 Integer classCount = myWorkDao.classCount(packageResponse.getStageRowguid());
                 count += classCount;
