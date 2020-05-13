@@ -1,13 +1,8 @@
 package cn.stylefeng.guns.config;
 
-import cn.stylefeng.guns.dao.CourseDao;
-import cn.stylefeng.guns.dao.CoursePackageUserDao;
-import cn.stylefeng.guns.dao.StageDao;
-import cn.stylefeng.guns.dao.TimetableDao;
-import cn.stylefeng.guns.pojo.Course;
-import cn.stylefeng.guns.pojo.CoursePackageUser;
-import cn.stylefeng.guns.pojo.Stage;
-import cn.stylefeng.guns.pojo.Timetable;
+import cn.stylefeng.guns.app.service.AppCourseService;
+import cn.stylefeng.guns.dao.*;
+import cn.stylefeng.guns.pojo.*;
 import cn.stylefeng.guns.utils.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Configuration
 public class ScheduledConfig {
@@ -40,19 +33,51 @@ public class ScheduledConfig {
     @Autowired
     private IdWorker idWorker;
 
+    @Autowired
+    private AppOrderDao appOrderDao;
+
+    @Autowired
+    private AppCourseService appCourseService;
+
+    /**
+     * 订单超时 取消订单
+     */
+    public void updateOrderStatus(String t_order_no) throws Exception {
+        Order order1 = appOrderDao.findOrder(t_order_no);
+        order1.settOrderStatus(3);// 支付成功 修改订单状态为已取消
+
+        // 短期班和免费班不做限制 一次报名 永久可用，不需处理
+        appOrderDao.updateByRowGuid(order1);// 修改订单状态
+        appCourseService.cancelOrder(t_order_no);// 取消订单
+    }
+
     /**
      * 未支付订单 30分钟后 自动取消订单
      */
-    @Scheduled(cron = "0/60 * * * * *")
-    public void payOrder() {
-
+    @Scheduled(cron = "0/20 * * * * *")
+    public void payOrder() throws Exception {
+        Date date = new Date();// 当前时间
+        // 查询所有订单
+        List<Order> orderList = appOrderDao.findOrderList();
+        for (Order order : orderList) {
+            Date placeOrderDate = order.gettPlaceOrderDate();// 创建订单日期
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(placeOrderDate);// 下单时间开始
+            calendar.set(GregorianCalendar.MINUTE,30); // 30min后
+            Date time = calendar.getTime();// 得到30分后时间
+            if (order.gettOrderStatus()!=2) { // 未支付订单
+                if (time.after(placeOrderDate)) {
+                    this.updateOrderStatus(order.gettOrderNo());
+                }
+            }
+        }
     }
 
     /**
      * 定时检查  激活课程
      * 如果课程到待激活日期没有被激活将被自动激活
      */
-    @Scheduled( cron = "0/60 * * * * *" ) // 在任务开始后60秒执行下一次调度
+    @Scheduled( cron = "0/10 * * * * *" ) // 在任务开始后60秒执行下一次调度
     public void activateCourse() {
         // 日期格式化 当前日期
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

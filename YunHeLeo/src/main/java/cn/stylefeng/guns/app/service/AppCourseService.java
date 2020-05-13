@@ -166,7 +166,12 @@ public class AppCourseService {
     }
 
     public List<Img> branner() {
-        return imgDao.branner();
+        List<Img> branner = imgDao.branner();
+        for (Img img : branner) {
+            Course byId = courseDao.findById(img.getLinkId());
+            img.setCourseTypeId(byId.gettClassTypeId());
+        }
+        return branner;
     }
 
     public List<Course> findByLevel(Integer levelId, Integer type) {

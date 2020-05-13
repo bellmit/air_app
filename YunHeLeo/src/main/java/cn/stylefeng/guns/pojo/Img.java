@@ -80,6 +80,16 @@ public class Img implements Serializable {
     @TableField("t_upload_date")
     private Date tUploadDate;
 
+    private Integer courseTypeId;// 课程类型id  长期班...
+
+    public Integer getCourseTypeId() {
+        return courseTypeId;
+    }
+
+    public void setCourseTypeId(Integer courseTypeId) {
+        this.courseTypeId = courseTypeId;
+    }
+
     public String getLinkId() {
         return linkId;
     }
