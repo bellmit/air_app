@@ -53,6 +53,9 @@ public interface AppOrderDao extends BaseMapper<Order> {
     @Update("update tb_order set t_order_status=#{tOrderStatus},t_pay_way=#{tPayWay},t_pay_date=#{tPayDate} where row_guid=#{rowGuid}")
     void updateByRowGuid(Order order1);
 
+    @Update("update tb_order set t_order_status=3 where row_guid=#{rowGuid}")
+    void updateOrderStatus(@Param("rowGuid") String rowGuid);
+
     // 修改支付方式 支付日期 订单状态
     @Update("UPDATE tb_order SET t_pay_way=#{tPayWay}, t_pay_date=#{tPayDate}, t_order_status=#{tOrderStatus} " +
             "WHERE t_order_no=#{tOrderNo}")

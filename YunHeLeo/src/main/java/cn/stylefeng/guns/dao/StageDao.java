@@ -18,6 +18,10 @@ public interface StageDao extends BaseMapper<Stage> {
             "FROM tb_stage s WHERE s.row_guid=#{RowGuid}")
     Stage findById(@Param("RowGuid") String RowGuid);
 
+    @Select("SELECT s.id,s.row_guid,s.t_name,s.t_class_id,s.t_order,s.t_status, s.`t_class_id` classId " +
+            "FROM tb_stage s ")
+    List<Stage> findStageAll();
+
     /**
      * 某课程下的所有阶段
      * @param RowGuid

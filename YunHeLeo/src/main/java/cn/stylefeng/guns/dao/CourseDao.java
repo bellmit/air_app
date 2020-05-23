@@ -129,4 +129,35 @@ public interface CourseDao extends BaseMapper<Course> {
     @Update("update tb_user c set stage_id=#{stageId} where row_guid=#{rowguid}")
     void updateUserLevel(String rowguid, Integer stageId);
 
+    @Select("SELECT c.id, c.row_guid, c.t_course_name,c.t_course_num,\n" +
+            "\tc.t_course_type_id, c.t_level,t_order_no,\n" +
+            "\tc.t_price,t_class_type_id, c.t_teacher_id, c.t_service_id,\n" +
+            "\tc.t_img_url, c.t_course_introduce, c.t_prompt,\n" +
+            "\tc.t_try_listen, c.t_status, c.t_update_date,\n" +
+            "\tc.t_update_man,c.stage_id,c.course_package_id,c.class_id FROM tb_course c ")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "row_guid", property = "rowGuid"),
+            @Result(column = "t_course_num", property = "tCourseNum"),
+            @Result(column = "t_course_name", property = "tCourseName"),
+            @Result(column = "t_course_type_id", property = "tCourseTypeId"),
+            @Result(column = "t_level", property = "tLevel"),
+            @Result(column = "t_order_no", property = "tOrderNo"),
+            @Result(column = "t_price", property = "tPrice"),
+            @Result(column = "t_class_type_id", property = "tClassTypeId"),
+            @Result(column = "t_teacher_id", property = "tTeacherId"),
+            @Result(column = "t_service_id", property = "tServiceId"),
+            @Result(column = "t_img_url", property = "tImgUrl"),
+            @Result(column = "t_course_introduce", property = "tCourseIntroduce"),
+            @Result(column = "t_prompt", property = "tPrompt"),
+            @Result(column = "t_try_listen", property = "tTryListen"),
+            @Result(column = "t_status", property = "tStatus"),
+            @Result(column = "t_update_date", property = "tUpdateDate"),
+            @Result(column = "t_update_man", property = "tUpdateMan"),
+            @Result(column = "stage_id", property = "stageId"),
+            @Result(column = "course_package_id", property = "coursePackageId"),
+            @Result(column = "class_id", property = "classId")
+    })
+    List<Course> findAll();
+
 }

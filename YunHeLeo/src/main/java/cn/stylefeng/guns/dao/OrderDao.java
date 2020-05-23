@@ -24,7 +24,7 @@ public interface OrderDao extends BaseMapper<UOCCP> {
     UOCCP isBuyCourse(@Param("rowguid") String rowguid, @Param("courseGuid") String courseGuid);
 
     @Select("SELECT cpu.`row_guid` FROM `tb_course_package_user` cpu\n" +
-            "WHERE cpu.`user_guid`=#{userguid} AND cpu.`t_course_guid`=#{courseGuid}")
+            "WHERE cpu.`user_guid`=#{userguid} AND cpu.`t_course_guid`=#{courseGuid} limit 1")
     String isBuyFreeCourse(@Param("userguid") String userguid, @Param("courseGuid") String courseGuid);
 
     /**

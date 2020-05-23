@@ -45,7 +45,7 @@ public interface TypeDao extends BaseMapper<Type> {
      * @return
      */
     @Select("<script>" +
-            "select * from tb_type " +
+            "select * from tb_type where t_status=1" +
             "</script>")
     @Results({
             @Result(column = "id", property = "id"),

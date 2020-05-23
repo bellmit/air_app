@@ -13,6 +13,8 @@ import cn.stylefeng.guns.utils.CreateFileUtil;
 import cn.stylefeng.guns.utils.IdWorker;
 import cn.stylefeng.guns.vo.ClassLinkVo;
 import cn.stylefeng.guns.vo.WorkResponse;
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.internal.util.AlipaySignature;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.pagehelper.util.StringUtil;
 import com.github.wxpay.sdk.WXPayUtil;
@@ -23,6 +25,8 @@ import net.sf.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletInputStream;
@@ -213,8 +217,8 @@ public class AppCourseController {
             if (rowguid == null) {
                 // type 免费班 0  长期班 1  短期班 2
                 if (NewHot == 1) { // 最新
-                    List<CourseAll> courseAll = appCourseService.courseNew(page, size, type);
-                    for (CourseAll course : courseAll) {
+                    List<CourseList> courseAll = appCourseService.courseNew(page, size, type);
+                    for (CourseList course : courseAll) {
                         // 多少人购买该课程
                         Integer buyCountCourse = appCourseService.findBuyCourseCount(course.getRowGuid());
                         if (buyCountCourse == null) {
@@ -229,8 +233,8 @@ public class AppCourseController {
                     }
                     return new Result(true, 0, "查询课程数据列表成功!", courseAll);
                 } else {  // 最热
-                    List<CourseAll> courseAll = appCourseService.courseHot(page, size, type);
-                    for (CourseAll course : courseAll) {
+                    List<CourseList> courseAll = appCourseService.courseHot(page, size, type);
+                    for (CourseList course : courseAll) {
                         // 多少人购买该课程
                         Integer buyCountCourse = appCourseService.findBuyCourseCount(course.getRowGuid());
                         if (buyCountCourse == null) {
@@ -249,8 +253,8 @@ public class AppCourseController {
                 User user = studentService.findByGuid(rowguid);
                 // type 免费班 0  长期班 1  短期班 2
                 if (NewHot == 1) { // 最新
-                    List<CourseAll> courseAll = appCourseService.courseShowStageNew(page, size, type, user.getShowStageId());
-                    for (CourseAll course : courseAll) {
+                    List<CourseList> courseAll = appCourseService.courseShowStageNew(page, size, type, user.getShowStageId());
+                    for (CourseList course : courseAll) {
                         // 多少人购买该课程
                         Integer buyCountCourse = appCourseService.findBuyCourseCount(course.getRowGuid());
                         if (buyCountCourse == null) {
@@ -265,8 +269,8 @@ public class AppCourseController {
                     }
                     return new Result(true, 0, "查询课程数据列表成功!", courseAll);
                 } else {  // 最热
-                    List<CourseAll> courseAll = appCourseService.courseStageHot(page, size, type, user.getShowStageId());
-                    for (CourseAll course : courseAll) {
+                    List<CourseList> courseAll = appCourseService.courseStageHot(page, size, type, user.getShowStageId());
+                    for (CourseList course : courseAll) {
                         // 多少人购买该课程
                         Integer buyCountCourse = appCourseService.findBuyCourseCount(course.getRowGuid());
                         if (buyCountCourse == null) {
@@ -322,7 +326,7 @@ public class AppCourseController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result(false, ResultStatusCode.FAIL, "根据课程rowguid课程详情失败!");
+            return new Result(false, ResultStatusCode.FAIL, "根据课程rowguid查询[阶段]+课节失败!");
         }
     }
 
@@ -576,7 +580,7 @@ public class AppCourseController {
                     for (String packageguidsplit : split) {
                         CoursePackageResponse coursePackageResponse = appCourseService.findCoursePackageById(packageguidsplit);
                         if (coursePackageResponse == null) {
-                            break;
+                            continue;
                         }
                         list.add(coursePackageResponse);
                     }
@@ -593,10 +597,14 @@ public class AppCourseController {
                 String[] split = packageguid.split(",");
                 Map map = new HashMap();
                 List list = new ArrayList();
+                Double price = 0.0;
                 for (String packageguidsplit : split) {
                     CoursePackageResponse coursePackageResponse = appCourseService.findCoursePackageById(packageguidsplit);
+                    Double packageResponsePrice = coursePackageResponse.getPrice();
+                    price += packageResponsePrice;
                     list.add(coursePackageResponse);
                 }
+                course.settPrice(price);
                 map.put("package", list);
                 map.put("course", course);
                 return new R(true, 0, "成功！", map);
@@ -777,7 +785,14 @@ public class AppCourseController {
     public R twoCode(String rowguid) {
         try {
             TwoCode list = appCourseService.twoCode(rowguid);
-            return new R(true, 0, list);
+            if (list!=null)
+                return new R(true, 0, list);
+            else {
+                Map<String, String> strlist = new HashMap<>();
+                strlist.put("id", null);
+                strlist.put("imgUrl", "");
+                return new R(true, 0, strlist);
+            }
         } catch (Exception e) {
             return R.FAIL();
         }
@@ -899,17 +914,125 @@ public class AppCourseController {
         }
     }
 
+    @Value("${ali.pay.gateway-url}")
+    private String gatewayUrl;
+
+    @Value("${ali.pay.app-id}")
+    private String appId;
+
+    @Value("${ali.pay.alipay-public-key}")
+    private String alipayPublicKey;
+
+    @Value("${ali.pay.merchant-private-key}")
+    private String merchantPrivateKey;
+
+    @Value("${ali.pay.charset}")
+    private String charset;
+
+    @Value("${ali.pay.sign-type}")
+    private String signType;
+
+    @Value("${ali.pay.return-url}")
+    private String returnUrl;
+
+    @Value("${aliyun.notifyurl}")
+    private String notifyUrl;
+
     @RequestMapping("/alipay")
     @ResponseBody
     @ApiOperation("查询支付结果通知回调 支付宝")
     public R getAliPayReturn(HttpServletResponse response,
                              HttpServletRequest request) {
 
-        String payNotify = appCourseService.payNotify(request, response);
+        System.out.println("开始进入支付宝回调通知...");
+        logger.debug("开始进入支付宝回调通知...");
+        String payNotify = this.payNotify(request, response);
         logger.debug("payNotify:"+payNotify);
 
         CourseAll courseService = appCourseService.findCourseService(payNotify);
         logger.debug("courseService:"+courseService);
-        return new R(true, 0, "成功", courseService);
+        return new R(true, 0, "支付宝回调成功", courseService);
+    }
+
+    /**
+     * 支付宝 支付成功后回调支付结果
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    public String payNotify(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("支付宝支付成功后回调...");
+        System.out.println("支付宝支付成功后回调...");
+        Map<String, String> params = new HashMap<String, String>();
+        System.out.println("params...");
+        //1.从支付宝回调的request域中取值
+        Map<String, String[]> requestParams = request.getParameterMap();
+        logger.debug("requestParams...");
+        System.out.println("requestParams...");
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
+            String name = iter.next();
+            String[] values = requestParams.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
+            }
+            // 乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
+            // valueStr = new String(valueStr.getBytes("ISO-8859-1"), "gbk");
+            params.put(name, valueStr);
+        }
+        //2.封装必须参数
+        String out_trade_no = request.getParameter("out_trade_no");            // 商户订单号
+        String orderType = request.getParameter("body");                    // 订单内容
+        String tradeStatus = request.getParameter("trade_status");            //交易状态
+
+        logger.debug("支付宝异步通知-商户订单号out_trade_no:" + out_trade_no);
+        logger.debug("支付宝异步通知-订单内容Body:" + orderType);
+        logger.debug("支付宝异步通知-交易状态tradeStatus:" + tradeStatus);
+
+        //3.签名验证(对支付宝返回的数据验证，确定是支付宝返回的)
+        boolean signVerified = false;
+        try {
+            //3.1调用SDK验证签名
+            signVerified = AlipaySignature.rsaCheckV1(params, alipayPublicKey,
+                    "UTF-8", "RSA2");
+            logger.debug("signVerified...");
+            System.out.println("signVerified...");
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+        //4.对验签进行处理
+        if (signVerified) {    //验签通过
+            if (tradeStatus.equals("TRADE_SUCCESS")) {    //只处理支付成功的订单: 修改交易表状态,支付成功
+                Order order = appCourseService.findOrder(out_trade_no);// 根据订单号号查询
+                Integer orderStatus = order.gettOrderStatus();
+                System.out.println("orderStatus:"+orderStatus);
+                if (orderStatus!=2) {// 订单未支付状态
+                    appCourseService.updateWxOrderStatus(out_trade_no, order, request);// 修改订单状态
+                }
+                int s = this.payBack(out_trade_no);//根据订单编号去查询更改其数据订单格式
+                if (s > 0) {
+                    return order.gettCourseGuid();
+                } else {
+                    return "fail";
+                }
+            } else {
+                return "fail";
+            }
+        } else {  //验签不通过
+            System.err.println("验签失败");
+            return "fail";
+        }
+    }
+
+    @Transactional
+    public int payBack(String notifyData) {
+        try {
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
     }
 }

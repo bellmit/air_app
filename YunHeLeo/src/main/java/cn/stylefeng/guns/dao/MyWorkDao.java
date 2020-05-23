@@ -124,7 +124,7 @@ public interface MyWorkDao {
             "cp.`t_study_date`,cp.`t_activate_date`," +
             "c.`row_guid` courseRowguid, c.`t_course_name`,c.t_class_type_id \n" +
             "FROM tb_course c LEFT JOIN tb_course_package cp ON FIND_IN_SET(cp.`row_guid`,c.`course_package_id`)\n" +
-            "WHERE c.`row_guid`=#{courseGuid}")
+            "WHERE c.`row_guid`=#{courseGuid} AND cp.t_status=1")
     @Results({
             @Result(column = "t_course_name", property = "tCourseName"),
             @Result(column = "packageRowguid", property = "packageRowguid"),
@@ -176,8 +176,8 @@ public interface MyWorkDao {
             @Result(column = "package_rowguid", property = "packageRowguid"),
             @Result(column = "stageRowguid", property = "stageRowguid"),
             @Result(column = "t_price", property = "price"),
-            @Result(column = "t_activate_date", property = "t_activate_date"),
-            @Result(column = "t_study_date", property = "t_study_date"),
+            @Result(column = "t_activate_date", property = "activateDate"),
+            @Result(column = "t_study_date", property = "studyDate"),
             @Result(column = "t_name", property = "packageName")
     })
     CoursePackageResponse findMyCoursePackageStage(@Param("rowguid") String rowguid);

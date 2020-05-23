@@ -8,6 +8,7 @@ import cn.stylefeng.guns.pojos.*;
 import cn.stylefeng.guns.utils.HttpClient;
 import cn.stylefeng.guns.utils.IdWorker;
 import cn.stylefeng.guns.utils.TimeUtils;
+import cn.stylefeng.guns.utils.VideoUtil;
 import cn.stylefeng.guns.vo.ClassLinkVo;
 import cn.stylefeng.guns.vo.WorkResponse;
 //import cn.stylefeng.roses.core.util.MD5Util;
@@ -23,6 +24,9 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.response.AlipayDataDataserviceBillDingstaffbizorderQueryResponse;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
 import com.github.pagehelper.PageHelper;
 import com.github.wxpay.sdk.WXPayUtil;
 
@@ -194,12 +198,12 @@ public class AppCourseService {
      * @param type
      * @return
      */
-    public List<CourseAll> courseNew(int page, int size, int type) {
+    public List<CourseList> courseNew(int page, int size, int type) {
         // 判断班型 0免费 1长期 2短期
         if (type == 0 || type == 1 || type == 2) {
             PageHelper.startPage(page, size);
-            List<CourseAll> courseAlls = courseAllDao.courseNew(type);
-            for (CourseAll courseAll : courseAlls) {
+            List<CourseList> courseAlls = courseAllDao.courseNew(type);
+            for (CourseList courseAll : courseAlls) {
                 //Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
                 Integer classCount = 0;
                 if (courseAll.gettClassTypeId() == 1) {
@@ -228,15 +232,12 @@ public class AppCourseService {
                 } else {
                     courseAll.setStageCount(stageCount);
                 }
-                if (courseAll.getCourseCount() == null) {
-                    courseAll.setCourseCount(0);
-                }
             }
             return courseAlls;
         } else { // 课程类别id查询
             PageHelper.startPage(page, size);
-            List<CourseAll> courseAlls = courseAllDao.courseType(type);
-            for (CourseAll courseAll : courseAlls) {
+            List<CourseList> courseAlls = courseAllDao.courseType(type);
+            for (CourseList courseAll : courseAlls) {
                 Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
                 Integer classCount = 0;
                 if (courseAll.gettClassTypeId() == 1) {
@@ -248,9 +249,6 @@ public class AppCourseService {
                 Integer stageCount = courseAllDao.findStageCount(courseAll.getRowGuid());
                 if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
-                }
-                if (courseAll.getCourseCount() == null) {
-                    courseAll.setCourseCount(0);
                 }
                 if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
@@ -281,12 +279,12 @@ public class AppCourseService {
      * @param type
      * @return
      */
-    public List<CourseAll> courseShowStageNew(int page, int size, int type, Integer showStageId) {
+    public List<CourseList> courseShowStageNew(int page, int size, int type, Integer showStageId) {
         // 判断班型 0免费 1长期 2短期
         if (type == 0 || type == 1 || type == 2) {
             PageHelper.startPage(page, size);
-            List<CourseAll> courseAlls = courseAllDao.courseShowStageNew(type, showStageId);
-            for (CourseAll courseAll : courseAlls) {
+            List<CourseList> courseAlls = courseAllDao.courseShowStageNew(type, showStageId);
+            for (CourseList courseAll : courseAlls) {
                 //Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
                 Integer classCount = 0;
                 if (courseAll.gettClassTypeId() == 1) {
@@ -315,15 +313,12 @@ public class AppCourseService {
                 } else {
                     courseAll.setStageCount(stageCount);
                 }
-                if (courseAll.getCourseCount() == null) {
-                    courseAll.setCourseCount(0);
-                }
             }
             return courseAlls;
         } else { // 课程类别id查询
             PageHelper.startPage(page, size);
-            List<CourseAll> courseAlls = courseAllDao.courseShowStageType(type, showStageId);
-            for (CourseAll courseAll : courseAlls) {
+            List<CourseList> courseAlls = courseAllDao.courseShowStageType(type, showStageId);
+            for (CourseList courseAll : courseAlls) {
                 Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
                 Integer classCount = 0;
                 if (courseAll.gettClassTypeId() == 1) {
@@ -336,9 +331,6 @@ public class AppCourseService {
                 Integer stageCount = courseAllDao.findStageCount(courseAll.getRowGuid());
                 if (courseAll.gettPrice() == null) {
                     courseAll.settPrice(0.00);
-                }
-                if (courseAll.getCourseCount() == null) {
-                    courseAll.setCourseCount(0);
                 }
                 if (courseAll.gettLearnCount() == null) {
                     courseAll.settLearnCount(0);
@@ -369,12 +361,12 @@ public class AppCourseService {
      * @param type
      * @return
      */
-    public List<CourseAll> courseHot(int page, int size, int type) {
+    public List<CourseList> courseHot(int page, int size, int type) {
         // 判断班型 0免费 1长期 2短期
         if (type == 0 || type == 1 || type == 2) {
             PageHelper.startPage(page, size);
-            List<CourseAll> courseAlls = courseAllDao.courseHot(type);
-            for (CourseAll courseAll : courseAlls) {
+            List<CourseList> courseAlls = courseAllDao.courseHot(type);
+            for (CourseList courseAll : courseAlls) {
                 Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
                 Integer classCount = 0;
                 if (courseAll.gettClassTypeId() == 1) {
@@ -403,16 +395,13 @@ public class AppCourseService {
                     courseAll.setStageCount(0);
                 } else {
                     courseAll.setStageCount(stageCount);
-                }
-                if (courseAll.getCourseCount() == null) {
-                    courseAll.setCourseCount(0);
                 }
             }
             return courseAlls;
         } else {
             PageHelper.startPage(page, size);
-            List<CourseAll> courseAlls = courseAllDao.courseTypeHot(type);
-            for (CourseAll courseAll : courseAlls) {
+            List<CourseList> courseAlls = courseAllDao.courseTypeHot(type);
+            for (CourseList courseAll : courseAlls) {
                 Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
                 Integer classCount = 0;
                 if (courseAll.gettClassTypeId() == 1) {
@@ -441,9 +430,6 @@ public class AppCourseService {
                     courseAll.setStageCount(0);
                 } else {
                     courseAll.setStageCount(stageCount);
-                }
-                if (courseAll.getCourseCount() == null) {
-                    courseAll.setCourseCount(0);
                 }
             }
             return courseAlls;
@@ -504,12 +490,12 @@ public class AppCourseService {
         }
     }
 
-    public List<CourseAll> courseStageHot(int page, int size, int type, Integer stageId) {
+    public List<CourseList> courseStageHot(int page, int size, int type, Integer stageId) {
         // 判断班型 0免费 1长期 2短期
         if (type == 0 || type == 1 || type == 2) {
             PageHelper.startPage(page, size);
-            List<CourseAll> courseAlls = courseAllDao.courseStageHot(type, stageId);
-            for (CourseAll courseAll : courseAlls) {
+            List<CourseList> courseAlls = courseAllDao.courseStageHot(type, stageId);
+            for (CourseList courseAll : courseAlls) {
                 Integer classCount = 0;
                 if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
@@ -531,8 +517,8 @@ public class AppCourseService {
             return courseAlls;
         } else {
             PageHelper.startPage(page, size);
-            List<CourseAll> courseAlls = courseAllDao.courseStageTypeHot(type, stageId);
-            for (CourseAll courseAll : courseAlls) {
+            List<CourseList> courseAlls = courseAllDao.courseStageTypeHot(type, stageId);
+            for (CourseList courseAll : courseAlls) {
                 Integer classCount = 0;
                 if (courseAll.gettClassTypeId() == 1) {
                     classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
@@ -684,7 +670,7 @@ public class AppCourseService {
             Integer stageClassCount = stageClassDao.findStageClassCount(stageClass.getStageRowGuid());
             stageClass.setStageClassCount(stageClassCount);
             Integer buyCourseCount = courseAllDao.findBuyCourseCount(RowGuid);
-            Integer classCount = courseAllDao.findClassCount(RowGuid);
+            //Integer classCount = courseAllDao.findClassCount(RowGuid);
             stageClass.setStudyClassCount(classStudyCount);// 当前课程下已学习课节数量
             if (stageClass.gettIstest() == null) {
                 stageClass.settIstest(0);
@@ -694,10 +680,10 @@ public class AppCourseService {
             } else {
                 stageClass.setBuyCount(buyCourseCount);
             }
-            if (classCount == null) {
+            if (stageClassCount == null) {
                 stageClass.setClassCount(0);
             } else {
-                stageClass.setClassCount(classTotalCount);
+                stageClass.setClassCount(stageClassCount);
             }
             if (stageClass.getBuyCount() == null) {
                 stageClass.setBuyCount(0);
@@ -717,7 +703,10 @@ public class AppCourseService {
                 }
                 for (StageClass1Node child : children) {
                     System.out.println(child);
-                    if (child.getClassRowGuid().equals(classRowGuid))
+                    if (classRowGuid==null) {
+                        child.setList(classLinkStatus);
+                    }
+                    else if (classRowGuid.equals(child.getClassRowGuid()))
                         child.setList(classLinkStatus);
                     for (ClassLinkVo classLinkVo : classLinkStatus) {
                         if (classLinkVo.gettLinkName().equals("作品")) {
@@ -1453,9 +1442,14 @@ public class AppCourseService {
      * @return
      */
     public String payNotify(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("支付宝支付成功后回调...");
+        System.out.println("支付宝支付成功后回调...");
         Map<String, String> params = new HashMap<String, String>();
+        System.out.println("params...");
         //1.从支付宝回调的request域中取值
         Map<String, String[]> requestParams = request.getParameterMap();
+        logger.debug("requestParams...");
+        System.out.println("requestParams...");
         for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
             String name = iter.next();
             String[] values = requestParams.get(name);
@@ -1482,6 +1476,8 @@ public class AppCourseService {
             //3.1调用SDK验证签名
             signVerified = AlipaySignature.rsaCheckV1(params, alipayPublicKey,
                     "UTF-8", "RSA2");
+            logger.debug("signVerified...");
+            System.out.println("signVerified...");
         } catch (AlipayApiException e) {
             e.printStackTrace();
         }
@@ -1489,9 +1485,11 @@ public class AppCourseService {
         if (signVerified) {    //验签通过
             if (tradeStatus.equals("TRADE_SUCCESS")) {    //只处理支付成功的订单: 修改交易表状态,支付成功
                 Order order = this.findOrder(out_trade_no);// 根据订单号号查询
-                if (order.gettOrderStatus()!=2) {// 订单未支付状态
+                Integer orderStatus = order.gettOrderStatus();
+                System.out.println("orderStatus:"+orderStatus);
+                //if (orderStatus!=2) {// 订单未支付状态
                     this.updateWxOrderStatus(out_trade_no, order, request);// 修改订单状态
-                }
+                //}
                 int s = this.payBack(out_trade_no);//根据订单编号去查询更改其数据订单格式
                 if (s > 0) {
                     return order.gettCourseGuid();
@@ -1546,6 +1544,14 @@ public class AppCourseService {
         for (MyOrderResponse myOrderResponse : orderAll) {
             String orderRowguid = myOrderResponse.getOrderRowguid();
             MyOrderResponse orderCourseInfo = myOrderResponseDao.findOrderCourseInfo(orderRowguid);
+            if (orderCourseInfo==null) {
+                myOrderResponse.setOrderCourseName("课程已删除！");
+                myOrderResponse.setOrderClassType("课程已删除！");
+                myOrderResponse.setOrderCourseType("课程已删除");
+                myOrderResponse.setOrderCourseRowguid("课程已删除");
+                myOrderResponse.setImgUrl("课程已删除");
+                continue;
+            }
             myOrderResponse.setOrderCourseName(orderCourseInfo.getOrderCourseName());
             myOrderResponse.setOrderClassType(orderCourseInfo.getOrderClassType());
             myOrderResponse.setOrderCourseType(orderCourseInfo.getOrderCourseType());
@@ -1593,53 +1599,61 @@ public class AppCourseService {
         // 查询订单信息
         MyOrderResponse orderAllRowguid = myOrderResponseDao.findOrderAllRowguid(orderNoRowGuid);
         MyOrderResponse orderCourseInfo = myOrderResponseDao.findOrderNoCourseInfo(orderNoRowGuid);
-        orderAllRowguid.setOrderCourseName(orderCourseInfo.getOrderCourseName());
-        orderAllRowguid.setImgUrl(orderCourseInfo.getImgUrl());
-        orderAllRowguid.setOrderClassType(orderCourseInfo.getOrderClassType());
-        orderAllRowguid.setOrderCourseRowguid(orderCourseInfo.getOrderCourseRowguid());
-        orderAllRowguid.setOrderCourseType(orderCourseInfo.getOrderCourseType());
-        orderAllRowguid.setOrderClassTypeId(orderCourseInfo.getOrderClassTypeId());
+        if (orderCourseInfo!=null) {
+            orderAllRowguid.setOrderCourseName(orderCourseInfo.getOrderCourseName());
+            orderAllRowguid.setImgUrl(orderCourseInfo.getImgUrl());
+            orderAllRowguid.setOrderClassType(orderCourseInfo.getOrderClassType());
+            orderAllRowguid.setOrderCourseRowguid(orderCourseInfo.getOrderCourseRowguid());
+            orderAllRowguid.setOrderCourseType(orderCourseInfo.getOrderCourseType());
+            orderAllRowguid.setOrderClassTypeId(orderCourseInfo.getOrderClassTypeId());
 
-        MyOrderResponse courseTimeTable =
-                myOrderResponseDao.isCourseTimeTable(orderCourseInfo.getOrderCourseRowguid(), orderAllRowguid.getOrderUserGuid());
-        if (courseTimeTable == null) { // 未加入课表
-            orderAllRowguid.setIsTimeTable(false);
-        } else {
-            orderAllRowguid.setIsTimeTable(true);
-        }
-
-        if (orderAllRowguid.getOrderPayWay().equals("微信")) {
-            orderAllRowguid.setOrderPayWay("wx");
-        } else if (orderAllRowguid.getOrderPayWay().equals("支付宝")) {
-            orderAllRowguid.setOrderPayWay("zfb");
-        }
-
-        Map<String, Object> map = new HashMap<>();
-        List list = new ArrayList();
-        String order_package_rowguid = "";
-        if (orderCourseInfo.getOrderClassTypeId() == 1) { // 长期班
-            List<MyOrderResponse> coursePackageInfo = myOrderResponseDao.findOrderNoCoursePackageInfo(orderNoRowGuid);
-            for (MyOrderResponse orderResponse : coursePackageInfo) {
-                MyOrderPackageList myOrderPackageList = new MyOrderPackageList();
-                String orderPackageRowguid = orderResponse.getOrderPackageRowguid();
-                order_package_rowguid += orderPackageRowguid + " ";
-                Double orderPackagePrice = orderResponse.getOrderPackagePrice();
-                String orderPackageName = orderResponse.getOrderPackageName();
-
-                MyOrderResponse coursePackageStageInfo = myOrderResponseDao.findCoursePackageStageInfo(orderPackageRowguid);
-                String orderStageName = coursePackageStageInfo.getOrderStageName();
-
-                myOrderPackageList.setPackagePrice(orderPackagePrice);
-                myOrderPackageList.setPackageRowguid(orderPackageRowguid);
-                myOrderPackageList.setPackageStageName(orderStageName);
-                myOrderPackageList.setActivateDate(orderResponse.getActivateDate());
-                myOrderPackageList.setStudyDate(orderResponse.getStudyDate());
-                myOrderPackageList.setPackageName(orderPackageName);
-
-                list.add(myOrderPackageList);
+            MyOrderResponse courseTimeTable =
+                    myOrderResponseDao.isCourseTimeTable(orderCourseInfo.getOrderCourseRowguid(), orderAllRowguid.getOrderUserGuid());
+            if (courseTimeTable == null) { // 未加入课表
+                orderAllRowguid.setIsTimeTable(false);
+            } else {
+                orderAllRowguid.setIsTimeTable(true);
             }
+
+            if (orderAllRowguid.getOrderPayWay().equals("微信")) {
+                orderAllRowguid.setOrderPayWay("wx");
+            } else if (orderAllRowguid.getOrderPayWay().equals("支付宝")) {
+                orderAllRowguid.setOrderPayWay("zfb");
+            }
+
+            Map<String, Object> map = new HashMap<>();
+            List list = new ArrayList();
+            String order_package_rowguid = "";
+            if (orderCourseInfo.getOrderClassTypeId() == 1) { // 长期班
+                List<MyOrderResponse> coursePackageInfo = myOrderResponseDao.findOrderNoCoursePackageInfo(orderNoRowGuid);
+                for (MyOrderResponse orderResponse : coursePackageInfo) {
+                    MyOrderPackageList myOrderPackageList = new MyOrderPackageList();
+                    String orderPackageRowguid = orderResponse.getOrderPackageRowguid();
+                    order_package_rowguid += orderPackageRowguid + " ";
+                    Double orderPackagePrice = orderResponse.getOrderPackagePrice();
+                    String orderPackageName = orderResponse.getOrderPackageName();
+
+                    MyOrderResponse coursePackageStageInfo = myOrderResponseDao.findCoursePackageStageInfo(orderPackageRowguid);
+                    String orderStageName = coursePackageStageInfo.getOrderStageName();
+
+                    myOrderPackageList.setPackagePrice(orderPackagePrice);
+                    myOrderPackageList.setPackageRowguid(orderPackageRowguid);
+                    myOrderPackageList.setPackageStageName(orderStageName);
+                    myOrderPackageList.setActivateDate(orderResponse.getActivateDate());
+                    myOrderPackageList.setStudyDate(orderResponse.getStudyDate());
+                    myOrderPackageList.setPackageName(orderPackageName);
+
+                    list.add(myOrderPackageList);
+                }
+            }
+            orderAllRowguid.setPackageList(list);
+        } else {
+            orderAllRowguid.setOrderCourseName("课程不存在");
+            orderAllRowguid.setImgUrl("课程不存在");
+            orderAllRowguid.setOrderClassType("课程不存在");
+            orderAllRowguid.setOrderCourseRowguid("课程不存在");
+            orderAllRowguid.setOrderCourseType("课程不存在");
         }
-        orderAllRowguid.setPackageList(list);
         return orderAllRowguid;
     }
 
@@ -1871,9 +1885,9 @@ public class AppCourseService {
         // 如果是免费班或短期班，加入课表
         Course course = courseDao.findById(courseguid);
         Integer gettClassTypeId = course.gettClassTypeId();
-        String stageId = course.getStageId();
-        String[] stage_id = stageId.split(",");
         if (gettClassTypeId == 1) { // 长期班
+            String stageId = course.getStageId();
+            String[] stage_id = stageId.split(",");
             List<CoursePackageUser> userGuid = coursePackageUserDao.findByPackageUserGuid(rowguid, courseguid, packagguid);
             for (CoursePackageUser coursePackageUser : userGuid) {
                 if (coursePackageUser.gettStatus() != 0) { // 未激活
@@ -1883,12 +1897,6 @@ public class AppCourseService {
                     coursePackageUser.setUserGuid(rowguid);// 用户id
                     coursePackageUser.settPackageGuid(coursePackageUser.gettPackageGuid());
                     coursePackageUserDao.updateByRowGuid(coursePackageUser);
-                    // 加入课表
-                    Timetable timetable = new Timetable();
-                    timetable.setRowGuid(idWorker.nextId() + "");
-                    timetable.setUserGuid(rowguid);
-                    timetable.settCourseGuid(courseguid);
-                    timetable.settPackageGuid(coursePackageUser.gettPackageGuid());
 
                     Calendar cal = Calendar.getInstance();
                     int weekI = cal.get(Calendar.DAY_OF_WEEK);
@@ -1905,67 +1913,70 @@ public class AppCourseService {
                         for (String sid : stage_id) {
                             Stage stage = stageDao.findById(sid);
                             String classId = stage.gettClassId();
-                            String[] cid = classId.split(",");
-                            for (String s : cid) {
-                                // 保存课节id
-                                timetable.settClassId(s);
-                                System.out.println(new DateTime(aLong).toString("yyyy-MM-dd HH:mm:ss"));
-                                stime = new Date(aLong);
-                                dateFormat.format(stime);
-                                timetable.settCreateDate(stime);
-                                timetable.settWeeks(week);
+                            if (classId!=null) {
+                                // 加入课表
+                                Timetable timetable = new Timetable();
+                                timetable.setRowGuid(idWorker.nextId() + "");
+                                timetable.setUserGuid(rowguid);
+                                timetable.settCourseGuid(courseguid);
+                                timetable.settPackageGuid(coursePackageUser.gettPackageGuid());
+                                String[] cid = classId.split(",");
+                                for (String s : cid) {
+                                    // 保存课节id
+                                    timetable.settClassId(s);
+                                    System.out.println(new DateTime(aLong).toString("yyyy-MM-dd HH:mm:ss"));
+                                    stime = new Date(aLong);
+                                    dateFormat.format(stime);
+                                    timetable.settCreateDate(stime);
+                                    timetable.settWeeks(week);
 
 //                                SimpleDateFormat w = new SimpleDateFormat("EEEE");
 //                                String format = w.format(calendar.getCalendarType());
-                                // 保存到课表
-                                timetableDao.insert(timetable);
+                                    // 保存到课表
+                                    timetableDao.insert(timetable);
 
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.setTime(stime);
-                                calendar.add(Calendar.DATE, 7);
-                                stime = calendar.getTime();
-                                String st = dateFormat.format(stime);
-                                // 转时间戳
-                                aLong = dateFormat.parse(st, new ParsePosition(0)).getTime();
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTime(stime);
+                                    calendar.add(Calendar.DATE, 7);
+                                    stime = calendar.getTime();
+                                    String st = dateFormat.format(stime);
+                                    // 转时间戳
+                                    aLong = dateFormat.parse(st, new ParsePosition(0)).getTime();
 //                            stime = new Date(aLong);
 //                            dateFormat.format(stime);
-                                String format = Week.format(stime);
-                                switch (format) {
-                                    case "星期一":
-                                        week = 1;
-                                        break;
-                                    case "星期二":
-                                        week = 2;
-                                        break;
-                                    case "星期三":
-                                        week = 3;
-                                        break;
-                                    case "星期四":
-                                        week = 4;
-                                        break;
-                                    case "星期五":
-                                        week = 5;
-                                        break;
-                                    case "星期六":
-                                        week = 6;
-                                        break;
-                                    case "星期日":
-                                        week = 7;
-                                        break;
+                                    String format = Week.format(stime);
+                                    switch (format) {
+                                        case "星期一":
+                                            week = 1;
+                                            break;
+                                        case "星期二":
+                                            week = 2;
+                                            break;
+                                        case "星期三":
+                                            week = 3;
+                                            break;
+                                        case "星期四":
+                                            week = 4;
+                                            break;
+                                        case "星期五":
+                                            week = 5;
+                                            break;
+                                        case "星期六":
+                                            week = 6;
+                                            break;
+                                        case "星期日":
+                                            week = 7;
+                                            break;
+                                    }
+                                    System.out.println(format);
+                                    weekIndex.set(0, aLong);
                                 }
-                                System.out.println(format);
-                                weekIndex.set(0, aLong);
                             }
                         }
                     }
                 }
             }
         } else { // 免费班 and 短期班
-            // 加入课表
-            Timetable timetable = new Timetable();
-            timetable.setRowGuid(idWorker.nextId() + "");
-            timetable.setUserGuid(rowguid);
-            timetable.settCourseGuid(courseguid);
             // 学习时间
             //timetable.settCreateDate(date);
             SimpleDateFormat Week = new SimpleDateFormat("EEEE");
@@ -1976,52 +1987,60 @@ public class AppCourseService {
             List<Long> weekIndex = TimeUtils.getDateListByWeek(week, 1);
             for (Long aLong : weekIndex) {
                 String classId = course.getClassId();
-                String[] cid = classId.split(",");
+                if (classId!=null) {
+                    String[] cid = classId.split(",");
 
-                for (String s : cid) {
-                    stime = new Date(aLong);
-                    dateFormat.format(stime);
-                    // 保存课节id
-                    timetable.settClassId(s);
-                    timetable.settCreateDate(stime);
-                    timetable.settWeeks(week);
-                    timetableDao.insert(timetable);
+                    // 加入课表
+                    Timetable timetable = new Timetable();
+                    timetable.setRowGuid(idWorker.nextId() + "");
+                    timetable.setUserGuid(rowguid);
+                    timetable.settCourseGuid(courseguid);
 
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(stime);
-                    calendar.add(Calendar.DATE, 7);
-                    stime = calendar.getTime();
-                    String st = dateFormat.format(stime);
-                    // 转时间戳
-                    aLong = dateFormat.parse(st, new ParsePosition(0)).getTime();
+                    for (String s : cid) {
+                        stime = new Date(aLong);
+                        dateFormat.format(stime);
+                        // 保存课节id
+                        timetable.settClassId(s);
+                        timetable.settCreateDate(stime);
+                        timetable.settWeeks(week);
+                        timetableDao.insert(timetable);
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(stime);
+                        calendar.add(Calendar.DATE, 7);
+                        stime = calendar.getTime();
+                        String st = dateFormat.format(stime);
+                        // 转时间戳
+                        aLong = dateFormat.parse(st, new ParsePosition(0)).getTime();
 //                            stime = new Date(aLong);
 //                            dateFormat.format(stime);
-                    String format = Week.format(stime);
-                    switch (format) {
-                        case "星期一":
-                            week = 1;
-                            break;
-                        case "星期二":
-                            week = 2;
-                            break;
-                        case "星期三":
-                            week = 3;
-                            break;
-                        case "星期四":
-                            week = 4;
-                            break;
-                        case "星期五":
-                            week = 5;
-                            break;
-                        case "星期六":
-                            week = 6;
-                            break;
-                        case "星期日":
-                            week = 7;
-                            break;
+                        String format = Week.format(stime);
+                        switch (format) {
+                            case "星期一":
+                                week = 1;
+                                break;
+                            case "星期二":
+                                week = 2;
+                                break;
+                            case "星期三":
+                                week = 3;
+                                break;
+                            case "星期四":
+                                week = 4;
+                                break;
+                            case "星期五":
+                                week = 5;
+                                break;
+                            case "星期六":
+                                week = 6;
+                                break;
+                            case "星期日":
+                                week = 7;
+                                break;
+                        }
+                        System.out.println(format);
+                        weekIndex.set(0, aLong);
                     }
-                    System.out.println(format);
-                    weekIndex.set(0, aLong);
                 }
 
             }
@@ -2137,10 +2156,34 @@ public class AppCourseService {
         return timetableUser;
     }
 
-    public List<ClassLinkVo> findClassLink(String rowguid, HttpServletRequest request) {
+    public List<ClassLinkVo> findClassLink(String rowguid, HttpServletRequest request) throws ClientException {
         String userId = request.getHeader("token");
         List<ClassLinkVo> classLink = timetableDetailsDao.findClassLink(rowguid);
+
         for (ClassLinkVo classLinkVo : classLink) {
+
+            // -------------------------获取视频播放地址-------------------------------
+            DefaultAcsClient client = VideoUtil.initVodClient("LTAI4FgFCe1fEaUBL7fNSJnj",
+                    "IsvdGXmFh3Vwi3338b7mWchDqAt749");
+            GetPlayInfoResponse response = new GetPlayInfoResponse();
+            String playURL = "";
+            try {
+                response = VideoUtil.getPlayInfo(client, classLinkVo.getVideoId());
+                List<GetPlayInfoResponse.PlayInfo> playInfoList = response.getPlayInfoList();
+                //播放地址
+                for (GetPlayInfoResponse.PlayInfo playInfo : playInfoList) {
+                    System.out.print("PlayInfo.PlayURL = " + playInfo.getPlayURL() + "\n");
+                    playURL = playInfo.getPlayURL();
+                }
+                //Base信息
+                System.out.print("VideoBase.Title = " + response.getVideoBase().getTitle() + "\n");
+                classLinkVo.setVideoUrl(playURL);
+            } catch (Exception e) {
+                System.out.print("ErrorMessage = " + e.getLocalizedMessage());
+            }
+            System.out.print("RequestId = " + response.getRequestId() + "\n");
+            // -----------------------------------------------------------------------
+
             if (classLinkVo.gettLinkName().equals("作品")) {
                 classLinkVo.setType(3);
             } else if (classLinkVo.gettLinkName().equals("预习")) {
@@ -2184,7 +2227,7 @@ public class AppCourseService {
     @Value("${ali.pay.return-url}")
     private String returnUrl;
 
-    @Value("${ali.pay.notify-url}")
+    @Value("${aliyun.notifyurl}")
     private String notifyUrl;
 
     @Autowired
@@ -2202,9 +2245,62 @@ public class AppCourseService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         dateFormat.format(date);
+        Works link = new Works();
 
         // linkguid='1239881190442291200'
-        // 得到link_rowguid->获取课节rowguid->环节表 根据课节rowguid查环节表的rowguid-> 课程表 环节表的rowguid
+        // 课节rowguid-> 阶段表 查阶段id-> 课程表 环节表的rowguid
+        // 课节rowguid-> 课程表 环节表的rowguid
+        int i = 0;
+        Link byAll = linkDao.findById(linkguid);
+        String gettClassId = byAll.gettClassId();
+
+        List<Stage> stageAll = stageDao.findStageAll();
+        for (Stage stage : stageAll) {
+            String classId = stage.gettClassId();
+            if (classId!=null) {
+                String[] split = classId.split(",");
+                for (String cid : split) {
+                    if (cid.equals(gettClassId)) {
+                        i = 1;
+                        // 得到阶段id
+                        String stageRowGuid = stage.getRowGuid();
+                        // 根据阶段id获取课程id
+                        List<Course> all = courseDao.findAll();
+                        for (Course course : all) {
+                            String stageId = course.getStageId();
+                            if (stageId!=null) {
+                                String[] split_stage_id = stageId.split(",");
+                                for (String sta : split_stage_id) {
+                                    if (sta.equals(stageRowGuid)) {
+                                        courseguid = course.getRowGuid(); // 得到课程id
+                                        link.settCourseGuid(courseguid);// 课程rowguid
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        if (i==0) {
+            // 根据阶段id获取课程id
+            List<Course> all = courseDao.findAll();
+            for (Course course : all) {
+                String classId = course.getClassId();
+                if (classId!=null) {
+                    String[] split_class_id = classId.split(",");
+                    for (String sta : split_class_id) {
+                        if (sta.equals(gettClassId)) {
+                            courseguid = course.getRowGuid(); // 得到课程id
+                            link.settCourseGuid(courseguid);// 课程rowguid
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         // 日期格式化 当前日期
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -2213,7 +2309,7 @@ public class AppCourseService {
         // 可以上传多个作品 图片
         // 图片地址
         String userId = (String) request.getSession().getAttribute("row_guid");
-        Works link = new Works();
+
         link.settImgUrl("http://airffter.oss-cn-beijing.aliyuncs.com/" + url);// 图片地址
         link.setRowGuid(idWorker.nextId() + "");
         link.settWorksName("work_" + format);// 作品名称
@@ -2222,8 +2318,8 @@ public class AppCourseService {
         link.settWorksType("课程作品");
         link.settUploadDate(date);// 上传日期
         link.setLinkGuid(linkguid);// 环节roguid
-        link.settClassGuid(classguid);// 课节rowguid
-        link.settCourseGuid(courseguid);// 课程rowguid
+        link.settClassGuid(gettClassId);// 课节rowguid
+
         link.settUserGuid(userguid);// 上传的用户rowguid
         worksDao.insert(link);
 
@@ -2433,7 +2529,7 @@ public class AppCourseService {
 
     public List<CoursePackageResponse> findMyCoursePackage(String courseguid, HttpServletRequest request) {
         String userguid = request.getHeader("token");
-        // 查询某课程下所有课包
+        // 查询某课程下所有已发布的课包
         List<CoursePackageResponse> myCoursePackage = myWorkDao.findMyCoursePackageAll(courseguid);
         for (CoursePackageResponse coursePackageResponse : myCoursePackage) {
             // 得到课包rowguid 查询 课包状态、到期时间信息 - 查询课包所包含的阶段
@@ -2457,7 +2553,11 @@ public class AppCourseService {
             for (CoursePackageResponse packageResponse : stageRowguid) {
                 // 阶段的课节数
                 Integer classCount = myWorkDao.classCount(packageResponse.getStageRowguid());
-                count += classCount;
+                if (classCount==null){
+                    classCount=0;
+                } else {
+                    count += classCount;
+                }
             }
             coursePackageResponse.setClassCount(count);
         }

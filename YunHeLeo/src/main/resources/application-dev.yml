@@ -34,6 +34,9 @@ mybatis-plus:
     db-config:
       table-underline: true
 
+logging:
+  file: /home/YunheLeoApp.log
+
 aliyun:
   sms:
     accessKeyId: LTAI4FgFCe1fEaUBL7fNSJnj

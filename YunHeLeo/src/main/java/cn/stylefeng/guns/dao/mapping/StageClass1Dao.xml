@@ -32,7 +32,7 @@
         s.t_update_date StageUpdateDate
          FROM tb_course co LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid,co.stage_id) LEFT JOIN
          tb_class c ON FIND_IN_SET(c.id,s.t_class_id),tb_employee e WHERE co.row_guid=#{RowGuid}
-         AND s.t_update_man=e.id
+         AND s.t_update_man=e.id AND c.`t_status`=0
     </select>
 
 </mapper>

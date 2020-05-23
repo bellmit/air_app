@@ -10,7 +10,8 @@ import java.util.List;
 public interface TwoCodeDao {
 
     // -- 根据课程rowguid的客服id查询客服二维码
-    @Select("SELECT e.`t_img_url` imgUrl FROM tb_course c, `tb_employee` e WHERE e.id=c.`t_service_id` AND c.row_guid=#{rowguid}")
+    @Select("SELECT e.`t_img_url` imgUrl FROM tb_course c, `tb_employee` e " +
+            "WHERE e.id=c.`t_service_id` AND c.row_guid=#{rowguid}")
     TwoCode findImgUrl(@Param("rowguid") String rowguid);
 
     @Select("SELECT c.`row_guid`, c.t_name, c.`t_img_url` FROM tb_class c WHERE c.`row_guid`=#{rowguid}")

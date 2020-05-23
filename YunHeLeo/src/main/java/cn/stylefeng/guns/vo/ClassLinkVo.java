@@ -13,6 +13,15 @@ public class ClassLinkVo {
     private String videoUrl;
     private Integer type;
     private Integer studyStatus;
+    private String videoId;
+
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
 
     public String getLinkRowGuid() {
         return linkRowGuid;

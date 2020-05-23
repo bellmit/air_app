@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.dao;
 
 import cn.stylefeng.guns.pojo.Course;
+import cn.stylefeng.guns.pojo.CourseList;
 import cn.stylefeng.guns.pojos.CourseAll;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
@@ -142,7 +143,7 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
             @Result(column = "t_class_type_id", property = "tClassTypeId"),
             @Result(column = "t_class_name", property = "tClassName")
     })
-    List<CourseAll> courseNew(@Param("type") int type);
+    List<CourseList> courseNew(@Param("type") int type);
 
     /**
      * 班型+最新 [根据用户选择的阶段]
@@ -166,7 +167,7 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
             @Result(column = "t_img_url", property = "tImgUrl"),
             @Result(column = "t_class_name", property = "tClassName")
     })
-    List<CourseAll> courseShowStageNew(@Param("type") int type, @Param("showStageId") Integer showStageId);
+    List<CourseList> courseShowStageNew(@Param("type") int type, @Param("showStageId") Integer showStageId);
 
     /**
      * 班型+最热
@@ -190,31 +191,56 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
             @Result(column = "t_img_url", property = "tImgUrl"),
             @Result(column = "t_class_name", property = "tClassName")
     })
-    List<CourseAll> courseHot(@Param("type") int type);
+    List<CourseList> courseHot(@Param("type") int type);
 
     /**
      * 课程类别id查询 最新
      * @param type
      * @return
      */
-    @Select("SELECT c.row_guid, c.id, c.t_course_name,c.t_course_num, c.t_price, c.t_class_type_id, c.t_learn_count, c.t_img_url, " +
-            "t.t_type_name\n" +
-            "FROM tb_course c,tb_type t\n" +
-            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 AND c.t_level=#{showStageId}\n" +
+    @Select("SELECT c.row_guid, c.id, c.t_course_name,c.t_course_num, c.t_price, c.t_class_type_id, " +
+            "c.t_learn_count, c.t_img_url, " +
+            "t.t_type_name, ct.t_class_name\n" +
+            "FROM tb_course c,tb_type t, tb_course_type ct\n" +
+            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 AND ct.id=c.t_class_type_id " +
+            "AND c.t_level=#{showStageId}\n" +
             "ORDER BY c.t_update_date DESC")
-    List<CourseAll> courseShowStageType(@Param("type") int type, @Param("showStageId") Integer showStageId);
+    @Results({
+            @Result(column = "row_guid", property = "rowGuid"),
+            @Result(column = "t_course_num", property = "tCourseNum"),
+            @Result(column = "t_course_name", property = "tCourseName"),
+            @Result(column = "t_price", property = "tPrice"),
+            @Result(column = "t_update_date", property = "tUpdateDate"),
+            @Result(column = "t_type_name", property = "tTypeName"),
+            @Result(column = "t_learn_count", property = "tLearnCount"),
+            @Result(column = "t_img_url", property = "tImgUrl"),
+            @Result(column = "t_class_name", property = "tClassName")
+    })
+    List<CourseList> courseShowStageType(@Param("type") int type, @Param("showStageId") Integer showStageId);
 
     /**
      * 课程类别id查询 最新
      * @param type
      * @return
      */
-    @Select("SELECT c.row_guid, c.id, c.t_course_name,c.t_course_num, c.t_price, c.t_class_type_id, c.t_learn_count, c.t_img_url, " +
-            "t.t_type_name\n" +
-            "FROM tb_course c,tb_type t\n" +
-            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0\n" +
+    @Select("SELECT c.row_guid, c.id, c.t_course_name,c.t_course_num, c.t_price, c.t_class_type_id, " +
+            "c.t_learn_count, c.t_img_url, " +
+            "t.t_type_name, ct.t_class_name\n" +
+            "FROM tb_course c, tb_type t, tb_course_type ct\n" +
+            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 AND ct.id=c.t_class_type_id \n" +
             "ORDER BY c.t_update_date DESC")
-    List<CourseAll> courseType(@Param("type") int type);
+    @Results({
+            @Result(column = "row_guid", property = "rowGuid"),
+            @Result(column = "t_course_num", property = "tCourseNum"),
+            @Result(column = "t_course_name", property = "tCourseName"),
+            @Result(column = "t_price", property = "tPrice"),
+            @Result(column = "t_update_date", property = "tUpdateDate"),
+            @Result(column = "t_type_name", property = "tTypeName"),
+            @Result(column = "t_learn_count", property = "tLearnCount"),
+            @Result(column = "t_img_url", property = "tImgUrl"),
+            @Result(column = "t_class_name", property = "tClassName")
+    })
+    List<CourseList> courseType(@Param("type") int type);
 
     /**
      * 课程类别id 最热
@@ -222,11 +248,22 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
      * @return
      */
     @Select("SELECT c.row_guid, c.id, c.t_course_name,c.t_course_num, c.t_class_type_id, c.t_price, c.t_learn_count," +
-            " c.t_img_url, t.t_type_name\n" +
-            "FROM tb_course c,tb_type t\n" +
-            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0\n" +
+            " c.t_img_url, t.t_type_name, ct.t_class_name\n" +
+            "FROM tb_course c,tb_type t, tb_course_type ct\n" +
+            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 AND ct.id=c.t_class_type_id \n" +
             "ORDER BY c.t_order_no ASC")
-    List<CourseAll> courseTypeHot(@Param("type") int type);
+    @Results({
+            @Result(column = "row_guid", property = "rowGuid"),
+            @Result(column = "t_course_num", property = "tCourseNum"),
+            @Result(column = "t_course_name", property = "tCourseName"),
+            @Result(column = "t_price", property = "tPrice"),
+            @Result(column = "t_update_date", property = "tUpdateDate"),
+            @Result(column = "t_type_name", property = "tTypeName"),
+            @Result(column = "t_learn_count", property = "tLearnCount"),
+            @Result(column = "t_img_url", property = "tImgUrl"),
+            @Result(column = "t_class_name", property = "tClassName")
+    })
+    List<CourseList> courseTypeHot(@Param("type") int type);
 
     /**
      * 根据课程rowguid查询课程详情 基本信息
@@ -323,14 +360,36 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
             "FROM tb_course c,tb_type t, tb_course_type ct\n" +
             "WHERE c.t_course_type_id=t.id AND ct.id=c.t_class_type_id AND t_class_type_id=#{type} AND c.t_status=0 AND c.t_level=#{stageId} \n" +
             "ORDER BY c.t_order_no ASC")
-    List<CourseAll> courseStageHot(@Param("type") int type, @Param("stageId") Integer stageId);
+    @Results({
+            @Result(column = "row_guid", property = "rowGuid"),
+            @Result(column = "t_course_num", property = "tCourseNum"),
+            @Result(column = "t_course_name", property = "tCourseName"),
+            @Result(column = "t_price", property = "tPrice"),
+            @Result(column = "t_update_date", property = "tUpdateDate"),
+            @Result(column = "t_type_name", property = "tTypeName"),
+            @Result(column = "t_learn_count", property = "tLearnCount"),
+            @Result(column = "t_img_url", property = "tImgUrl"),
+            @Result(column = "t_class_name", property = "tClassName")
+    })
+    List<CourseList> courseStageHot(@Param("type") int type, @Param("stageId") Integer stageId);
 
     @Select("SELECT c.row_guid, c.id, c.t_course_name,c.t_course_num, c.t_class_type_id, c.t_price, c.t_learn_count,\n" +
-            " c.t_img_url, t.t_type_name\n" +
-            "FROM tb_course c,tb_type t\n" +
-            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 AND c.t_level=#{stageId} \n" +
+            " c.t_img_url, t.t_type_name, ct.t_class_name\n" +
+            "FROM tb_course c,tb_type t, tb_course_type ct\n" +
+            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 AND c.t_level=#{stageId} AND ct.id=c.t_class_type_id \n" +
             "ORDER BY c.t_order_no ASC")
-    List<CourseAll> courseStageTypeHot(@Param("type") int type, @Param("stageId") Integer stageId);
+    @Results({
+            @Result(column = "row_guid", property = "rowGuid"),
+            @Result(column = "t_course_num", property = "tCourseNum"),
+            @Result(column = "t_course_name", property = "tCourseName"),
+            @Result(column = "t_price", property = "tPrice"),
+            @Result(column = "t_update_date", property = "tUpdateDate"),
+            @Result(column = "t_type_name", property = "tTypeName"),
+            @Result(column = "t_learn_count", property = "tLearnCount"),
+            @Result(column = "t_img_url", property = "tImgUrl"),
+            @Result(column = "t_class_name", property = "tClassName")
+    })
+    List<CourseList> courseStageTypeHot(@Param("type") int type, @Param("stageId") Integer stageId);
 
     @Select("SELECT COUNT(cu.t_course_guid) FROM tb_course_user cu WHERE cu.t_course_guid=#{rowGuid} GROUP BY cu.t_course_guid")
     Integer findBuyCourseCount(@Param("rowGuid") String rowGuid);

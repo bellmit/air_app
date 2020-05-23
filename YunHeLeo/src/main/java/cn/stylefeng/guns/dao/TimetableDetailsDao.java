@@ -43,14 +43,17 @@ public interface TimetableDetailsDao {
      * 根据课节rowguid查询环节
      * @return
      */
-    @Select("SELECT l.row_guid LinkRowGuid, l.t_link_name LinkName, cl.t_name ClassName, l.t_video_url VideoUrl, l.study_status\n" +
+    @Select("SELECT l.row_guid LinkRowGuid, l.t_link_name LinkName,cl.row_guid classRowguid, cl.t_name ClassName, " +
+            "l.t_video_url VideoUrl, l.t_video_id, l.study_status\n" +
             "FROM tb_class cl, tb_link l WHERE cl.row_guid=l.t_class_id AND cl.row_guid=#{rowGuid}")
     @Results({
             @Result(column = "LinkRowGuid", property = "linkRowGuid"),
             @Result(column = "LinkName", property = "tLinkName"),
+            @Result(column = "classRowguid", property = "classRowGuid"),
             @Result(column = "ClassName", property = "tClassName"),
             @Result(column = "study_status", property = "studyStatus"),
-            @Result(column = "VideoUrl", property = "videoUrl")
+            @Result(column = "VideoUrl", property = "videoUrl"),
+            @Result(column = "t_video_id", property = "videoId")
     })
     public List<ClassLinkVo> findClassLink(@Param("rowGuid") String rowGuid);
 
@@ -58,7 +61,8 @@ public interface TimetableDetailsDao {
      * 判断环节是否已学习
      */
     @Select("SELECT uls.`user_guid`,uls.`class_guid`,uls.`link_guid`\n" +
-            "FROM user_link_status uls WHERE uls.`user_guid`=#{userguid} AND uls.`link_guid`=#{linkguid}")
+            "FROM user_link_status uls WHERE uls.`user_guid`=#{userguid} " +
+            "AND uls.`link_guid`=#{linkguid} limit 1")
     UserLinkStatus findLinkStudyStatus(@Param("userguid") String userguid, @Param("linkguid") String linkguid);
 
     /**

@@ -2,12 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3126d109-63c1-486c-b36c-41d47e7999dc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CourseList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/utils/VideoUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/controller/AppCourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/controller/AppCourseController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/service/AppCourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/service/AppCourseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/config/ScheduledConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/config/ScheduledConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/AppOrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/AppOrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Img.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Img.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CourseAllDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CourseAllDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CourseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CourseDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/MyWorkDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/MyWorkDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/OrderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/StageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/StageDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TimetableDetailsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TimetableDetailsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TwoCodeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TwoCodeDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TypeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TypeDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/mapping/StageClass1Dao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/mapping/StageClass1Dao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/mapping/StageClassDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/mapping/StageClassDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/vo/ClassLinkVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/vo/ClassLinkVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -17,30 +33,26 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/YunHeLeo$YunHeApplication.ic" NAME="YunHeApplication Coverage Results" MODIFIED="1590219688289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/controller/AppCourseController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="553" column="44" selection-start-line="553" selection-start-column="44" selection-end-line="553" selection-end-column="44" />
+            <state relative-caret-position="488">
+              <caret line="608" column="42" lean-forward="true" selection-start-line="608" selection-start-column="42" selection-end-line="608" selection-end-column="42" />
               <folding>
-                <element signature="method#freeCourse#0;class#AppCourseController#0" />
-                <element signature="method#chargeCourse#0;class#AppCourseController#0" />
-                <element signature="method#search#0;class#AppCourseController#0" />
-                <element signature="method#course#0;class#AppCourseController#0" />
-                <element signature="method#courseStage#0;class#AppCourseController#0" />
-                <element signature="method#courseDetail#0;class#AppCourseController#0" />
-                <element signature="method#saveEvaluation#0;class#AppCourseController#0" />
-                <element signature="method#coursePackage#0;class#AppCourseController#0" />
-                <element signature="method#payOkSelect#0;class#AppCourseController#0" />
-                <element signature="method#myCourse#0;class#AppCourseController#0" />
-                <element signature="method#timetableUser#0;class#AppCourseController#0" />
-                <element signature="method#findClassLink#0;class#AppCourseController#0" />
-                <element signature="method#findType#0;class#AppCourseController#0" />
-                <element signature="method#goClass#0;class#AppCourseController#0" />
-                <element signature="method#uploadWork#0;class#AppCourseController#0" />
-                <element signature="method#findClassImage#0;class#AppCourseController#0" />
+                <element signature="e#1917#4872#0" />
+                <element signature="e#4937#7836#0" />
+                <element signature="e#8231#8647#0" />
+                <element signature="e#8653#12978#0" />
+                <element signature="e#12984#15187#0" />
+                <element signature="e#18112#18628#0" />
+                <element signature="e#18634#19761#0" />
+                <element signature="e#26699#27218#0" />
+                <element signature="e#33318#33682#0" />
               </folding>
             </state>
           </provider>
@@ -49,76 +61,89 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/service/AppCourseService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="1656" selection-start-line="1656" selection-end-line="1656" />
+            <state relative-caret-position="42940">
+              <caret line="2332" column="27" selection-start-line="2332" selection-start-column="27" selection-end-line="2332" selection-end-column="27" />
               <folding>
-                <element signature="e#71298#72705#1" />
+                <element signature="e#37297#37298#0" expanded="true" />
+                <element signature="e#37357#37358#0" expanded="true" />
+                <element signature="e#42101#42102#0" expanded="true" />
+                <element signature="e#42150#42151#0" expanded="true" />
+                <element signature="e#43156#43157#0" expanded="true" />
+                <element signature="e#43213#43214#0" expanded="true" />
+                <element signature="e#94511#94512#0" expanded="true" />
+                <element signature="e#94552#94553#0" expanded="true" />
+                <element signature="e#97537#97538#0" expanded="true" />
+                <element signature="e#97596#97597#0" expanded="true" />
+                <element signature="e#104052#104053#0" expanded="true" />
+                <element signature="e#104105#104106#0" expanded="true" />
+                <element signature="e#104169#104170#0" expanded="true" />
+                <element signature="e#104226#104227#0" expanded="true" />
+                <element signature="e#104289#104290#0" expanded="true" />
+                <element signature="e#104349#104350#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/config/ScheduledConfig.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TypeDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
+            <state relative-caret-position="817">
+              <caret line="48" column="24" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/AppOrderDao.java">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="32" column="112" selection-start-line="32" selection-start-column="112" selection-end-line="32" selection-end-column="112" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Order.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="89" column="37" selection-start-line="89" selection-start-column="37" selection-end-line="89" selection-end-column="37" />
+            <state relative-caret-position="46">
+              <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>完善</find>
-      <find>修改用户</find>
-      <find>course</find>
-      <find>tChildrenDate</find>
-      <find>上传作品</find>
-      <find>领取</find>
-      <find>课程详情</find>
-      <find>我的课程</find>
-      <find>上传</find>
-      <find>去</find>
-      <find>studyDateTime</find>
-      <find>去上课</find>
+      <find>t_class_name</find>
+      <find>select</find>
       <find>findMyCoursePackage</find>
-      <find>courseStage</find>
-      <find>addClas</find>
-      <find>jackson</find>
-      <find>fastjson</find>
-      <find>tLevel</find>
-      <find>二次支付</find>
-      <find>editCourseInfo</find>
-      <find>Reqest</find>
-      <find>RequestBody</find>
-      <find>my</find>
-      <find>lang</find>
-      <find>myb</find>
-      <find>提交</find>
-      <find>stageClassCount</find>
-      <find>mybatis</find>
+      <find>去上</find>
+      <find>courseDetail</find>
+      <find>环节</find>
+      <find>findClassLink</find>
+      <find>classRowGuid</find>
+      <find>课包</find>
       <find>myOrder</find>
-      <find>t_place_order_date</find>
+      <find>订单详情</find>
+      <find>Week</find>
+      <find>format</find>
+      <find>timetable</find>
+      <find>去上课</find>
+      <find>上传作品</find>
+      <find>课表</find>
+      <find>上传</find>
+      <find>提交</find>
+      <find>wx</find>
+      <find>alip</find>
+      <find>取消订单</find>
+      <find>我的课程</find>
+      <find>提交订单</find>
+      <find>我的课包</find>
+      <find>type</find>
+      <find>courseStage</find>
+      <find>findType</find>
+      <find>findLinkStudyStatus</find>
+      <find>selectByCourseInfo</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -131,17 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/vo/ClassLinkVo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/UserLinkStatus.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CoursePackageUser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/MyOrderPackageList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojos/UOCCP.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojos/AddressDetails.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/service/impl/OrderServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojos/AddressXz.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojos/Class1Dedails.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojos/ClassDedails.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojos/ClassDedailsResponse.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojos/CourseTypes.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojos/CourseTypesResponse.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojos/EmpWorks.java" />
@@ -167,21 +181,32 @@
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/YunHeApplication.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/controller/StudentController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/UserResquest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/OrderDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/controller/AppCourseController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CoursePackageResponse.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/MyWorkDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/service/impl/CourseServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Course.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/controller/CourseController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.yml" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/application-dev.yml" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Img.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/service/AppCourseService.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CourseList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TwoCodeDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/AppOrderDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/OrderDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/vo/ClassLinkVo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TimetableDetailsDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/config/ScheduledConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/StageDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CourseDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/LinkDao.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/src/main/resources/application-dev.yml" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/MyWorkDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CourseAllDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/service/AppCourseService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/mapping/StageClass1Dao.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/mapping/StageClassDao.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TypeDao.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/controller/AppCourseController.java" />
       </list>
     </option>
   </component>
@@ -216,10 +241,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="278" />
-    <option name="y" value="36" />
-    <option name="width" value="1660" />
-    <option name="height" value="984" />
+    <option name="x" value="270" />
+    <option name="y" value="11" />
+    <option name="width" value="1663" />
+    <option name="height" value="1055" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -227,8 +252,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -311,6 +336,11 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="YunHeLeo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="YunHeLeo" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -329,27 +359,29 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1589336288684" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1590232743154" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\baidu\Desktop\workspace\git_code\YunHeLeo\src\main\resources\cn.stylefeng.guns.dao" />
-      <recent name="C:\Users\baidu\Desktop\workspace\git_code\YunHeLeo\src\main\resources\cn\stylefeng\guns\dao" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="cn.stylefeng.guns.service.impl" />
-      <recent name="cn.stylefeng.guns.controller" />
-      <recent name="cn.stylefeng.guns.pojo" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\baidu\Desktop\workspace\git_code\YunHeLeo\src\main\java\cn\stylefeng" />
       <recent name="C:\Users\baidu\Desktop\workspace\git_code\YunHeLeo\src\main\java\cn\stylefeng\guns\app\service" />
       <recent name="C:\Users\baidu\Desktop\workspace\git_code\YunHeLeo\src\main\java\cn\stylefeng\guns" />
       <recent name="C:\Users\baidu\Desktop\workspace\git_code\YunHeLeo\src\main\java\cn\stylefeng\guns\app\controller" />
       <recent name="C:\Users\baidu\Desktop\workspace\git_code\YunHeLeo\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.stylefeng.guns.utils" />
+      <recent name="cn.stylefeng.guns.service.impl" />
+      <recent name="cn.stylefeng.guns.controller" />
+      <recent name="cn.stylefeng.guns.pojo" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\baidu\Desktop\workspace\git_code\YunHeLeo\src\main\resources\cn.stylefeng.guns.dao" />
+      <recent name="C:\Users\baidu\Desktop\workspace\git_code\YunHeLeo\src\main\resources\cn\stylefeng\guns\dao" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -400,7 +432,10 @@
       <workItem from="1588761795743" duration="935000" />
       <workItem from="1589085742667" duration="23781000" />
       <workItem from="1589114301517" duration="25856000" />
-      <workItem from="1589200201541" duration="11276000" />
+      <workItem from="1589200201541" duration="40586000" />
+      <workItem from="1589418577727" duration="599000" />
+      <workItem from="1589502347978" duration="71655000" />
+      <workItem from="1590231816857" duration="1472000" />
     </task>
     <task id="LOCAL-00001" summary="代码位置移动">
       <created>1589092882803</created>
@@ -416,17 +451,24 @@
       <option name="project" value="LOCAL" />
       <updated>1589190675186</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="订单超时30分后自动取消订单">
+      <created>1589336359445</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1589336359445</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74422000" />
+    <option name="totallyTimeSpent" value="177458000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="56" y="-7" width="1487" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28481457" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2330301" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -434,15 +476,14 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="File Transfer" visible="true" weight="0.04021448" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.27345845" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.19705094" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.18096514" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.05227882" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.15817694" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Spring" order="7" />
+      <window_info anchor="bottom" id="Spring" order="7" weight="0.32911393" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
@@ -450,21 +491,23 @@
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info anchor="bottom" id="Version Control" order="14" />
-      <window_info anchor="bottom" id="Messages" order="15" weight="0.13446677" />
-      <window_info anchor="right" id="Remote Host" weight="0.27991602" />
+      <window_info anchor="bottom" id="Messages" order="15" weight="0.19839142" />
+      <window_info active="true" anchor="bottom" id="File Transfer" order="16" visible="true" weight="0.04021448" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24982505" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.20783766" />
+      <window_info anchor="right" id="Maven" order="3" sideWeight="0.49860334" weight="0.1903429" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info anchor="right" id="Bean Validation" order="9" weight="0.3296011" />
+      <window_info anchor="right" id="Remote Host" order="10" weight="0.22183345" />
+      <window_info anchor="right" id="Coverage" order="11" sideWeight="0.50139666" side_tool="true" weight="0.1903429" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2316305" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22953114" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -474,12 +517,12 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.27345845" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.04021448" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.23956724" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.1689008" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.042194095" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Spring" order="7" />
+      <window_info anchor="bottom" id="Spring" order="7" weight="0.32911393" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
@@ -487,17 +530,19 @@
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info anchor="bottom" id="Version Control" order="14" />
-      <window_info anchor="bottom" id="Messages" order="15" weight="0.13446677" />
+      <window_info anchor="bottom" id="Messages" order="15" weight="0.29490617" />
+      <window_info anchor="bottom" id="File Transfer" order="16" weight="0.21983914" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24982505" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.20787401" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.1903429" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info anchor="right" id="Bean Validation" order="9" weight="0.3296011" />
+      <window_info anchor="right" id="Remote Host" order="10" weight="0.22204724" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -505,197 +550,21 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="代码位置移动" />
-    <option name="LAST_COMMIT_MESSAGE" value="代码位置移动" />
+    <MESSAGE value="订单超时30分后自动取消订单" />
+    <option name="LAST_COMMIT_MESSAGE" value="订单超时30分后自动取消订单" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="classLinkStatus" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CoursePackage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-137">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CoursePackageUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="51" column="28" selection-start-line="51" selection-start-column="28" selection-end-line="51" selection-end-column="28" />
-          <folding>
-            <element signature="e#1069#1070#0" expanded="true" />
-            <element signature="e#1106#1107#0" expanded="true" />
-            <element signature="e#1134#1135#0" expanded="true" />
-            <element signature="e#1168#1169#0" expanded="true" />
-            <element signature="e#1198#1199#0" expanded="true" />
-            <element signature="e#1244#1245#0" expanded="true" />
-            <element signature="e#1282#1283#0" expanded="true" />
-            <element signature="e#1315#1316#0" expanded="true" />
-            <element signature="e#1346#1347#0" expanded="true" />
-            <element signature="e#1392#1393#0" expanded="true" />
-            <element signature="e#1432#1433#0" expanded="true" />
-            <element signature="e#1470#1471#0" expanded="true" />
-            <element signature="e#1506#1507#0" expanded="true" />
-            <element signature="e#1562#1563#0" expanded="true" />
-            <element signature="e#1612#1613#0" expanded="true" />
-            <element signature="e#1647#1648#0" expanded="true" />
-            <element signature="e#1678#1679#0" expanded="true" />
-            <element signature="e#1726#1727#0" expanded="true" />
-            <element signature="e#1766#1767#0" expanded="true" />
-            <element signature="e#1804#1805#0" expanded="true" />
-            <element signature="e#1838#1839#0" expanded="true" />
-            <element signature="e#1892#1893#0" expanded="true" />
-            <element signature="e#1938#1939#0" expanded="true" />
-            <element signature="e#1973#1974#0" expanded="true" />
-            <element signature="e#2003#2004#0" expanded="true" />
-            <element signature="e#2050#2051#0" expanded="true" />
-            <element signature="e#2088#2089#0" expanded="true" />
-            <element signature="e#2127#2128#0" expanded="true" />
-            <element signature="e#2162#2163#0" expanded="true" />
-            <element signature="e#2218#2219#0" expanded="true" />
-            <element signature="e#2266#2267#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CourseUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CourseType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Knowledge.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/KnowledgeNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/MyOrderPackageList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/MyOrderResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding>
-            <element signature="e#1616#1617#0" expanded="true" />
-            <element signature="e#1651#1652#0" expanded="true" />
-            <element signature="e#1707#1708#0" expanded="true" />
-            <element signature="e#1755#1756#0" expanded="true" />
-            <element signature="e#1789#1790#0" expanded="true" />
-            <element signature="e#1819#1820#0" expanded="true" />
-            <element signature="e#1865#1866#0" expanded="true" />
-            <element signature="e#1903#1904#0" expanded="true" />
-            <element signature="e#1945#1946#0" expanded="true" />
-            <element signature="e#1983#1984#0" expanded="true" />
-            <element signature="e#2045#2046#0" expanded="true" />
-            <element signature="e#2099#2100#0" expanded="true" />
-            <element signature="e#2140#2141#0" expanded="true" />
-            <element signature="e#2177#2178#0" expanded="true" />
-            <element signature="e#2237#2238#0" expanded="true" />
-            <element signature="e#2289#2290#0" expanded="true" />
-            <element signature="e#2331#2332#0" expanded="true" />
-            <element signature="e#2369#2370#0" expanded="true" />
-            <element signature="e#2431#2432#0" expanded="true" />
-            <element signature="e#2485#2486#0" expanded="true" />
-            <element signature="e#2518#2519#0" expanded="true" />
-            <element signature="e#2547#2548#0" expanded="true" />
-            <element signature="e#2591#2592#0" expanded="true" />
-            <element signature="e#2627#2628#0" expanded="true" />
-            <element signature="e#2665#2666#0" expanded="true" />
-            <element signature="e#2699#2700#0" expanded="true" />
-            <element signature="e#2753#2754#0" expanded="true" />
-            <element signature="e#2799#2800#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/MyWorkResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/PermissionNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Timetable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/TwoCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
-          <folding>
-            <element signature="e#529#530#0" expanded="true" />
-            <element signature="e#566#567#0" expanded="true" />
-            <element signature="e#594#595#0" expanded="true" />
-            <element signature="e#627#628#0" expanded="true" />
-            <element signature="e#656#657#0" expanded="true" />
-            <element signature="e#700#701#0" expanded="true" />
-            <element signature="e#736#737#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/UserCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/UserLinkStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Works.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.0.1.RELEASE/spring-boot-autoconfigure-2.0.1.RELEASE.jar!/org/springframework/boot/autoconfigure/EnableAutoConfiguration.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/YunHeApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
@@ -731,50 +600,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
           <caret line="63" column="33" lean-forward="true" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CourseAllDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="55" column="14" lean-forward="true" selection-start-line="55" selection-start-column="14" selection-end-line="55" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CoursePackageResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-          <folding>
-            <element signature="e#2150#2151#0" expanded="true" />
-            <element signature="e#2190#2191#0" expanded="true" />
-            <element signature="e#2224#2225#0" expanded="true" />
-            <element signature="e#2259#2260#0" expanded="true" />
-            <element signature="e#2316#2317#0" expanded="true" />
-            <element signature="e#2364#2365#0" expanded="true" />
-            <element signature="e#2401#2402#0" expanded="true" />
-            <element signature="e#2433#2434#0" expanded="true" />
-            <element signature="e#2484#2485#0" expanded="true" />
-            <element signature="e#2526#2527#0" expanded="true" />
-            <element signature="e#2557#2558#0" expanded="true" />
-            <element signature="e#2585#2586#0" expanded="true" />
-            <element signature="e#2624#2625#0" expanded="true" />
-            <element signature="e#2651#2652#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/MyWorkDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="127" column="14" lean-forward="true" selection-start-line="127" selection-start-column="14" selection-end-line="127" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/StageClassDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="52" column="12" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -857,13 +682,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/OrderDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/service/impl/CourseServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="82">
@@ -878,27 +696,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/StageClass1Dao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/EvalCourse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Course.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -936,87 +737,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CourseDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="763">
-          <caret line="58" column="11" selection-start-line="58" selection-start-column="11" selection-end-line="58" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="61" column="19" lean-forward="true" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="28" column="51" lean-forward="true" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/controller/StudentController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2606">
           <caret line="343" column="20" lean-forward="true" selection-start-line="343" selection-start-column="20" selection-end-line="343" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.0.5.RELEASE/spring-core-5.0.5.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="105" selection-start-line="105" selection-end-line="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/controller/AppCourseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="553" column="44" selection-start-line="553" selection-start-column="44" selection-end-line="553" selection-end-column="44" />
-          <folding>
-            <element signature="method#freeCourse#0;class#AppCourseController#0" />
-            <element signature="method#chargeCourse#0;class#AppCourseController#0" />
-            <element signature="method#search#0;class#AppCourseController#0" />
-            <element signature="method#course#0;class#AppCourseController#0" />
-            <element signature="method#courseStage#0;class#AppCourseController#0" />
-            <element signature="method#courseDetail#0;class#AppCourseController#0" />
-            <element signature="method#saveEvaluation#0;class#AppCourseController#0" />
-            <element signature="method#coursePackage#0;class#AppCourseController#0" />
-            <element signature="method#payOkSelect#0;class#AppCourseController#0" />
-            <element signature="method#myCourse#0;class#AppCourseController#0" />
-            <element signature="method#timetableUser#0;class#AppCourseController#0" />
-            <element signature="method#findClassLink#0;class#AppCourseController#0" />
-            <element signature="method#findType#0;class#AppCourseController#0" />
-            <element signature="method#goClass#0;class#AppCourseController#0" />
-            <element signature="method#uploadWork#0;class#AppCourseController#0" />
-            <element signature="method#findClassImage#0;class#AppCourseController#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/service/AppCourseService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="1656" selection-start-line="1656" selection-end-line="1656" />
-          <folding>
-            <element signature="e#71298#72705#1" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1027,24 +751,319 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Order.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CoursePackageResponse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="89" column="37" selection-start-line="89" selection-start-column="37" selection-end-line="89" selection-end-column="37" />
+        <state relative-caret-position="190">
+          <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
+          <folding>
+            <element signature="e#2224#2225#0" expanded="true" />
+            <element signature="e#2259#2260#0" expanded="true" />
+            <element signature="e#2316#2317#0" expanded="true" />
+            <element signature="e#2364#2365#0" expanded="true" />
+            <element signature="e#2401#2402#0" expanded="true" />
+            <element signature="e#2433#2434#0" expanded="true" />
+            <element signature="e#2484#2485#0" expanded="true" />
+            <element signature="e#2526#2527#0" expanded="true" />
+            <element signature="e#2557#2558#0" expanded="true" />
+            <element signature="e#2585#2586#0" expanded="true" />
+            <element signature="e#2624#2625#0" expanded="true" />
+            <element signature="e#2651#2652#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/AppOrderDao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojos/CourseAll.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="32" column="112" selection-start-line="32" selection-start-column="112" selection-end-line="32" selection-end-column="112" />
+        <state relative-caret-position="76">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TwoCodeDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/PackageDetailsDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="50" column="29" selection-start-line="50" selection-start-column="29" selection-end-line="50" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/CourseList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="29" />
+          <folding>
+            <element signature="e#582#583#0" expanded="true" />
+            <element signature="e#615#616#0" expanded="true" />
+            <element signature="e#667#668#0" expanded="true" />
+            <element signature="e#711#712#0" expanded="true" />
+            <element signature="e#747#748#0" expanded="true" />
+            <element signature="e#781#782#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="true" />
+            <element signature="e#879#880#0" expanded="true" />
+            <element signature="e#915#916#0" expanded="true" />
+            <element signature="e#947#948#0" expanded="true" />
+            <element signature="e#997#998#0" expanded="true" />
+            <element signature="e#1039#1040#0" expanded="true" />
+            <element signature="e#1079#1080#0" expanded="true" />
+            <element signature="e#1114#1115#0" expanded="true" />
+            <element signature="e#1171#1172#0" expanded="true" />
+            <element signature="e#1219#1220#0" expanded="true" />
+            <element signature="e#1256#1257#0" expanded="true" />
+            <element signature="e#1289#1290#0" expanded="true" />
+            <element signature="e#1341#1342#0" expanded="true" />
+            <element signature="e#1385#1386#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/OrderDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="26" column="92" selection-start-line="26" selection-start-column="92" selection-end-line="26" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.0.5.RELEASE/spring-core-5.0.5.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/utils/VideoUtil.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/vo/ClassLinkVo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+          <folding>
+            <element signature="e#378#379#0" expanded="true" />
+            <element signature="e#408#409#0" expanded="true" />
+            <element signature="e#454#455#0" expanded="true" />
+            <element signature="e#492#493#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/MyOrderResponseDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="88" column="14" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CoursePackageUserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/StageDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/pojo/Course.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="32" column="26" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CourseDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="139" column="63" selection-start-line="139" selection-start-column="63" selection-end-line="139" selection-end-column="63" />
+          <folding>
+            <element signature="e#671#1281#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/LinkDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/config/ScheduledConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
+        <state relative-caret-position="254">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
+          <folding>
+            <element signature="method#payOrder#0;class#ScheduledConfig#0" />
+            <element signature="method#activateCourse#0;class#ScheduledConfig#0" />
+            <element signature="method#activateCoursePackage#0;class#ScheduledConfig#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application-dev.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="63" column="47" selection-start-line="63" selection-start-column="47" selection-end-line="63" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="35" column="66" selection-start-line="35" selection-start-column="66" selection-end-line="35" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/AppOrderDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="52" column="73" selection-start-line="52" selection-start-column="64" selection-end-line="52" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/MyWorkDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="127" column="14" selection-start-line="127" selection-start-column="14" selection-end-line="127" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/CourseAllDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="399" selection-start-line="399" selection-end-line="399" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/controller/TypeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/ClassLinkVoDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/StageClass1Dao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/mapping/StageClass1Dao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="516">
+          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/mapping/StageClassDao.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/StageClassDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TimetableDetailsDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="41" column="7" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/service/AppCourseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42940">
+          <caret line="2332" column="27" selection-start-line="2332" selection-start-column="27" selection-end-line="2332" selection-end-column="27" />
+          <folding>
+            <element signature="e#37297#37298#0" expanded="true" />
+            <element signature="e#37357#37358#0" expanded="true" />
+            <element signature="e#42101#42102#0" expanded="true" />
+            <element signature="e#42150#42151#0" expanded="true" />
+            <element signature="e#43156#43157#0" expanded="true" />
+            <element signature="e#43213#43214#0" expanded="true" />
+            <element signature="e#94511#94512#0" expanded="true" />
+            <element signature="e#94552#94553#0" expanded="true" />
+            <element signature="e#97537#97538#0" expanded="true" />
+            <element signature="e#97596#97597#0" expanded="true" />
+            <element signature="e#104052#104053#0" expanded="true" />
+            <element signature="e#104105#104106#0" expanded="true" />
+            <element signature="e#104169#104170#0" expanded="true" />
+            <element signature="e#104226#104227#0" expanded="true" />
+            <element signature="e#104289#104290#0" expanded="true" />
+            <element signature="e#104349#104350#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/dao/TypeDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="48" column="24" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/stylefeng/guns/app/controller/AppCourseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="488">
+          <caret line="608" column="42" lean-forward="true" selection-start-line="608" selection-start-column="42" selection-end-line="608" selection-end-column="42" />
+          <folding>
+            <element signature="e#1917#4872#0" />
+            <element signature="e#4937#7836#0" />
+            <element signature="e#8231#8647#0" />
+            <element signature="e#8653#12978#0" />
+            <element signature="e#12984#15187#0" />
+            <element signature="e#18112#18628#0" />
+            <element signature="e#18634#19761#0" />
+            <element signature="e#26699#27218#0" />
+            <element signature="e#33318#33682#0" />
+          </folding>
         </state>
       </provider>
     </entry>
