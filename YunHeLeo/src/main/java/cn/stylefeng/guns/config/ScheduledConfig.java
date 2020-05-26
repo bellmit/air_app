@@ -49,6 +49,17 @@ public class ScheduledConfig {
     @Autowired
     private AppCourseService appCourseService;
 
+    @Scheduled(cron = "0/15 * * * * *")
+    public void packageStatus() {
+        List<CoursePackageUser> all = coursePackageUserDao.findAll();
+        for (CoursePackageUser coursePackageUser : all) {
+            Date dueTime = coursePackageUser.gettDueTime();
+            if (dueTime.before(new Date())) { // 如果到期时间在当前时间后
+                coursePackageUserDao.updatePackageStatus(coursePackageUser.getRowGuid());
+            }
+        }
+    }
+
     /**
      * 订单超时 取消订单
      */

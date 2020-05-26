@@ -25,6 +25,7 @@
         </collection>
     </resultMap>
 
+    <!-- 课程-阶段-课节-->
     <select id="findStage" resultMap="selectListMap" >
         SELECT s.id stage_id,s.row_guid stage_rowguid,s.t_name StageName,c.t_img_url,
         c.id classId,c.row_guid classRowGuid,c.t_name ClassName,c.t_istest,co.t_painting,

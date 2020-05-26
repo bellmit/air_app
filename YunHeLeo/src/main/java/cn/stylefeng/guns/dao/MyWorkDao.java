@@ -60,7 +60,7 @@ public interface MyWorkDao {
      * @return
      */
     @Select("SELECT w.row_guid, w.t_img_url, w.t_content , w.t_works_name, c.t_course_name,\n" +
-            " cl.t_name, UNIX_TIMESTAMP(w.t_upload_date) t_upload_date, e.`t_username`," +
+            " cl.t_name, UNIX_TIMESTAMP(w.t_upload_date) t_upload_date, e.`t_realyname` t_username," +
             " UNIX_TIMESTAMP( w.`t_valuation_date` ) t_valuation_date,e.`t_img_url` TeacherImg\n" +
             "FROM tb_course c, tb_class cl, tb_works w, `tb_employee` e\n" +
             "WHERE w.row_guid=#{rowguid} \n" +

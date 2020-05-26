@@ -34,4 +34,8 @@ public interface CoursePackageUserDao extends BaseMapper<CoursePackageUser> {
      */
     @Update("UPDATE tb_course_package_user cpu SET cpu.t_status=#{tStatus} Where cpu.row_guid=#{rowGuid}")
     void updateByRowGuid(CoursePackageUser coursePackageUser);
+
+    @Update("UPDATE tb_course_package_user cpu SET cpu.t_status=2 where cpu.row_guid=#{rowGuid}")
+    void updatePackageStatus(@Param("rowGuid") String rowGuid);
+
 }

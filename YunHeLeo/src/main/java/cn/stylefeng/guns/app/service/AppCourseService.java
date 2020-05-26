@@ -173,7 +173,8 @@ public class AppCourseService {
         List<Img> branner = imgDao.branner();
         for (Img img : branner) {
             Course byId = courseDao.findById(img.getLinkId());
-            img.setCourseTypeId(byId.gettClassTypeId());
+            if (byId!=null)
+                img.setCourseTypeId(byId.gettClassTypeId());
         }
         return branner;
     }
@@ -1044,8 +1045,8 @@ public class AppCourseService {
     public List<PackageDetails> findCoursePackage(String rowGuid, String userGuid) {
         List<PackageDetails> cpAll = packageDetailsDao.findAppCPAll(rowGuid);
         List<PackageDetails> userPackage = packageDetailsDao.findUserPackage(userGuid, rowGuid);
-        Integer classCount = courseAllDao.findClassCount(rowGuid);
         for (PackageDetails packageDetails : cpAll) {
+            Integer classCount = courseAllDao.findClassCount(packageDetails.getCprowGuid());
             packageDetails.setCanChoose(true);
             if (classCount == null) {
                 classCount = 0;
@@ -2343,7 +2344,13 @@ public class AppCourseService {
         List<CourseAll> myCourse = courseAllDao.findMyCourse(rowguid, type);
         for (CourseAll courseAll : myCourse) {
             Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
-            Integer classCount = courseAllDao.findClassCount(courseAll.getRowGuid());
+            Integer classCount = 0;
+            if (courseAll.gettClassTypeId() == 1) {
+                classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
+            } else {
+                classCount = classDedailsDao.findClassTotalCount(courseAll.getRowGuid());
+            }
+            //Integer classCount = courseAllDao.findClassCount(courseAll.getRowGuid());
             Integer stageCount = courseAllDao.findStageCount(courseAll.getRowGuid());
             if (courseAll.getCourseCount() == null) {
                 courseAll.setCourseCount(0);
@@ -2396,6 +2403,25 @@ public class AppCourseService {
     public List<CourseAll> search(String courseName) {
         List<CourseAll> search = courseAllDao.search(courseName);
         for (CourseAll courseAll : search) {
+            Integer classCount = 0;
+            if (courseAll.gettClassTypeId() == 1) {
+                classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
+                courseAll.setClassCount(classCount);
+                //courseAllDao.findClassCount(courseAll.getRowGuid());
+            } else {
+                classCount = classDedailsDao.findClassTotalCount(courseAll.getRowGuid());
+                courseAll.setClassCount(classCount);
+            }
+            // 多少人购买该课程
+            Integer buyCountCourse = this.findBuyCourseCount(courseAll.getRowGuid());
+            // 查询课节数
+            //Integer classCount = appCourseService.findClassCount(course.getRowGuid());
+            if (buyCountCourse == null) {
+                buyCountCourse = 0;
+                courseAll.setBuyCount(buyCountCourse);
+            } else {
+                courseAll.setBuyCount(buyCountCourse);
+            }
             if (courseAll.gettPrice() == null) {
                 courseAll.settPrice(0.00);
             }

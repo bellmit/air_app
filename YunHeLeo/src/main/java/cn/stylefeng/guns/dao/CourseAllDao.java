@@ -26,7 +26,7 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
      */
     @Select("SELECT\n" +
             "\tc.row_guid,c.id,c.t_course_name,c.t_course_num, c.t_img_url,c.t_class_type_id,c.t_learn_count, " +
-            "t.t_type_name,ct.t_class_name,cu.user_guid,cu.`t_package_guid`\n" +
+            "c.t_price,t.t_type_name,ct.t_class_name,cu.user_guid,cu.`t_package_guid`\n" +
             "FROM\n" +
             "\ttb_course c\n" +
             "LEFT JOIN tb_type t ON c.t_course_type_id = t.id\n" +
@@ -38,6 +38,8 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
             @Result(column = "t_course_num", property = "tCourseNum"),
             @Result(column = "t_course_name", property = "tCourseName"),
             @Result(column = "id", property = "id"),
+            @Result(column = "t_price", property = "tPrice"),
+            @Result(column = "t_class_type_id", property = "tClassTypeId"),
             @Result(column = "t_package_guid", property = "packageGuid"),
             @Result(column = "user_guid", property = "tUserGuid"),
             @Result(column = "t_type_name", property = "tTypeName"),
@@ -154,7 +156,9 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
             ", c.t_update_date, c.t_learn_count, c.t_class_type_id," +
             "t.t_type_name,ct.t_class_name\n" +
             "FROM tb_course c,tb_type t, tb_course_type ct\n" +
-            "WHERE c.t_course_type_id=t.id AND ct.id=c.t_class_type_id AND t_class_type_id=#{type} AND c.t_status=0 AND c.t_level=#{showStageId}\n" +
+            "WHERE c.t_course_type_id=t.id AND ct.id=c.t_class_type_id AND t_class_type_id=#{type} " +
+            "AND c.t_status=0 " +
+            "AND FIND_IN_SET(#{showStageId},c.`t_level`) "+//AND c.t_level=#{showStageId}\n" +
             "ORDER BY c.t_update_date DESC")
     @Results({
             @Result(column = "row_guid", property = "rowGuid"),
@@ -203,7 +207,8 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
             "t.t_type_name, ct.t_class_name\n" +
             "FROM tb_course c,tb_type t, tb_course_type ct\n" +
             "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 AND ct.id=c.t_class_type_id " +
-            "AND c.t_level=#{showStageId}\n" +
+            //"AND c.t_level=#{showStageId}\n" +
+            " AND FIND_IN_SET(#{showStageId},c.`t_level`) "+
             "ORDER BY c.t_update_date DESC")
     @Results({
             @Result(column = "row_guid", property = "rowGuid"),
@@ -344,21 +349,27 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
             ", c.t_update_date, c.t_learn_count, c.t_class_type_id,\n" +
             "t.t_type_name,ct.t_class_name\n" +
             "FROM tb_course c,tb_type t, tb_course_type ct\n" +
-            "WHERE c.t_course_type_id=t.id AND ct.id=c.t_class_type_id AND t_class_type_id=#{type} AND c.t_status=0 AND c.t_level=#{stageId}\n" +
+            "WHERE c.t_course_type_id=t.id AND ct.id=c.t_class_type_id AND t_class_type_id=#{type} AND c.t_status=0 " +
+//            "AND c.t_level=#{stageId}\n" +
+            " AND FIND_IN_SET(#{stageId},c.`t_level`) "+
             "ORDER BY c.t_update_date DESC")
     List<CourseAll> courseStageNew(@Param("type") int type, @Param("stageId") Integer stageId);
 
     @Select("SELECT c.row_guid, c.id, c.t_course_name,c.t_course_num, c.t_price, c.t_class_type_id, c.t_learn_count, c.t_img_url,\n" +
             "t.t_type_name\n" +
             "FROM tb_course c,tb_type t\n" +
-            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 AND c.t_level=#{stageId}\n" +
+            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 " +
+            //"AND c.t_level=#{stageId}\n" +
+            " AND FIND_IN_SET(#{stageId},c.`t_level`) "+
             "ORDER BY c.t_update_date DESC")
     List<CourseAll> courseStageType(@Param("type") int type, @Param("stageId") Integer stageId);
 
     @Select("SELECT c.row_guid, c.id, c.t_course_name,c.t_course_num,c.t_price, c.t_img_url,c.t_class_type_id ,\n" +
             "c.t_update_date, c.t_learn_count,  t.t_type_name,ct.t_class_name\n" +
             "FROM tb_course c,tb_type t, tb_course_type ct\n" +
-            "WHERE c.t_course_type_id=t.id AND ct.id=c.t_class_type_id AND t_class_type_id=#{type} AND c.t_status=0 AND c.t_level=#{stageId} \n" +
+            "WHERE c.t_course_type_id=t.id AND ct.id=c.t_class_type_id AND t_class_type_id=#{type} AND c.t_status=0 " +
+            //"AND c.t_level=#{stageId} \n" +
+            " AND FIND_IN_SET(#{stageId},c.`t_level`) "+
             "ORDER BY c.t_order_no ASC")
     @Results({
             @Result(column = "row_guid", property = "rowGuid"),
@@ -376,7 +387,10 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
     @Select("SELECT c.row_guid, c.id, c.t_course_name,c.t_course_num, c.t_class_type_id, c.t_price, c.t_learn_count,\n" +
             " c.t_img_url, t.t_type_name, ct.t_class_name\n" +
             "FROM tb_course c,tb_type t, tb_course_type ct\n" +
-            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 AND c.t_level=#{stageId} AND ct.id=c.t_class_type_id \n" +
+            "WHERE c.t_course_type_id=t.id AND c.t_course_type_id=#{type} AND c.t_status=0 " +
+            //"AND c.t_level=#{stageId} " +
+            " AND FIND_IN_SET(#{stageId},c.`t_level`) "+
+            "AND ct.id=c.t_class_type_id \n" +
             "ORDER BY c.t_order_no ASC")
     @Results({
             @Result(column = "row_guid", property = "rowGuid"),
@@ -394,13 +408,24 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
     @Select("SELECT COUNT(cu.t_course_guid) FROM tb_course_user cu WHERE cu.t_course_guid=#{rowGuid} GROUP BY cu.t_course_guid")
     Integer findBuyCourseCount(@Param("rowGuid") String rowGuid);
 
-    @Select("SELECT LENGTH(co.class_id)-LENGTH(REPLACE(co.class_id,',',''))+1 as ClassCount\n" +
-            "FROM tb_course co WHERE co.row_guid=#{rowGuid}")
+    /*@Select("SELECT LENGTH(co.class_id)-LENGTH(REPLACE(co.class_id,',',''))+1 as ClassCount\n" +
+            "FROM tb_course co WHERE co.row_guid=#{rowGuid}")*/
+    @Select("SELECT COUNT(*) studyClassCount\n" +
+            "FROM `tb_course_package` c LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid,c.t_stage_id) \n" +
+            "LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
+            "WHERE c.row_guid=#{rowGuid}")
+    @Results({
+            @Result(column = "studyClassCount", property = "studyClassCount")
+    })
     Integer findClassCount(@Param("rowGuid") String rowGuid);
 
-    @Select("SELECT LENGTH(co.stage_id)-LENGTH(REPLACE(co.stage_id,',',''))+1 as StageCount\n" +
+    /*@Select("SELECT LENGTH(co.stage_id)-LENGTH(REPLACE(co.stage_id,',',''))+1 as StageCount\n" +
             "FROM tb_course co\n" +
-            "WHERE co.row_guid=#{rowGuid}")
+            "WHERE co.row_guid=#{rowGuid}")*/
+    @Select("SELECT COUNT(*) stageClassCount\n" +
+            "FROM `tb_course` c LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid, c.`stage_id`)\n" +
+            "LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
+            "WHERE c.row_guid=#{rowGuid} AND cl.t_status=0")
     Integer findStageCount(@Param("rowGuid") String rowGuid);
 
 }

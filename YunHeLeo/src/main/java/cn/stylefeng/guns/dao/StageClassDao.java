@@ -33,7 +33,7 @@ public interface StageClassDao extends BaseMapper<StageClass> {
      */
     @Select("SELECT COUNT(*) studyClassCount\n" +
             "FROM tb_course c LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid,c.stage_id) LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
-            "WHERE c.row_guid=#{rowGuid}")
+            "WHERE c.row_guid=#{rowGuid} AND cl.t_status=0")
     @Results({
             @Result(column = "studyClassCount", property = "studyClassCount")
     })
@@ -46,7 +46,7 @@ public interface StageClassDao extends BaseMapper<StageClass> {
      */
     @Select("SELECT COUNT(*) stageClassCount\n" +
             "FROM tb_stage s LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
-            "WHERE s.row_guid=#{stageRowGuid}\n")
+            "WHERE s.row_guid=#{stageRowGuid} AND cl.t_status=0 \n")
     @Results({
             @Result(column = "stageClassCount", property = "stageClassCount")
     })

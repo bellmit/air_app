@@ -6,7 +6,8 @@
 
     <groupId>com.yunhe</groupId>
     <artifactId>YunHeLeoApp</artifactId>
-    <version>1.4.7-SNAPSHOT</version>
+    <version>1.5.7-SNAPSHOT</version>
+    <description>app客户端接口api</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -74,7 +74,10 @@ public interface CourseDao extends BaseMapper<Course> {
      * @return
      */
     @Select("select c.row_guid,c.t_course_name,c.t_course_num,t_img_url,t_class_type_id " +
-            "from tb_course c where t_class_type_id =0 AND c.t_status=0 AND c.t_level=#{showStageId} ORDER BY RAND() limit 6")
+            "from tb_course c where t_class_type_id =0 AND c.t_status=0 " +
+            //"AND c.t_level=#{showStageId} " +
+            " AND FIND_IN_SET(#{showStageId},c.`t_level`) "+
+            "ORDER BY RAND() limit 6")
     List<Course> freeShowStageCourse(@Param("showStageId") Integer showStageId);
 
     /**
@@ -90,7 +93,10 @@ public interface CourseDao extends BaseMapper<Course> {
      * @return
      */
     @Select("select c.row_guid,c.t_course_name,c.t_course_num,t_img_url,t_price,t_class_type_id " +
-            "from tb_course c where t_class_type_id !=0 AND c.t_status=0 AND c.t_level=#{showStageId} ORDER BY RAND() limit 6")
+            "from tb_course c where t_class_type_id !=0 AND c.t_status=0 " +
+            //"AND c.t_level=#{showStageId} " +
+            " AND FIND_IN_SET(#{showStageId},c.`t_level`) "+
+            "ORDER BY RAND() limit 6")
     List<Course> chargeShowStageCourse(@Param("showStageId") Integer showStageId);
 
     /**
