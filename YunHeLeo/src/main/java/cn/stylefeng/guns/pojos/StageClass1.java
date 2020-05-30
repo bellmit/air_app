@@ -3,6 +3,7 @@ package cn.stylefeng.guns.pojos;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class StageClass1 {
@@ -31,7 +32,46 @@ public class StageClass1 {
     private Integer tIstest;
     private Integer studyClassCount;
     private Integer stageClassCount;
+
+    private Date activateTime;
+    private Date dueTime;
+    private Integer status;
+
     private List list = new ArrayList();
+
+    private Boolean isStudy; // 是否加锁（是否可以学习）
+
+    public Date getActivateTime() {
+        return activateTime;
+    }
+
+    public void setActivateTime(Date activateTime) {
+        this.activateTime = activateTime;
+    }
+
+    public Date getDueTime() {
+        return dueTime;
+    }
+
+    public void setDueTime(Date dueTime) {
+        this.dueTime = dueTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Boolean getIsStudy() {
+        return isStudy;
+    }
+
+    public void setIsStudy(Boolean study) {
+        isStudy = study;
+    }
 
     public String getId() {
         return id;

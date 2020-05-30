@@ -576,11 +576,28 @@ public class AppCourseService {
      * 根据rowguid查询课程详情
      */
     public CourseAll courseDetail(String RowGuid) {
-        Integer classTotalCount = stageClassDao.findClassTotalCount(RowGuid);
         Integer classStudyCount = stageClassDao.findClassStudyCount(RowGuid);
         CourseAll courseAll = courseAllDao.courseDetail(RowGuid);
+        if (courseAll.gettClassTypeId()==1) { // 长期班
+            Integer classTotalCount = stageClassDao.findClassTotalCount(RowGuid);
+            courseAll.setClassCount(classTotalCount);// 当前课程下总课节数量
+            if (classTotalCount == null) {
+                classTotalCount = 0;
+                courseAll.setClassCount(classTotalCount);
+            } else {
+                courseAll.setClassCount(classTotalCount);
+            }
+        } else { // 免费班和短期班
+            Integer classTotalCount = classDedailsDao.findClassTotalCount(RowGuid);// 当前课程下课节总数
+            courseAll.setClassCount(classTotalCount);// 当前课程下总课节数量
+            if (classTotalCount == null) {
+                classTotalCount = 0;
+                courseAll.setClassCount(classTotalCount);
+            } else {
+                courseAll.setClassCount(classTotalCount);
+            }
+        }
         courseAll.setStudyClassCount(classStudyCount);// 当前课程下已学习课节数量
-        courseAll.setClassCount(classTotalCount);// 当前课程下总课节数量
         Integer buyCourseCount = courseAllDao.findBuyCourseCount(RowGuid);
         //Integer classCount = courseAllDao.findClassCount(RowGuid);
         Integer stageCount = courseAllDao.findStageCount(RowGuid);
@@ -602,12 +619,7 @@ public class AppCourseService {
         } else {
             courseAll.setBuyCount(buyCourseCount);
         }
-        if (classTotalCount == null) {
-            classTotalCount = 0;
-            courseAll.setClassCount(classTotalCount);
-        } else {
-            courseAll.setClassCount(classTotalCount);
-        }
+
         if (stageCount == null) {
             stageCount = 0;
             courseAll.setStageCount(stageCount);
@@ -718,7 +730,20 @@ public class AppCourseService {
                             classLinkVo.setType(2);
                         }
                     }
+
+                    // 课节是否可学习
+                    String childClassRowGuid = child.getClassRowGuid();
+                    StageClass1 studyClass = classLinkVoDao.isStudyClass(childClassRowGuid, userId);
+                    // 加锁不可学习情况：1）状态为2 课包已到期，2）null 课包未购买
+                    if (studyClass==null) { // 课包未购买
+                        child.setIsStudy(false);
+                    } else if (studyClass.getStatus()==2) { // 课包已到期
+                        child.setIsStudy(false); // 该课节不可学
+                    } else {
+                        child.setIsStudy(true);
+                    }
                 }
+
             }
         }
         return stage;
@@ -745,7 +770,7 @@ public class AppCourseService {
                 aClass.setBuyCount(buyCourseCount);
 
             }
-            if (classCount == null) {
+            if (classTotalCount == null) {
                 aClass.setClassCount(0);
             } else {
                 aClass.setClassCount(classTotalCount);
@@ -831,7 +856,7 @@ public class AppCourseService {
             } else {
                 aClass.setBuyCount(buyCourseCount);
             }
-            if (classCount == null) {
+            if (classTotalCount == null) {
                 aClass.setClassCount(0);
             } else {
                 aClass.setClassCount(classTotalCount); // 当前课程下总课节数

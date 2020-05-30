@@ -255,6 +255,8 @@ public class StudentService {
             Date date = new Date();
             dateFormat.format(date);
 
+            logger.debug("headimg:"+user.gettHeadImg());
+
             logger.debug("date系统生成日期：", date);
             logger.debug("service：修改用户信息——前端传递的用户生日日期：", user.gettChildrenDate());
 

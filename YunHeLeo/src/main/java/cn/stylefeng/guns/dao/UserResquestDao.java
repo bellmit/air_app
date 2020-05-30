@@ -26,4 +26,7 @@ public interface UserResquestDao extends BaseMapper<UserResquest> {
 
     @Update("UPDATE tb_user SET show_stage_id=#{showStageId} WHERE row_guid=#{rowguid}")
     void updateShowStageId(@Param("showStageId") Integer showStageId, @Param("rowguid") String rowguid);
+
+    @Update("UPDATE tb_user SET t_head_img=#{gettHeadImg} WHERE row_guid=#{rowGuid}")
+    void updateHeadImg(@Param("gettHeadImg") String gettHeadImg, @Param("rowGuid") String rowGuid);
 }

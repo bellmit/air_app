@@ -6,7 +6,7 @@
 
     <groupId>com.yunhe</groupId>
     <artifactId>YunHeLeoApp</artifactId>
-    <version>1.5.7-SNAPSHOT</version>
+    <version>1.6.1-SNAPSHOT</version>
     <description>app客户端接口api</description>
 
     <parent>
