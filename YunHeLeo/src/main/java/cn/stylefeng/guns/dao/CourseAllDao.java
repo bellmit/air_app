@@ -408,8 +408,6 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
     @Select("SELECT COUNT(cu.t_course_guid) FROM tb_course_user cu WHERE cu.t_course_guid=#{rowGuid} GROUP BY cu.t_course_guid")
     Integer findBuyCourseCount(@Param("rowGuid") String rowGuid);
 
-    /*@Select("SELECT LENGTH(co.class_id)-LENGTH(REPLACE(co.class_id,',',''))+1 as ClassCount\n" +
-            "FROM tb_course co WHERE co.row_guid=#{rowGuid}")*/
     @Select("SELECT COUNT(*) studyClassCount\n" +
             "FROM `tb_course_package` c LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid,c.t_stage_id) \n" +
             "LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
@@ -419,13 +417,10 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
     })
     Integer findClassCount(@Param("rowGuid") String rowGuid);
 
-    /*@Select("SELECT LENGTH(co.stage_id)-LENGTH(REPLACE(co.stage_id,',',''))+1 as StageCount\n" +
-            "FROM tb_course co\n" +
-            "WHERE co.row_guid=#{rowGuid}")*/
     @Select("SELECT COUNT(*) stageClassCount\n" +
             "FROM `tb_course` c LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid, c.`stage_id`)\n" +
-            "LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
-            "WHERE c.row_guid=#{rowGuid} AND cl.t_status=0")
+            //"LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
+            "WHERE c.row_guid=#{rowGuid}")// AND cl.t_status=0")
     Integer findStageCount(@Param("rowGuid") String rowGuid);
 
 }

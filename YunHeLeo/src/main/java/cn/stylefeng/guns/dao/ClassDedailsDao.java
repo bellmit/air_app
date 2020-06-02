@@ -70,7 +70,7 @@ public interface ClassDedailsDao extends BaseMapper<ClassDedails> {
             "e.t_username UserName,co.t_course_name CourseName,cla.t_update_date UpdateDate, " +
             " cla.t_point,cla.t_methods,cla.t_teacher,cla.t_status \n" +
             "FROM tb_course co LEFT JOIN tb_class cla ON FIND_IN_SET(cla.row_guid,co.class_id),tb_employee e\n" +
-            "WHERE co.row_guid=#{rowGuid} AND co.t_class_type_id=0 AND cla.t_update_man=e.id")
+            "WHERE co.row_guid=#{rowGuid} AND co.t_class_type_id=0 AND cla.t_update_man=e.id AND cla.`t_status`=0")
     @Results({
             @Result(column = "ClassId", property = "id"),
             @Result(column = "ClassRowGuid", property = "classRowGuid"),
@@ -94,7 +94,7 @@ public interface ClassDedailsDao extends BaseMapper<ClassDedails> {
             "e.t_username UserName,co.t_course_name CourseName,cla.t_update_date UpdateDate, " +
             " cla.t_point,cla.t_methods,cla.t_teacher,cla.t_status \n" +
             "FROM tb_course co LEFT JOIN tb_class cla ON FIND_IN_SET(cla.row_guid,co.class_id),tb_employee e\n" +
-            "WHERE co.row_guid=#{rowGuid} AND co.t_class_type_id=2 AND cla.t_update_man=e.id")
+            "WHERE co.row_guid=#{rowGuid} AND co.t_class_type_id=2 AND cla.t_update_man=e.id AND cla.`t_status`=0")
     @Results({
             @Result(column = "ClassId", property = "id"),
             @Result(column = "ClassRowGuid", property = "classRowGuid"),
@@ -118,7 +118,7 @@ public interface ClassDedailsDao extends BaseMapper<ClassDedails> {
      */
     @Select("SELECT COUNT(*)\n" +
             "FROM tb_course c LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,c.class_id)\n" +
-            "WHERE c.row_guid=#{rowGuid}")
+            "WHERE c.row_guid=#{rowGuid} AND cl.`t_status`=0")
     Integer findClassTotalCount(@Param("rowGuid") String rowGuid);
 
     /**

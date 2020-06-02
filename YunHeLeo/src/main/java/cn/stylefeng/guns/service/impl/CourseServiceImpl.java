@@ -305,7 +305,7 @@ public class CourseServiceImpl implements CourseService {
         return stage;
     }
 
-    public List<ClassDedailsResponse> findByRowGuidClass(String rowGuid) {
+    /*public List<ClassDedailsResponse> findByRowGuidClass(String rowGuid) {
         List<ClassDedails> freeClass = classDedailsDao.findByRowGuidClass(rowGuid);
         System.out.println(freeClass);
         List list = new ArrayList();
@@ -336,7 +336,7 @@ public class CourseServiceImpl implements CourseService {
             list.add(classDedailsResponse);
         }
         return list;
-    }
+    }*/
 
     /**
      * 根据课程rowguid免费班查询课节

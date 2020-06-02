@@ -48,7 +48,7 @@ public interface CourseService {
 
     void classAddImage(String rowGuid, String userId, String imgurl);
 
-    List<ClassDedailsResponse> findByRowGuidClass(String rowGuid);
+   // List<ClassDedailsResponse> findByRowGuidClass(String rowGuid);
 
     void downClass(String rowGuid);
 

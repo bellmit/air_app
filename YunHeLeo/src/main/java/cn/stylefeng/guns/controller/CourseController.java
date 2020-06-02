@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -299,7 +300,7 @@ public class CourseController {
     @ApiOperation("根据课节rowguid查询课节")
     public Result findByRowGuidClass(String RowGuid) {
         try {
-            List<ClassDedailsResponse> classDedailsList = courseService.findByRowGuidClass(RowGuid);
+            List<ClassDedailsResponse> classDedailsList = new ArrayList<>();//= courseService.findByRowGuidClass(RowGuid);
             return new Result(true, ResultStatusCode.SUCCESS, "根据课节rowguid查询课节成功!", classDedailsList);
         } catch (Exception e) {
             e.printStackTrace();

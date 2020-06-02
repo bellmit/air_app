@@ -41,6 +41,15 @@ public class Class1Dedails {
     private Integer classCount;
     private Integer studyClassCount;
     private Integer studyStatus;
+    private Boolean isStudy; // 是否加锁（是否可以学习）
+
+    public Boolean getIsStudy() {
+        return isStudy;
+    }
+
+    public void setIsStudy(Boolean study) {
+        isStudy = study;
+    }
 
     public String getId() {
         return id;

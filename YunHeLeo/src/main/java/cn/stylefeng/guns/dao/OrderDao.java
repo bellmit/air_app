@@ -15,7 +15,7 @@ public interface OrderDao extends BaseMapper<UOCCP> {
      * 当前登录用户guid和课程guid
      */
     @Select("SELECT o.row_guid,o.t_order_no,t_class_package_guid FROM tb_order o WHERE o.t_user_guid=#{rowguid} " +
-            " AND o.t_course_guid=#{courseGuid} AND o.t_order_status=2")
+            " AND o.t_course_guid=#{courseGuid} AND o.t_order_status=2 limit 1")
     @Results({
             @Result(column = "row_guid", property = "rowGuid"),
             @Result(column = "t_order_no", property = "tOrderNo"),

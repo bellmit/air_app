@@ -197,9 +197,12 @@ public interface MyWorkDao {
     /**
      * 根据阶段查询课节数
      */
-    @Select("SELECT LENGTH(s.t_class_id) - LENGTH(REPLACE(s.t_class_id,',',''))+1 AS classCount FROM tb_stage s WHERE s.row_guid=#{stageRowguid}")
+    @Select("SELECT COUNT(*) studyClassCount\n" +
+            "FROM tb_course_package c LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid,c.t_stage_id) \n" +
+            "LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
+            "WHERE c.row_guid=#{stageRowguid} AND cl.t_status=0")
     @Results({
-            @Result(column = "classCount", property = "classCount")
+            @Result(column = "studyClassCount", property = "studyClassCount")
     })
     Integer classCount(@Param("stageRowguid") String stageRowguid);
 
