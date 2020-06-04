@@ -297,13 +297,13 @@ public class CourseServiceImpl implements CourseService {
     /**
      * 查询阶段 包括对应的课节 长期班
      */
-    @Override
+   /* @Override
     public List<StageClass> findStage(int page,int size, String RowGuid) {
         PageHelper.startPage(page, size);
         List<StageClass> stage = stageClassDao.findStage(RowGuid);
         System.out.println(stage);
         return stage;
-    }
+    }*/
 
     /*public List<ClassDedailsResponse> findByRowGuidClass(String rowGuid) {
         List<ClassDedails> freeClass = classDedailsDao.findByRowGuidClass(rowGuid);

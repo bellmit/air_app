@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Mapper
 public interface CourseAllDao extends BaseMapper<CourseAll> {
@@ -25,10 +26,9 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
      * @return
      */
     @Select("SELECT\n" +
-            "\tc.row_guid,c.id,c.t_course_name,c.t_course_num, c.t_img_url,c.t_class_type_id,c.t_learn_count, " +
-            "c.t_price,t.t_type_name,ct.t_class_name,cu.user_guid,cu.`t_package_guid`\n" +
-            "FROM\n" +
-            "\ttb_course c\n" +
+            "\t DISTINCT c.row_guid,c.id,c.t_course_name,c.t_course_num, c.t_img_url,c.t_class_type_id,c.t_learn_count, " +
+            "c.t_price,t.t_type_name,ct.t_class_name,cu.user_guid "+ //,cu.`t_package_guid`\n" +
+            "FROM tb_course c\n" +
             "LEFT JOIN tb_type t ON c.t_course_type_id = t.id\n" +
             "LEFT JOIN tb_course_type ct on  ct.id = c.t_class_type_id\n" +
             "LEFT JOIN tb_course_package_user cu on  cu.t_course_guid = c.row_guid\n" +
@@ -40,14 +40,14 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
             @Result(column = "id", property = "id"),
             @Result(column = "t_price", property = "tPrice"),
             @Result(column = "t_class_type_id", property = "tClassTypeId"),
-            @Result(column = "t_package_guid", property = "packageGuid"),
+            //@Result(column = "t_package_guid", property = "packageGuid"),
             @Result(column = "user_guid", property = "tUserGuid"),
             @Result(column = "t_type_name", property = "tTypeName"),
             @Result(column = "t_img_url", property = "tImgUrl"),
             @Result(column = "t_learn_count", property = "tLearnCount"),
             @Result(column = "t_class_name", property = "tClassName")
     })
-    List<CourseAll> findMyCourse(@Param("userGuid") String userGuid, @Param("type") Integer type);
+    Set<CourseAll> findMyCourse(@Param("userGuid") String userGuid, @Param("type") Integer type);
 
     /**
      * 课包是否激活
@@ -411,7 +411,7 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
     @Select("SELECT COUNT(*) studyClassCount\n" +
             "FROM `tb_course_package` c LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid,c.t_stage_id) \n" +
             "LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
-            "WHERE c.row_guid=#{rowGuid}")
+            "WHERE c.row_guid=#{rowGuid} AND cl.t_status=0 ")
     @Results({
             @Result(column = "studyClassCount", property = "studyClassCount")
     })

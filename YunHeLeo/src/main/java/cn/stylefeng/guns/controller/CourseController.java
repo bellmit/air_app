@@ -276,7 +276,7 @@ public class CourseController {
     @ApiOperation("根据课程RowGuid查询阶段 包含 课节[长期班]")
     public Result findStage(int page,int size,String RowGuid) {
         try {
-            List<StageClass> stage = courseService.findStage(page, size, RowGuid);
+            List<StageClass> stage = new ArrayList<>();// courseService.findStage(page, size, RowGuid);
             return new Result(true, ResultStatusCode.SUCCESS, "查询阶段 包含 课节成功!", stage);
         } catch (Exception e) {
             e.printStackTrace();

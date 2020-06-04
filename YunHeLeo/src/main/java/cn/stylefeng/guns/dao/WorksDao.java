@@ -22,4 +22,14 @@ public interface WorksDao extends BaseMapper<Works> {
     })
     Works findById(@Param("id") Integer id);
 
+    @Select("SELECT w.id,w.`row_guid`\n" +
+            "FROM tb_works w WHERE w.`t_link_guid`=#{linkguid} \n" +
+            "AND w.`t_user_guid`=#{userguid} limit 1")
+    @Results({
+            @Result(column = "id",property = "id"),
+            @Result(column = "t_img_url",property = "tImgUrl"),
+            @Result(column = "t_content",property = "tContent")
+    })
+    Works findWorkStatus(@Param("linkguid") String linkguid, @Param("userguid") String userguid);
+
 }

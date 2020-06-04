@@ -165,12 +165,6 @@ public class AppCourseController {
                     if (course.gettLearnCount() == null) {
                         course.settLearnCount(0);
                     }
-                    /*if (classCount == null) {
-                        classCount = 0;
-                        course.setClassCount(classCount);
-                    } else {
-                        course.setClassCount(classCount);
-                    }*/
                 }
                 return new Result(true, 0, "随机获取6个收费课成功!", courseList);
             }
@@ -340,7 +334,7 @@ public class AppCourseController {
             if (courseAlls != null) {
                 // 根据RowGuid查询课程阶段+课节
                 if (courseAlls.gettClassTypeId() == 1) { // 长期班
-                    List<StageClass> classList = appCourseService.stageClassList(RowGuid);
+                    List<StageClassNode> classList = appCourseService.stageClassList(RowGuid);
                     map.put("courseDetails", courseAlls);
                     map.put("classList", classList);
                 } else if (courseAlls.gettClassTypeId() == 0) {  // 免费班
@@ -621,7 +615,7 @@ public class AppCourseController {
     public Result myCourse(HttpServletRequest request, Integer type) {
         try {
             String rowguid = request.getHeader("token");
-            List<CourseAll> order = appCourseService.myCourse(rowguid, type);
+            Set<CourseAll> order = appCourseService.myCourse(rowguid, type);
             return new Result(true, 0, "查询我的课程成功!", order);
         } catch (Exception e) {
             e.printStackTrace();

@@ -71,7 +71,7 @@ public interface TimetableDetailsDao {
      * @return
      */
     @Select("SELECT t.row_guid TableRowGuid,cl.row_guid ClassRowGuid, t.t_weeks, unix_timestamp( t.t_create_date ) t_create_date,\n" +
-            "c.t_course_name, cl.t_name ClassName ,c.t_img_url, cl.study_status, c.`row_guid` courseRowGuid \n" +
+            "c.t_course_name, cl.t_name ClassName ,cl.t_img_url, cl.study_status, c.`row_guid` courseRowGuid \n" +
             "FROM tb_timetable t, tb_course c, tb_class cl \n" +
             "WHERE t.user_guid=#{userGuid} AND t.t_course_guid=c.row_guid AND cl.id=t.t_class_id" +
             " AND t.t_create_date<NOW() ORDER BY t.t_create_date DESC")
@@ -95,7 +95,7 @@ public interface TimetableDetailsDao {
      */
     @Select("SELECT t.row_guid TableRowGuid,cl.row_guid ClassRowGuid, t.t_weeks, c.`row_guid` courseRowGuid," +
             " unix_timestamp( t.t_create_date ) t_create_date,\n" +
-            "c.t_course_name, cl.t_name ClassName ,c.t_img_url, cl.study_status\n" +
+            "c.t_course_name, cl.t_name ClassName ,cl.t_img_url, cl.study_status\n" +
             "FROM tb_timetable t, tb_course c, tb_class cl \n" +
             "WHERE t.user_guid=#{userGuid} AND t.t_course_guid=c.row_guid AND cl.id=t.t_class_id" +
             " AND t.t_create_date>=NOW() ORDER BY t.t_create_date")

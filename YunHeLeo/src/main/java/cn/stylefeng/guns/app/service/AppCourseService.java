@@ -157,10 +157,12 @@ public class AppCourseService {
             if (cours.gettClassTypeId() == 1) {
                 classCount = stageClassDao.findClassTotalCount(cours.getRowGuid());
                 cours.setClassCount(classCount);
+                cours.settLearnCount(classCount);
                 //courseAllDao.findClassCount(courseAll.getRowGuid());
             } else {
                 classCount = classDedailsDao.findClassTotalCount(cours.getRowGuid());
                 cours.setClassCount(classCount);
+                cours.settLearnCount(classCount);
             }
             if (cours.gettPrice() == null) {
                 cours.settPrice(0.00);
@@ -173,7 +175,7 @@ public class AppCourseService {
         List<Img> branner = imgDao.branner();
         for (Img img : branner) {
             Course byId = courseDao.findById(img.getLinkId());
-            if (byId!=null)
+            if (byId != null)
                 img.setCourseTypeId(byId.gettClassTypeId());
         }
         return branner;
@@ -579,7 +581,7 @@ public class AppCourseService {
         Integer classTotalCount = classDedailsDao.findClassTotalCount(RowGuid);// 当前课程下课节总数
         System.out.println(classTotalCount);
         Course courseAll = courseDao.findById(RowGuid);
-        if (courseAll.getClassId()!=null && !courseAll.getClassId().equals("")) {
+        if (courseAll.getClassId() != null && !courseAll.getClassId().equals("")) {
             return classTotalCount;
         } else {
             return 0;
@@ -599,7 +601,7 @@ public class AppCourseService {
     public CourseAll courseDetail(String RowGuid) {
         Integer classStudyCount = stageClassDao.findClassStudyCount(RowGuid);
         CourseAll courseAll = courseAllDao.courseDetail(RowGuid);
-        if (courseAll.gettClassTypeId()==1) { // 长期班
+        if (courseAll.gettClassTypeId() == 1) { // 长期班
             Integer classTotalCount = stageClassDao.findClassTotalCount(RowGuid);
             courseAll.setClassCount(classTotalCount);// 当前课程下总课节数量
             if (classTotalCount == null) {
@@ -612,7 +614,7 @@ public class AppCourseService {
             Integer classTotalCount = classDedailsDao.findClassTotalCount(RowGuid);// 当前课程下课节总数
             //courseAll.setClassCount(classTotalCount);// 当前课程下总课节数量
             Course course = courseDao.findById(RowGuid);
-            if ((course.getClassId())!=null && !(course.getClassId()).equals("")) {
+            if ((course.getClassId()) != null && !(course.getClassId()).equals("")) {
                 courseAll.setClassCount(classTotalCount);
             } else {
                 courseAll.setClassCount(0);
@@ -655,12 +657,12 @@ public class AppCourseService {
     /**
      * 获取课程阶段+课节 长期班
      */
-    public List<StageClass> stageClassList(String RowGuid) {
+    public List<StageClassNode> stageClassList(String RowGuid) {
         Map<String, Object> map = new HashMap<>();
-        List<StageClass> stage = stageClassDao.findStage(RowGuid);
+        List<StageClassNode> stage = stageClassDao.findStage(RowGuid);
         Integer classTotalCount = stageClassDao.findClassTotalCount(RowGuid);
         Integer classStudyCount = stageClassDao.findClassStudyCount(RowGuid);
-        for (StageClass stageClass : stage) {
+        for (StageClassNode stageClass : stage) {
             // 某阶段下课节数
             Integer stageClassCount = stageClassDao.findStageClassCount(stageClass.getStageRowGuid());
             //stageClass.setClassCount(stageClassCount);
@@ -676,7 +678,7 @@ public class AppCourseService {
             } else {
                 stageClass.setBuyCount(buyCourseCount);
             }
-            if ( stageClassCount == null ) {
+            if (stageClassCount == null) {
                 stageClass.setClassCount(0);
             } else {
                 stageClass.setClassCount(stageClassCount);
@@ -684,6 +686,18 @@ public class AppCourseService {
             if (stageClass.getBuyCount() == null) {
                 stageClass.setBuyCount(0);
             }
+
+            //String classRowGuid = stage.get(i).getClassRowGuid();
+            List<StageClassNode> children = stageClass.getChildren();
+            for (StageClassNode child : children) {
+                StageClass teacher = stageClassDao.findTeacher(child.getClassRowGuid());
+                if (teacher!=null) {
+                    child.settRealyname(teacher.gettRealyname());
+                    child.settTeacher(teacher.gettRealyname());
+                    child.settUsername(teacher.gettRealyname());
+                }
+            }
+
         }
         return stage;
     }
@@ -726,22 +740,36 @@ public class AppCourseService {
                 String classRowGuid = stage.get(i).getClassRowGuid();
                 List<StageClass1Node> children = stageClass.getChildren();
                 List<ClassLinkVo> classLinkStatus = classLinkVoDao.findClassLinkStatus(classRowGuid);
-                for (ClassLinkVo linkStatus : classLinkStatus) {
+                /*for (ClassLinkVo linkStatus : classLinkStatus) {
                     UserLinkStatus linkStudyStatus = timetableDetailsDao.findLinkStudyStatus(userId, linkStatus.getLinkRowGuid());
                     if (linkStudyStatus == null) {
                         linkStatus.setStudyStatus(0);// 未开始学习
                     } else {
                         linkStatus.setStudyStatus(1);// 已学习
                     }
-                }
-                for (StageClass1Node child : children) {
-                    System.out.println(child);
-                    if (classRowGuid==null) {
-                        child.setList(classLinkStatus);
+                    Works workStatus = worksDao.findWorkStatus(linkStatus.getLinkRowGuid(), userId);
+                    if (workStatus==null) {
+                        linkStatus.setStudyStatus(0);// 未开始学习
+                    } else {
+                        linkStatus.setStudyStatus(1);// 已学习
                     }
-                    else if (classRowGuid.equals(child.getClassRowGuid()))
-                        child.setList(classLinkStatus);
-                    for (ClassLinkVo classLinkVo : classLinkStatus) {
+                }*/
+                for (StageClass1Node child : children) {
+                    List<ClassLinkVo> classLinkSta = classLinkVoDao.findClassLinkStatus(child.getClassRowGuid());
+                    for (ClassLinkVo linkStatus : classLinkSta) {
+                        UserLinkStatus linkStudyStatus = timetableDetailsDao.findLinkStudyStatus(userId, linkStatus.getLinkRowGuid());
+                        if (linkStudyStatus == null) {
+                            linkStatus.setStudyStatus(0);// 未开始学习
+                        } else {
+                            linkStatus.setStudyStatus(1);// 已学习
+                        }
+                    }
+                    System.out.println(child);
+                    if (child.getClassRowGuid() == null) {
+                        child.setList(classLinkSta);
+                    } else
+                        child.setList(classLinkSta);
+                    for (ClassLinkVo classLinkVo : classLinkSta) {
                         if (classLinkVo.gettLinkName().equals("作品")) {
                             classLinkVo.setType(3);
                         } else if (classLinkVo.gettLinkName().equals("预习")) {
@@ -755,9 +783,9 @@ public class AppCourseService {
                     String childClassRowGuid = child.getClassRowGuid();
                     StageClass1 studyClass = classLinkVoDao.isStudyClass(childClassRowGuid, userId);
                     // 加锁不可学习情况：1）状态为2 课包已到期，2）null 课包未购买
-                    if (studyClass==null) { // 课包未购买
+                    if (studyClass == null) { // 课包未购买
                         child.setIsStudy(false);
-                    } else if (studyClass.getStatus()==2 || studyClass.getStatus()==3) { // 课包已到期 or 课包未激活
+                    } else if (studyClass.getStatus() == 2 || studyClass.getStatus() == 3) { // 课包已到期 or 课包未激活
                         child.setIsStudy(false); // 该课节不可学
                     } else {
                         child.setIsStudy(true);
@@ -797,6 +825,12 @@ public class AppCourseService {
             }
             if (aClass.getBuyCount() == null) {
                 aClass.setBuyCount(0);
+            }
+            StageClass teacher = stageClassDao.findTeacher(aClass.getClassRowGuid());
+            if (teacher!=null) {
+                aClass.settRealyname(teacher.gettRealyname());
+                aClass.settTeacher(teacher.gettRealyname());
+                aClass.settUsername(teacher.gettRealyname());
             }
         }
         return freeClass;
@@ -885,6 +919,12 @@ public class AppCourseService {
             if (aClass.getBuyCount() == null) {
                 aClass.setBuyCount(0);
             }
+            StageClass teacher = stageClassDao.findTeacher(aClass.getClassRowGuid());
+            if (teacher!=null) {
+                aClass.settRealyname(teacher.gettRealyname());
+                aClass.settTeacher(teacher.gettRealyname());
+                aClass.settUsername(teacher.gettRealyname());
+            }
         }
         return shortClass;
     }
@@ -971,6 +1011,19 @@ public class AppCourseService {
             } else {
                 return true;
             }
+        } else if (classTypeId == 1) {
+            // 部分购买的课包 课程false，完全购买的课包 课程true
+
+            // 所有课包
+            List<PackageDetails> cpAll = packageDetailsDao.findAppCPAll(RowGuid);
+            // 用户购买的课包
+            List<PackageDetails> userPackage = packageDetailsDao.findUserPackage(userguid, RowGuid);
+            for (PackageDetails packageDetails : cpAll) {
+                if (userPackage.contains(packageDetails.getCprowGuid())) {
+                    return false;
+                }
+            }
+            return true;
         } else { // 长期课 短期课
             UOCCP course = orderDao.isBuyCourse(userguid, RowGuid);
             if (course == null) { // 当前用户没有购买该课程
@@ -1535,9 +1588,9 @@ public class AppCourseService {
             if (tradeStatus.equals("TRADE_SUCCESS")) {    //只处理支付成功的订单: 修改交易表状态,支付成功
                 Order order = this.findOrder(out_trade_no);// 根据订单号号查询
                 Integer orderStatus = order.gettOrderStatus();
-                System.out.println("orderStatus:"+orderStatus);
+                System.out.println("orderStatus:" + orderStatus);
                 //if (orderStatus!=2) {// 订单未支付状态
-                    this.updateWxOrderStatus(out_trade_no, order, request);// 修改订单状态
+                this.updateWxOrderStatus(out_trade_no, order, request);// 修改订单状态
                 //}
                 int s = this.payBack(out_trade_no);//根据订单编号去查询更改其数据订单格式
                 if (s > 0) {
@@ -1593,7 +1646,7 @@ public class AppCourseService {
         for (MyOrderResponse myOrderResponse : orderAll) {
             String orderRowguid = myOrderResponse.getOrderRowguid();
             MyOrderResponse orderCourseInfo = myOrderResponseDao.findOrderCourseInfo(orderRowguid);
-            if (orderCourseInfo==null) {
+            if (orderCourseInfo == null) {
                 myOrderResponse.setOrderCourseName("课程已删除！");
                 myOrderResponse.setOrderClassType("课程已删除！");
                 myOrderResponse.setOrderCourseType("课程已删除");
@@ -1648,7 +1701,7 @@ public class AppCourseService {
         // 查询订单信息
         MyOrderResponse orderAllRowguid = myOrderResponseDao.findOrderAllRowguid(orderNoRowGuid);
         MyOrderResponse orderCourseInfo = myOrderResponseDao.findOrderNoCourseInfo(orderNoRowGuid);
-        if (orderCourseInfo!=null) {
+        if (orderCourseInfo != null) {
             orderAllRowguid.setOrderCourseName(orderCourseInfo.getOrderCourseName());
             orderAllRowguid.setImgUrl(orderCourseInfo.getImgUrl());
             orderAllRowguid.setOrderClassType(orderCourseInfo.getOrderClassType());
@@ -1964,7 +2017,7 @@ public class AppCourseService {
                         for (String sid : stage_id) {
                             Stage stage = stageDao.findById(sid);
                             String classId = stage.gettClassId();
-                            if (classId!=null) {
+                            if (classId != null) {
                                 // 加入课表
                                 Timetable timetable = new Timetable();
                                 timetable.setRowGuid(idWorker.nextId() + "");
@@ -2043,7 +2096,7 @@ public class AppCourseService {
             List<Long> weekIndex = TimeUtils.getDateListByWeek(week, 1);
             for (Long aLong : weekIndex) {
                 String classId = course.getClassId();
-                if (classId!=null) {
+                if (classId != null) {
                     String[] cid = classId.split(",");
 
                     // 加入课表
@@ -2254,6 +2307,13 @@ public class AppCourseService {
             } else {
                 classLinkVo.setStudyStatus(1);// 已学习
             }
+
+            /*Works workStatus = worksDao.findWorkStatus(classLinkVo.getLinkRowGuid(), userId);
+            if (workStatus==null) {
+                classLinkVo.setStudyStatus(0);// 未开始学习
+            } else {
+                classLinkVo.setStudyStatus(1);// 已学习
+            }*/
         }
         // timetableDetailsDao.updateStudyStatus(rowguid);
         return classLink;
@@ -2313,7 +2373,7 @@ public class AppCourseService {
         List<Stage> stageAll = stageDao.findStageAll();
         for (Stage stage : stageAll) {
             String classId = stage.gettClassId();
-            if (classId!=null) {
+            if (classId != null) {
                 String[] split = classId.split(",");
                 for (String cid : split) {
                     if (cid.equals(gettClassId)) {
@@ -2324,7 +2384,7 @@ public class AppCourseService {
                         List<Course> all = courseDao.findAll();
                         for (Course course : all) {
                             String stageId = course.getStageId();
-                            if (stageId!=null) {
+                            if (stageId != null) {
                                 String[] split_stage_id = stageId.split(",");
                                 for (String sta : split_stage_id) {
                                     if (sta.equals(stageRowGuid)) {
@@ -2340,12 +2400,12 @@ public class AppCourseService {
                 }
             }
         }
-        if (i==0) {
+        if (i == 0) {
             // 根据阶段id获取课程id
             List<Course> all = courseDao.findAll();
             for (Course course : all) {
                 String classId = course.getClassId();
-                if (classId!=null) {
+                if (classId != null) {
                     String[] split_class_id = classId.split(",");
                     for (String sta : split_class_id) {
                         if (sta.equals(gettClassId)) {
@@ -2364,7 +2424,7 @@ public class AppCourseService {
         String format = df.format(d);
         // 可以上传多个作品 图片
         // 图片地址
-        String userId = (String) request.getSession().getAttribute("row_guid");
+        String userId = request.getHeader("token");//(String) request.getSession().getAttribute("row_guid");
 
         link.settImgUrl("http://airffter.oss-cn-beijing.aliyuncs.com/" + url);// 图片地址
         link.setRowGuid(idWorker.nextId() + "");
@@ -2378,6 +2438,16 @@ public class AppCourseService {
 
         link.settUserGuid(userguid);// 上传的用户rowguid
         worksDao.insert(link);
+
+        Link linkId = linkDao.findById(linkguid);
+
+        // 上课学习状态 0未开始 1已开始
+        UserLinkStatus userLinkStatus = new UserLinkStatus();
+        userLinkStatus.setLinkGuid(linkguid);
+        userLinkStatus.setUserGuid(userId);
+        userLinkStatus.setClassGuid(linkId.gettClassId());
+        userLinkStatus.setStudyStatus(1);
+        userLinkStatusDao.insert(userLinkStatus);
 
         return null;
     }
@@ -2395,8 +2465,8 @@ public class AppCourseService {
      * @param rowguid
      * @return
      */
-    public List<CourseAll> myCourse(String rowguid, Integer type) {
-        List<CourseAll> myCourse = courseAllDao.findMyCourse(rowguid, type);
+    public Set<CourseAll> myCourse(String rowguid, Integer type) {
+        Set<CourseAll> myCourse = courseAllDao.findMyCourse(rowguid, type);
         for (CourseAll courseAll : myCourse) {
             Integer buyCourseCount = courseAllDao.findBuyCourseCount(courseAll.getRowGuid());
             Integer classCount = 0;
@@ -2422,9 +2492,9 @@ public class AppCourseService {
             } else {
                 courseAll.setBuyCount(buyCourseCount);
             }
-            if (courseAll.gettLearnCount() == null) {
+            /*if (courseAll.gettLearnCount() == null) {
                 courseAll.settLearnCount(0);
-            }
+            }*/
             if (courseAll.getBuyCount() == null) {
                 courseAll.setBuyCount(0);
             }
@@ -2434,8 +2504,10 @@ public class AppCourseService {
             if (classCount == null) {
                 classCount = 0;
                 courseAll.setClassCount(classCount);
+                courseAll.settLearnCount(classCount);
             } else {
                 courseAll.setClassCount(classCount);
+                courseAll.settLearnCount(classCount);
             }
             if (stageCount == null) {
                 stageCount = 0;
@@ -2634,8 +2706,8 @@ public class AppCourseService {
             for (CoursePackageResponse packageResponse : stageRowguid) {
                 // 阶段的课节数
                 Integer classCount = myWorkDao.classCount(packageResponse.getPackageRowguid());
-                if (classCount==null){
-                    classCount=0;
+                if (classCount == null) {
+                    classCount = 0;
                 } else {
                     count += classCount;
                 }

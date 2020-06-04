@@ -52,7 +52,7 @@ public interface Class1DedailsDao extends BaseMapper<Class1Dedails> {
     @Select("SELECT cla.id ClassId,cla.row_guid ClassRowGuid,cla.t_name ClassName,cla.t_istest IsTest,cla.t_img_url,\n" +
             "e.t_username UserName,co.t_course_name CourseName, co.t_painting ,cla.t_update_date UpdateDate\n" +
             "FROM tb_course co LEFT JOIN tb_class cla ON FIND_IN_SET(cla.row_guid,co.class_id),tb_employee e\n" +
-            "WHERE co.row_guid=#{rowGuid} AND co.t_class_type_id=0 AND cla.t_update_man=e.id")
+            "WHERE co.row_guid=#{rowGuid} AND co.t_class_type_id=0 AND cla.t_update_man=e.id AND cla.`t_status`=0 ")
     @Results({
             @Result(column = "ClassId", property = "id"),
             @Result(column = "ClassRowGuid", property = "classRowGuid"),
@@ -72,7 +72,7 @@ public interface Class1DedailsDao extends BaseMapper<Class1Dedails> {
     @Select("SELECT cla.id ClassId,cla.row_guid ClassRowGuid,cla.t_name ClassName,cla.t_istest IsTest,cla.t_img_url,\n" +
             "e.t_username UserName,co.t_course_name CourseName, co.t_painting ,cla.t_update_date UpdateDate\n" +
             "FROM tb_course co LEFT JOIN tb_class cla ON FIND_IN_SET(cla.row_guid,co.class_id),tb_employee e\n" +
-            "WHERE co.row_guid=#{rowGuid} AND co.t_class_type_id=2 AND cla.t_update_man=e.id")
+            "WHERE co.row_guid=#{rowGuid} AND co.t_class_type_id=2 AND cla.t_update_man=e.id AND cla.`t_status`=0 ")
     @Results({
             @Result(column = "ClassId", property = "id"),
             @Result(column = "ClassRowGuid", property = "classRowGuid"),

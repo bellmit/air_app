@@ -1,6 +1,8 @@
 package cn.stylefeng.guns.dao;
 
 import cn.stylefeng.guns.pojos.StageClass;
+import cn.stylefeng.guns.pojos.StageClass1Node;
+import cn.stylefeng.guns.pojos.StageClassNode;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
 
@@ -11,7 +13,15 @@ import java.util.Map;
 public interface StageClassDao extends BaseMapper<StageClass> {
 
     // 查询阶段 包括对应的课节
-    List<StageClass> findStage(String RowGuid);
+    List<StageClassNode> findStage(String RowGuid);
+
+    @Select("SELECT CONVERT(GROUP_CONCAT(e.t_realyname) USING utf8) t_realyname\n" +
+            "FROM tb_employee e LEFT JOIN tb_class c ON FIND_IN_SET(e.id,c.t_teacher)\n" +
+            "WHERE c.row_guid=#{rowguid}")
+    @Results({
+            @Result(column = "t_realyname", property = "tRealyname")
+    })
+    StageClass findTeacher(@Param("rowguid") String rowguid);
 
     /**
      * 查询当前课程下的课节已学课节数量

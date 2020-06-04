@@ -26,7 +26,7 @@ public interface CourseService {
     Stage findIdStage(String id);
     Map<String,Object> findByClass(String rowGuid);
     void editClass(String rowGuid, TClass tClass);
-    List<StageClass> findStage(int page, int size, String RowGuid);
+   // List<StageClass> findStage(int page, int size, String RowGuid);
     List<ClassDedailsResponse> findFreeClass(String rowGuid);
     List<ClassDedailsResponse> findShortClass(String rowGuid);
     // 创建课包
