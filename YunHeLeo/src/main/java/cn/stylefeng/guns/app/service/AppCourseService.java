@@ -1011,7 +1011,7 @@ public class AppCourseService {
             } else {
                 return true;
             }
-        } else if (classTypeId == 1) {
+        } /*else if (classTypeId == 1) {
             // 部分购买的课包 课程false，完全购买的课包 课程true
 
             // 所有课包
@@ -1019,12 +1019,12 @@ public class AppCourseService {
             // 用户购买的课包
             List<PackageDetails> userPackage = packageDetailsDao.findUserPackage(userguid, RowGuid);
             for (PackageDetails packageDetails : cpAll) {
-                if (userPackage.contains(packageDetails.getCprowGuid())) {
+                if (!userPackage.contains(packageDetails.getCprowGuid())) {
                     return false;
                 }
             }
             return true;
-        } else { // 长期课 短期课
+        }*/ else { // 长期课 短期课
             UOCCP course = orderDao.isBuyCourse(userguid, RowGuid);
             if (course == null) { // 当前用户没有购买该课程
                 return false;
@@ -1157,16 +1157,21 @@ public class AppCourseService {
             }
             for (PackageDetails details : userPackage) { // 课包
                 if (packageDetails.getCprowGuid().equals(details.gettPackageGuid())) { // 课包rowguid
-                    if (details.gettStatus() == 2) { // 已到期
+                    /*if (details.gettStatus() == 2) { // 已到期
                         packageDetails.setCanChoose(true);// 可选择
                     } else if (details.gettStatus() != 2) {
                         packageDetails.setCanChoose(false);// 不可选择
                     } else if (packageDetails != details) {
                         packageDetails.setCanChoose(true);
-                    }
+                    }*/
+                    packageDetails.setCanChoose(false);
+                    break;
+                } else {
+                    packageDetails.setCanChoose(true);
                 }
             }
         }
+
         return cpAll;
     }
 
@@ -1951,7 +1956,7 @@ public class AppCourseService {
 
         // 用户领取了哪个免费课程
         coursePackageUser.setUserGuid(userId);// 用户rowguid
-        coursePackageUser.settStatus(3);// 未激活
+        coursePackageUser.settStatus(0);// 未开始
         coursePackageUser.settCourseGuid(courseguid);// 课程guid
         coursePackageUser.setRowGuid(id);// rowguid
         coursePackageUserDao.insert(coursePackageUser);
@@ -1960,7 +1965,7 @@ public class AppCourseService {
         CourseUser courseUser = new CourseUser();
         courseUser.settCourseGuid(courseguid);// 用户购买的哪个课程
         courseUser.settCreateTime(date);
-        courseUser.settStatus(3);// 支付成功后为为激活状态 3未激活 2已到期 1正在学
+        courseUser.settStatus(1);// 支付成功后为为激活状态 3未激活 2已到期 1正在学
         courseUser.settUserGuid(userId);
         //courseUser.settCoursePackageId(order1.gettClassPackageGuid());// 购买的哪个课包
         courseUserDao.insert(courseUser);
@@ -2534,10 +2539,12 @@ public class AppCourseService {
             if (courseAll.gettClassTypeId() == 1) {
                 classCount = stageClassDao.findClassTotalCount(courseAll.getRowGuid());
                 courseAll.setClassCount(classCount);
+                courseAll.settLearnCount(classCount);
                 //courseAllDao.findClassCount(courseAll.getRowGuid());
             } else {
                 classCount = classDedailsDao.findClassTotalCount(courseAll.getRowGuid());
                 courseAll.setClassCount(classCount);
+                courseAll.settLearnCount(classCount);
             }
             // 多少人购买该课程
             Integer buyCountCourse = this.findBuyCourseCount(courseAll.getRowGuid());

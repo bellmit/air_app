@@ -420,7 +420,7 @@ public interface CourseAllDao extends BaseMapper<CourseAll> {
     @Select("SELECT COUNT(*) stageClassCount\n" +
             "FROM `tb_course` c LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid, c.`stage_id`)\n" +
             //"LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
-            "WHERE c.row_guid=#{rowGuid}")// AND cl.t_status=0")
+            "WHERE c.row_guid=#{rowGuid} AND s.t_status=0")// AND cl.t_status=0")
     Integer findStageCount(@Param("rowGuid") String rowGuid);
 
 }

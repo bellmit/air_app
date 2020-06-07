@@ -31,7 +31,7 @@ public interface MyOrderResponseDao {
      * -- 订单基本信息
      */
     @Select("SELECT o.row_guid, o.t_order_no, UNIX_TIMESTAMP( o.`t_place_order_date`) t_place_order_date ,o.`t_price`, o.t_order_status \n" +
-            "FROM tb_order o WHERE o.t_user_guid=#{userguid}")
+            "FROM tb_order o WHERE o.t_user_guid=#{userguid} ORDER BY t_place_order_date DESC ")
     @Results({
             @Result(column = "row_guid",property = "orderRowguid"),
             @Result(column = "t_order_no",property = "orderNo"),

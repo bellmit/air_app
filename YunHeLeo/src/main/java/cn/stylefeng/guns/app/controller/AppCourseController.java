@@ -400,14 +400,15 @@ public class AppCourseController {
     @GetMapping("/coursePackage")
     @ResponseBody
     @ApiOperation("根据课程rowguid查询课包 （userguid当前登录用户rowguid）")
-    public Result coursePackage(String RowGuid, String userGuid) {
+    public Result coursePackage(String RowGuid, String userGuid, HttpServletRequest request) {
         try {
+            String userId = request.getHeader("token");
             Map<String, Object> map = new HashMap<>();
             CourseAll courseAlls = appCourseService.courseDetail(RowGuid);
             // 检测课包的状态
             //List<PackageDetails> packageDetails = appCourseService.findUserPackage(userGuid);
             if (courseAlls.gettClassTypeId() == 1) {
-                List<PackageDetails> coursePackage = appCourseService.findCoursePackage(RowGuid, userGuid);
+                List<PackageDetails> coursePackage = appCourseService.findCoursePackage(RowGuid, userId);
 //                map.put("coursePackage",coursePackage);
 //                map.put("findUserPackageStatus",packageDetails);
                 //map.put("totalPrice",courseAlls.getTPrice());

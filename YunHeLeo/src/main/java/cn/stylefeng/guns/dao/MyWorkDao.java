@@ -124,7 +124,7 @@ public interface MyWorkDao {
             "cp.`t_study_date`,cp.`t_activate_date`," +
             "c.`row_guid` courseRowguid, c.`t_course_name`,c.t_class_type_id \n" +
             "FROM tb_course c LEFT JOIN tb_course_package cp ON FIND_IN_SET(cp.`row_guid`,c.`course_package_id`)\n" +
-            "WHERE c.`row_guid`=#{courseGuid} AND cp.t_status=1")
+            "WHERE c.`row_guid`=#{courseGuid} AND cp.t_status!=0")
     @Results({
             @Result(column = "t_course_name", property = "tCourseName"),
             @Result(column = "packageRowguid", property = "packageRowguid"),

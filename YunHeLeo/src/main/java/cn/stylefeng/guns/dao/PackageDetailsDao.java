@@ -82,16 +82,21 @@ public interface PackageDetailsDao extends BaseMapper<PackageDetails> {
     PackageDetails findPackageStatus(@Param("rowGuid") String rowGuid);
 
     /**
-     * 查询判断当前用户是否购买过课包
+     * 查询判断当前用户是否购买过课包  购买过的课包
      * 课包状态 0未开始 1正在学 2已到期 3未激活
      */
-    @Select("SELECT cpu.row_guid, cpu.t_package_guid,cpu.t_status\n" +
-            "FROM tb_course_package_user cpu\n" +
-            "WHERE cpu.user_guid=#{userGuid} AND cpu.t_course_guid=#{rowGuid}")
+    /*@Select("SELECT cpu.row_guid, cpu.t_package_guid,cpu.t_status\n" +
+            "FROM tb_course_package_user cpu WHERE cpu.user_guid=#{userGuid} AND cpu.t_course_guid=#{rowGuid}")
     @Results({
             @Result(column = "row_guid", property = "cpuRowGuid"),
             @Result(column = "t_package_guid", property = "tPackageGuid"),
             @Result(column = "t_status", property = "tStatus")
+    })*/
+
+    @Select("SELECT CONVERT(cpu.`t_class_package_guid` USING utf8) t_package_guid \n" +
+            "FROM `tb_order` cpu WHERE cpu.`t_user_guid`=#{userGuid} AND cpu.`t_course_guid`=#{rowGuid} AND cpu.`t_order_status`!=3 ")
+    @Results({
+            @Result(column = "t_package_guid", property = "tPackageGuid")
     })
     List<PackageDetails> findUserPackage(@Param("userGuid") String userGuid, @Param("rowGuid") String rowGuid);
 
