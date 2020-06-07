@@ -1920,7 +1920,7 @@ public class AppCourseService {
         } else if (course.tClassTypeId == 2) { // 短期班
             // 短期班&免费班
             coursePackageUser.setUserGuid(userId);// 用户rowguid
-            coursePackageUser.settStatus(3);// 未激活
+            coursePackageUser.settStatus(null);// 未激活
             coursePackageUser.settCourseGuid(order1.gettCourseGuid());// 课程guid
             coursePackageUser.setRowGuid(idWorker.nextId() + "");// rowguid
             coursePackageUserDao.insert(coursePackageUser);
@@ -1956,7 +1956,7 @@ public class AppCourseService {
 
         // 用户领取了哪个免费课程
         coursePackageUser.setUserGuid(userId);// 用户rowguid
-        coursePackageUser.settStatus(0);// 未开始
+        coursePackageUser.settStatus(null);// 未开始
         coursePackageUser.settCourseGuid(courseguid);// 课程guid
         coursePackageUser.setRowGuid(id);// rowguid
         coursePackageUserDao.insert(coursePackageUser);
