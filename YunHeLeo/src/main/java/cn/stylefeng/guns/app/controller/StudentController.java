@@ -442,7 +442,8 @@ public class StudentController {
     @ApiOperation( "根据rowGuid获取用户信息" )
     public Result userInfo(String rowguid, HttpServletRequest request) {
         try {
-            User user = studentService.userInfo(rowguid, request);
+            String userId = request.getHeader("token");
+            User user = studentService.userInfo(userId, request);
             return new Result(true, 0, "获取用户信息成功!", user);
         } catch ( Exception e ) {
             e.printStackTrace();

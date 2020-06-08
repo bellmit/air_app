@@ -108,9 +108,10 @@ public interface StudentDao extends BaseMapper<User> {
     User userInfo(@Param("rowGuid") String rowGuid);
 
     // 查询当前用户作品数
-    @Select("SELECT COUNT(*)\n" +
+    /*@Select("SELECT COUNT(*)\n" +
             "FROM tb_link l\n" +
-            "WHERE l.t_link_name='作品' AND l.t_create_man=#{rowGuid}")
+            "WHERE l.t_link_name='作品' AND l.t_create_man=#{rowGuid}")*/
+    @Select("SELECT COUNT(*) FROM tb_works w WHERE w.`t_user_guid`=#{rowGuid}")
     int findUserWorksCount(@Param("rowGuid") String rowGuid);
 
     // 查询wx_unionid有没有对应的用户
