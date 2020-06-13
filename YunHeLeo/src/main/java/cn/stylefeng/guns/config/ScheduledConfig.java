@@ -4,6 +4,7 @@ import cn.stylefeng.guns.app.controller.AppCourseController;
 import cn.stylefeng.guns.app.service.AppCourseService;
 import cn.stylefeng.guns.dao.*;
 import cn.stylefeng.guns.pojo.*;
+import cn.stylefeng.guns.pojos.ClassDedails;
 import cn.stylefeng.guns.utils.IdWorker;
 import cn.stylefeng.guns.utils.TimeUtils;
 import org.joda.time.DateTime;
@@ -16,6 +17,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -54,8 +56,10 @@ public class ScheduledConfig {
         List<CoursePackageUser> all = coursePackageUserDao.findAll();
         for (CoursePackageUser coursePackageUser : all) {
             Date dueTime = coursePackageUser.gettDueTime();
-            if (dueTime.before(new Date())) { // 如果到期时间在当前时间后
-                coursePackageUserDao.updatePackageStatus(coursePackageUser.getRowGuid());
+            if (dueTime!=null) {
+                if (dueTime.before(new Date())) { // 如果到期时间在当前时间后
+                    coursePackageUserDao.updatePackageStatus(coursePackageUser.getRowGuid());
+                }
             }
         }
     }
@@ -192,6 +196,12 @@ public class ScheduledConfig {
         System.out.println("111");
     }
 
+    @Autowired
+    private CoursePackageDao coursePackageDao;
+
+    @Autowired
+    private ClassDedailsDao classDedailsDao;
+
     /**
      * 定时检查  激活课程
      * 如果课程到待激活日期没有被激活将被自动激活
@@ -201,7 +211,12 @@ public class ScheduledConfig {
         // 日期格式化 当前日期
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
-        dateFormat.format(date);
+        String format_date = dateFormat.format(date);
+        try {
+            Date parse = dateFormat.parse(format_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         logger.debug("当前时间：" + date);
 
         // 当前日期 >= 课包激活日期时 自动激活 改变状态
@@ -210,9 +225,31 @@ public class ScheduledConfig {
             Date activateTime = coursePackageUser.gettActivateTime();
             logger.debug("课包激活日期：" + activateTime);
             if (coursePackageUser.gettStatus() == 3 && coursePackageUser.gettPackageGuid() != null) { // 课包未激活
-                if (date.after(activateTime)) {
+                if (date.after(activateTime)) { // 自动激活
                     CoursePackageUser packageUsers = coursePackageUserDao.findById(coursePackageUser.getRowGuid());
                     packageUsers.settStatus(0);// 已激活课程 未开始学习
+
+                    // 到期时间=可学习时长+激活日期
+                    // -----------------------------------
+
+                    String packageGuid = coursePackageUser.gettPackageGuid();
+                    CoursePackage coursePackage = coursePackageDao.findById(packageGuid);
+                    Integer activateDate = coursePackage.gettActivateDate();// 待激活时长
+
+                    // 计算激活日期
+                    packageUsers.settActivateTime(date);// 激活时间
+
+                    // 计算到期日期
+                    Integer studyDate = coursePackage.gettStudyDate();// 待学习时长
+                    Calendar calStudyDate = Calendar.getInstance();
+                    calStudyDate.setTime(date);
+                    calStudyDate.add(Calendar.DATE, studyDate);
+                    Date studyDateTime = calStudyDate.getTime();// 到期时间
+                    System.out.println(studyDateTime);
+                    packageUsers.settDueTime(studyDateTime);
+
+                    // -----------------------------------
+
                     coursePackageUserDao.updateByRowGuid(packageUsers);
 
                     Course course = courseDao.findById(packageUsers.gettCourseGuid());
@@ -265,50 +302,55 @@ public class ScheduledConfig {
                                 timetable.settPackageGuid(coursePackageUser.gettPackageGuid());
                                 String[] cid = classId.split(",");
                                 for (String s : cid) {
-                                    // 保存课节id
-                                    timetable.settClassId(s);
-                                    System.out.println(new DateTime(aLong).toString("yyyy-MM-dd HH:mm:ss"));
-                                    stime = new Date(aLong);
-                                    dateFormat.format(stime);
-                                    timetable.settCreateDate(stime);
-                                    timetable.settWeeks(week);
+                                    List<ClassDedails> classDedails = classDedailsDao.findByRowGuidClass(s);
+                                    for (ClassDedails classDedail : classDedails) {
+                                        if (classDedail.gettStatus() == 0) { // 已发布课节
+                                            // 保存课节id
+                                            timetable.settClassId(s);
+                                            System.out.println(new DateTime(aLong).toString("yyyy-MM-dd HH:mm:ss"));
+                                            stime = new Date(aLong);
+                                            dateFormat.format(stime);
+                                            timetable.settCreateDate(stime);
+                                            timetable.settWeeks(week);
 
-                                    // 保存到课表
-                                    timetableDao.insert(timetable);
+                                            // 保存到课表
+                                            timetableDao.insert(timetable);
 
-                                    Calendar calendar = Calendar.getInstance();
-                                    calendar.setTime(stime);
-                                    calendar.add(Calendar.DATE, 7);
-                                    stime = calendar.getTime();
-                                    String st = dateFormat.format(stime);
-                                    // 转时间戳
-                                    aLong = dateFormat.parse(st, new ParsePosition(0)).getTime();
-                                    String forma = Week.format(stime);
-                                    switch (forma) {
-                                        case "星期一":
-                                            week = 1;
-                                            break;
-                                        case "星期二":
-                                            week = 2;
-                                            break;
-                                        case "星期三":
-                                            week = 3;
-                                            break;
-                                        case "星期四":
-                                            week = 4;
-                                            break;
-                                        case "星期五":
-                                            week = 5;
-                                            break;
-                                        case "星期六":
-                                            week = 6;
-                                            break;
-                                        case "星期日":
-                                            week = 7;
-                                            break;
+                                            Calendar calendar = Calendar.getInstance();
+                                            calendar.setTime(stime);
+                                            calendar.add(Calendar.DATE, 7);
+                                            stime = calendar.getTime();
+                                            String st = dateFormat.format(stime);
+                                            // 转时间戳
+                                            aLong = dateFormat.parse(st, new ParsePosition(0)).getTime();
+                                            String forma = Week.format(stime);
+                                            switch (forma) {
+                                                case "星期一":
+                                                    week = 1;
+                                                    break;
+                                                case "星期二":
+                                                    week = 2;
+                                                    break;
+                                                case "星期三":
+                                                    week = 3;
+                                                    break;
+                                                case "星期四":
+                                                    week = 4;
+                                                    break;
+                                                case "星期五":
+                                                    week = 5;
+                                                    break;
+                                                case "星期六":
+                                                    week = 6;
+                                                    break;
+                                                case "星期日":
+                                                    week = 7;
+                                                    break;
+                                            }
+                                            System.out.println(format);
+                                            weekIndex.set(0, aLong);
+                                        }
                                     }
-                                    System.out.println(format);
-                                    weekIndex.set(0, aLong);
                                 }
                             }
                         }

@@ -40,7 +40,7 @@ public interface ClassLinkVoDao {
             " LEFT JOIN tb_class c ON FIND_IN_SET(c.id, s.t_class_id)\n" +
             "WHERE c.row_guid = #{rowguid}\n" +
             "  AND c.`t_status` = 0\n" +
-            "  AND cpu.`t_package_guid`=cp.`row_guid` AND cpu.`user_guid`= #{userguid}")
+            "  AND cpu.`t_package_guid`=cp.`row_guid` AND cpu.`user_guid`= #{userguid} limit 1")
     @Results({
             @Result(column = "classRowGuid", property = "classRowGuid"),
             @Result(column = "classId", property = "classRowGuid"),

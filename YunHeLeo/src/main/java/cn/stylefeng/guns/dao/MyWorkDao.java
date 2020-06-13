@@ -124,7 +124,7 @@ public interface MyWorkDao {
             "cp.`t_study_date`,cp.`t_activate_date`," +
             "c.`row_guid` courseRowguid, c.`t_course_name`,c.t_class_type_id \n" +
             "FROM tb_course c LEFT JOIN tb_course_package cp ON FIND_IN_SET(cp.`row_guid`,c.`course_package_id`)\n" +
-            "WHERE c.`row_guid`=#{courseGuid} AND cp.t_status!=0")
+            "WHERE c.`row_guid`=#{courseGuid} AND cp.t_status!=0 AND cp.t_status!=3")
     @Results({
             @Result(column = "t_course_name", property = "tCourseName"),
             @Result(column = "packageRowguid", property = "packageRowguid"),
@@ -138,7 +138,7 @@ public interface MyWorkDao {
     List<CoursePackageResponse> findMyCoursePackageAll(@Param("courseGuid") String courseGuid);
 
     // 某课包的状态 到期时间
-    @Select("SELECT cpu.`row_guid` cpu_rowguid, cpu.`t_course_guid`,cpu.`t_package_guid`,UNIX_TIMESTAMP( cpu.`t_due_time`) t_due_time, cpu.`t_status` cpu_status\n" +
+    @Select("SELECT cpu.`row_guid` cpu_rowguid, cpu.`t_course_guid`,cpu.`t_package_guid`,UNIX_TIMESTAMP( cpu.`t_activate_time`) t_due_time, cpu.`t_status` cpu_status\n" +
             "FROM tb_course_package_user cpu\n" +
             "WHERE cpu.`t_package_guid`=#{packageguid} AND cpu.`user_guid`=#{userguid}")
     @Results({

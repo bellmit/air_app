@@ -28,8 +28,9 @@ public interface StageClassDao extends BaseMapper<StageClass> {
      * @param rowGuid
      * @return
      */
-    @Select("SELECT COUNT(*) classCount\n" +
-            "FROM tb_course c LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid,c.stage_id) LEFT JOIN tb_class cl ON FIND_IN_SET(cl.row_guid,s.t_class_id)\n" +
+    @Select("SELECT COUNT(*)-2 classCount\n" +
+            "FROM tb_course c LEFT JOIN tb_stage s ON FIND_IN_SET(s.row_guid,c.stage_id) LEFT JOIN " +
+            "user_link_status cl ON FIND_IN_SET(cl.class_guid,s.t_class_id)\n" +
             "WHERE cl.study_status=1 AND c.row_guid=#{rowGuid}")
     @Results({
             @Result(column = "classCount", property = "classCount")

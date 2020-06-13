@@ -32,7 +32,7 @@ public interface CoursePackageUserDao extends BaseMapper<CoursePackageUser> {
      * 未开始学 已激活
      * @param coursePackageUser
      */
-    @Update("UPDATE tb_course_package_user cpu SET cpu.t_status=#{tStatus} Where cpu.row_guid=#{rowGuid}")
+    @Update("UPDATE tb_course_package_user cpu SET cpu.t_status=#{tStatus},cpu.t_activate_time=#{tActivateTime},cpu.t_due_time=#{tDueTime} Where cpu.row_guid=#{rowGuid}")
     void updateByRowGuid(CoursePackageUser coursePackageUser);
 
     @Update("UPDATE tb_course_package_user cpu SET cpu.t_status=2 where cpu.row_guid=#{rowGuid}")

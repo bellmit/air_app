@@ -564,7 +564,11 @@ public class AppCourseService {
      * 当前课程下已学习课节数量
      */
     public int ClassStudyCount(String RowGuid) {
-        return stageClassDao.findClassStudyCount(RowGuid);
+        Integer classStudyCount = stageClassDao.findClassStudyCount(RowGuid);
+        if (classStudyCount<=0) // <0=-1 <=2=0
+            return 0;
+        else
+            return classStudyCount;
     }
 
     /**
@@ -1044,7 +1048,7 @@ public class AppCourseService {
     public boolean isInClassTable(String userguid, String rowGuid) {
         Timetable timetable = timetableDetailsDao.isInClassTable(userguid, rowGuid);
         if (timetable == null)
-            return false;
+            return true;
         else
             return true;
     }
@@ -1909,7 +1913,7 @@ public class AppCourseService {
                 Date studyDateTime = calStudyDate.getTime();// 到期时间
                 System.out.println(studyDateTime);
 
-                coursePackageUser.settDueTime(studyDateTime);// 到期时间
+                //coursePackageUser.settDueTime(studyDateTime);// 到期时间
                 coursePackageUser.setUserGuid(userId);// 用户rowguid
                 coursePackageUser.settStatus(3);// 未激活
                 coursePackageUser.settPackageGuid(packGuid);// 课包guid
@@ -2002,9 +2006,18 @@ public class AppCourseService {
                 if (coursePackageUser.gettStatus() != 0) { // 未激活
                     // 激活
                     coursePackageUser.settStatus(0);// 课包状态 0未开始 1正在学 2已到期 3未激活
-                    coursePackageUser.settDueTime(date);// 激活日期
+                    coursePackageUser.settActivateTime(date);// 激活日期
                     coursePackageUser.setUserGuid(rowguid);// 用户id
                     coursePackageUser.settPackageGuid(coursePackageUser.gettPackageGuid());
+
+                    // 计算到期日期
+                    Integer studyDate = coursePackage.gettStudyDate();// 待学习时长
+                    Calendar calStudyDate = Calendar.getInstance();
+                    calStudyDate.setTime(date);
+                    calStudyDate.add(Calendar.DATE, studyDate);
+                    Date studyDateTime = calStudyDate.getTime();// 到期时间
+                    System.out.println(studyDateTime);
+                    coursePackageUser.settDueTime(studyDateTime);
                     coursePackageUserDao.updateByRowGuid(coursePackageUser);
 
                     Calendar cal = Calendar.getInstance();
@@ -2033,7 +2046,7 @@ public class AppCourseService {
                                 for (String s : cid) {
                                     List<ClassDedails> classDedails = classDedailsDao.findByRowGuidClass(s);
                                     for (ClassDedails classDedail : classDedails) {
-                                        if (classDedail.gettStatus() == 0) {
+                                        if (classDedail.gettStatus() == 0) { // 已发布课节
                                             // 保存课节id
                                             timetable.settClassId(s);
                                             System.out.println(new DateTime(aLong).toString("yyyy-MM-dd HH:mm:ss"));
