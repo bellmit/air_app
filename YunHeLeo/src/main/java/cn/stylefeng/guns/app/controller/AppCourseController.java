@@ -599,6 +599,7 @@ public class AppCourseController {
                     price += packageResponsePrice;
                     list.add(coursePackageResponse);
                 }
+                price = (double) Math.round(price * 100) / 100;
                 course.settPrice(price);
                 map.put("package", list);
                 map.put("course", course);

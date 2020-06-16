@@ -443,8 +443,13 @@ public class StudentController {
     public Result userInfo(String rowguid, HttpServletRequest request) {
         try {
             String userId = request.getHeader("token");
-            User user = studentService.userInfo(userId, request);
-            return new Result(true, 0, "获取用户信息成功!", user);
+            if (userId!=null) {
+                User user = studentService.userInfo(userId, request);
+                return new Result(true, 0, "获取用户信息成功!", user);
+            } else {
+                User user = studentService.userInfo(rowguid, request);
+                return new Result(true, 0, "获取用户信息成功!", user);
+            }
         } catch ( Exception e ) {
             e.printStackTrace();
             return new Result(false, ResultStatusCode.FAIL, "获取用户信息失败!");

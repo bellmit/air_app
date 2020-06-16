@@ -98,7 +98,7 @@ public class StudentService {
         map.put("mobile", mobile);
         map.put("code", code);
         //给用户发一份
-        rabbitTemplate.convertAndSend("sms", map);
+        rabbitTemplate.convertAndSend("sms_reg", map);
 
         return code;
     }
@@ -137,7 +137,7 @@ public class StudentService {
         map.put("mobile", mobile);
         map.put("code", code);
         //给用户发一份
-        rabbitTemplate.convertAndSend("sms", map);
+        rabbitTemplate.convertAndSend("sms_reg", map);
 
         //显示在控制台
         System.out.println("验证码：" + code);

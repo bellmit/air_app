@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-@RabbitListener(queues = "sms")
+@RabbitListener(queues = "sms_reg")
 public class SmsListener {
 
     @Autowired

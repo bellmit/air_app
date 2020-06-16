@@ -42,7 +42,7 @@ aliyun:
     accessKeyId: LTAI4FgFCe1fEaUBL7fNSJnj
     accessKeySecret: IsvdGXmFh3Vwi3338b7mWchDqAt749
     template_code: SMS_183745282
-    sign_name: 美术小课堂
+    sign_name: 云河宝
     forget_code: SMS_183745281
 
 ali:

@@ -794,6 +794,14 @@ public class AppCourseService {
                     } else {
                         child.setIsStudy(true);
                     }
+
+                    Collections.sort(classLinkSta, new Comparator<ClassLinkVo>() {
+                        @Override
+                        public int compare(ClassLinkVo o1, ClassLinkVo o2) {
+                            //升序
+                            return o1.getType().compareTo(o2.getType());
+                        }
+                    });
                 }
 
             }
@@ -892,6 +900,14 @@ public class AppCourseService {
                     classLinkVo.setType(2);
                 }
             }
+
+            Collections.sort(classLinkStatus, new Comparator<ClassLinkVo>() {
+                @Override
+                public int compare(ClassLinkVo o1, ClassLinkVo o2) {
+                    //升序
+                    return o1.getType().compareTo(o2.getType());
+                }
+            });
         }
         return freeClass;
     }
@@ -982,6 +998,14 @@ public class AppCourseService {
                     classLinkVo.setType(2);
                 }
             }
+
+            Collections.sort(classLinkStatus, new Comparator<ClassLinkVo>() {
+                @Override
+                public int compare(ClassLinkVo o1, ClassLinkVo o2) {
+                    //升序
+                    return o1.getType().compareTo(o2.getType());
+                }
+            });
         }
         return shortClass;
     }
@@ -2333,6 +2357,14 @@ public class AppCourseService {
                 classLinkVo.setStudyStatus(1);// 已学习
             }*/
         }
+
+        Collections.sort(classLink, new Comparator<ClassLinkVo>() {
+            @Override
+            public int compare(ClassLinkVo o1, ClassLinkVo o2) {
+                //升序
+                return o1.getType().compareTo(o2.getType());
+            }
+        });
         // timetableDetailsDao.updateStudyStatus(rowguid);
         return classLink;
     }
