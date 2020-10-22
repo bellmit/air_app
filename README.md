@@ -3,7 +3,8 @@
 
 项目简介：项目包括三个iOS、Android、管理后台<br>
 
-技术：springboot <br>
+<h2>技术：</h2>
+springboot <br>
 数据库：mysql <br>
 nosql：redis <br>
 消息队列：rabbitmq <br>
@@ -13,14 +14,13 @@ nosql：redis <br>
 拉取代码可以直接运行 <br>
 
 线上地址：https://yunhebao.top/back/#/student/list<br>
+账号：admin 密码：<br>
 
 bilibili空间社区教程：https://space.bilibili.com/410090017/channel/index<br>
 
 本项目配套教程：https://www.bilibili.com/video/BV1kk4y167qa<br>
 
-账号：admin 密码：<br>
-
-用户数据，仅供参考: <br>
+<h2>用户数据，仅供参考: </h2>
 
 小蛋笨  18685295596  女  小学高年级
 
